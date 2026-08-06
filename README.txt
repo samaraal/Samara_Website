@@ -1,22 +1,22 @@
-SAMARA PUBLIC WEBSITE — VERSION 1 RESTORED
-Version 1.3.0
+SAMARA WEBSITE V1 — FAMILY PORTAL INTEGRATION
+Version 1.6.0
 
-This package restores the original Version 1 wording, homepage layout,
-spacing, typography and information flow.
+RELEVANT FILES
+- All public HTML pages, because the header and footer were updated consistently.
+- css/style.css
 
-ONLY INTENTIONAL IMPROVEMENTS
-- Careers appears permanently in the top navigation.
-- The approved detailed Careers and Resume Application page is retained.
-- Admission Enquiry remains in the top navigation.
-- Staff Login remains linked to app.samaraassistedliving.com.
-- Mobile navigation remains responsive.
-- No root-level app.js is included. The website uses js/app.js only.
+COMPLETED
+- Added Family Portal before Staff Login in the main navigation.
+- Added Family Portal to the footer Connect section.
+- Added Family Portal button in the homepage hero.
+- Added a premium Stay Connected / Family Portal section on the homepage.
+- Added Digital Family Care Portal to Services.
+- Added Family Portal Assistance to Contact.
+- Updated homepage strength strip.
+- Preserved the approved Version 1 design, SEO metadata and structured data.
+
+FAMILY PORTAL LINK
+https://family.samaraassistedliving.com
 
 UPLOAD
-Upload every file and folder in this package to the root of Samara_Website,
-replacing the current Version 2 files.
-
-IMPORTANT BEFORE FINAL PUBLIC USE
-1. Replace the placeholder telephone and WhatsApp numbers.
-2. Replace the placeholder address and email.
-3. Real resume storage requires the later Supabase integration.
+Upload all files in this package to the root of Samara_Website, replacing the corresponding files.
