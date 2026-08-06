@@ -1,20 +1,32 @@
 
-const WEBSITE_VERSION = "2.0.0";
+const WEBSITE_VERSION = "1.3.0";
 const SAMARA_WHATSAPP = "910000000000";
-const MAX_FILE_SIZE = 10 * 1024 * 1024;
+const SAMARA_PHONE = "+91 00000 00000";
 
-const menuButton = document.querySelector(".menu-button");
+
+// Add Careers to the public navigation on every page.
+const contactNavLink = [...document.querySelectorAll(".nav a")]
+  .find(link => link.getAttribute("href") === "./contact.html");
+if (contactNavLink && !document.querySelector('.nav a[href="./careers.html"]')) {
+  const careersLink = document.createElement("a");
+  careersLink.href = "./careers.html";
+  careersLink.textContent = "Careers";
+  if (location.pathname.endsWith("/careers.html")) careersLink.classList.add("active");
+  contactNavLink.insertAdjacentElement("afterend", careersLink);
+}
+
+const menu = document.querySelector(".menu-button");
 const nav = document.querySelector(".nav");
 
-menuButton?.addEventListener("click", () => {
+menu?.addEventListener("click", () => {
   const open = nav.classList.toggle("open");
-  menuButton.setAttribute("aria-expanded", String(open));
+  menu.setAttribute("aria-expanded", String(open));
 });
 
 document.querySelectorAll(".nav a").forEach(link => {
   link.addEventListener("click", () => {
     nav.classList.remove("open");
-    menuButton?.setAttribute("aria-expanded", "false");
+    menu?.setAttribute("aria-expanded", "false");
   });
 });
 
@@ -34,34 +46,18 @@ function clean(value) {
   return String(value || "").trim();
 }
 
-function openWhatsApp(message, statusNode) {
+function whatsapp(message, statusNode) {
   localStorage.setItem("samara_public_last_request", JSON.stringify({
     message,
     created_at: new Date().toISOString()
   }));
   if (statusNode) statusNode.textContent = "Opening WhatsApp with your request…";
-  window.open(
-    `https://wa.me/${SAMARA_WHATSAPP}?text=${encodeURIComponent(message)}`,
-    "_blank",
-    "noopener,noreferrer"
-  );
-}
-
-function applicationId(prefix) {
-  const now = new Date();
-  const stamp = [
-    now.getFullYear(),
-    String(now.getMonth() + 1).padStart(2, "0"),
-    String(now.getDate()).padStart(2, "0")
-  ].join("");
-  return `${prefix}-${stamp}-${Math.floor(1000 + Math.random() * 9000)}`;
+  window.open(`https://wa.me/${SAMARA_WHATSAPP}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
 }
 
 document.querySelector("#visit-form")?.addEventListener("submit", event => {
   event.preventDefault();
-  const form = event.currentTarget;
-  const data = new FormData(form);
-  const status = form.querySelector(".form-status");
+  const data = new FormData(event.currentTarget);
   const message = [
     "*Samara – Visit Request*",
     `Visitor: ${clean(data.get("name"))}`,
@@ -70,18 +66,14 @@ document.querySelector("#visit-form")?.addEventListener("submit", event => {
     `Preferred Time: ${clean(data.get("time"))}`,
     `Purpose: ${clean(data.get("message")) || "Not specified"}`
   ].join("\n");
-  openWhatsApp(message, status);
+  whatsapp(message, event.currentTarget.querySelector(".form-status"));
 });
 
 document.querySelector("#enquiry-form")?.addEventListener("submit", event => {
   event.preventDefault();
-  const form = event.currentTarget;
-  const data = new FormData(form);
-  const status = form.querySelector(".form-status");
-  const enquiryId = applicationId("SAM-ENQ");
+  const data = new FormData(event.currentTarget);
   const message = [
     "*Samara – Admission Enquiry*",
-    `Enquiry ID: ${enquiryId}`,
     `Resident: ${clean(data.get("resident"))}`,
     `Age: ${clean(data.get("age")) || "Not specified"}`,
     `Contact Person: ${clean(data.get("contact"))}`,
@@ -90,8 +82,38 @@ document.querySelector("#enquiry-form")?.addEventListener("submit", event => {
     `Preferred Room: ${clean(data.get("room"))}`,
     `Condition / Requirements: ${clean(data.get("condition")) || "Not specified"}`
   ].join("\n");
-  openWhatsApp(message, status);
+  whatsapp(message, event.currentTarget.querySelector(".form-status"));
 });
+
+const MAX_CAREER_FILE_SIZE = 10 * 1024 * 1024;
+
+function careerApplicationId() {
+  const now = new Date();
+  const date = [
+    now.getFullYear(),
+    String(now.getMonth() + 1).padStart(2, "0"),
+    String(now.getDate()).padStart(2, "0")
+  ].join("");
+  const random = String(Math.floor(1000 + Math.random() * 9000));
+  return `SAM-HR-${date}-${random}`;
+}
+
+function selectedSkills(form) {
+  return [...form.querySelectorAll('input[name="skills"]:checked')]
+    .map(input => input.value);
+}
+
+function validateCareerFile(input, required = false) {
+  const file = input.files?.[0];
+  if (!file) {
+    if (required) throw new Error("Please select your Resume / CV.");
+    return null;
+  }
+  if (file.size > MAX_CAREER_FILE_SIZE) {
+    throw new Error(`${file.name} exceeds the maximum permitted size of 10 MB.`);
+  }
+  return file;
+}
 
 document.querySelectorAll(".career-role-apply").forEach(button => {
   button.addEventListener("click", () => {
@@ -104,56 +126,42 @@ document.querySelectorAll(".career-role-apply").forEach(button => {
 document.querySelectorAll('.career-upload-card input[type="file"]').forEach(input => {
   input.addEventListener("change", () => {
     const display = input.closest(".career-upload-card")?.querySelector(".career-file-name");
-    const file = input.files?.[0];
     if (!display) return;
+    const file = input.files?.[0];
     display.textContent = file
       ? `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB`
       : "No file selected";
   });
 });
 
-function validateFile(input, mandatory = false) {
-  const file = input?.files?.[0];
-  if (!file) {
-    if (mandatory) throw new Error("Please select your Resume / CV.");
-    return null;
-  }
-  if (file.size > MAX_FILE_SIZE) {
-    throw new Error(`${file.name} exceeds the maximum permitted size of 10 MB.`);
-  }
-  return file;
-}
-
 document.querySelector("#career-form")?.addEventListener("submit", event => {
   event.preventDefault();
   const form = event.currentTarget;
   const status = form.querySelector(".form-status");
-  status.className = "form-status";
+  status.className = "form-status career-form-status";
   status.textContent = "";
 
-  const invalid = form.querySelector(":invalid");
-  if (invalid) {
-    invalid.focus();
-    invalid.reportValidity();
-    status.classList.add("status-error");
+  const firstInvalid = form.querySelector(":invalid");
+  if (firstInvalid) {
+    firstInvalid.focus();
+    firstInvalid.reportValidity();
+    status.classList.add("error");
     status.textContent = "Please complete all mandatory fields before submitting.";
     return;
   }
 
   try {
-    const resume = validateFile(form.elements.resume, true);
-    const photo = validateFile(form.elements.photo);
-    const certificate = validateFile(form.elements.certificate);
-    const identity = validateFile(form.elements.identity);
-
+    const resume = validateCareerFile(form.elements.resume, true);
+    const photo = validateCareerFile(form.elements.photo);
+    const certificate = validateCareerFile(form.elements.certificate);
+    const identity = validateCareerFile(form.elements.identity);
     const data = new FormData(form);
-    const id = applicationId("SAM-HR");
-    const skills = [...form.querySelectorAll('input[name="skills"]:checked')]
-      .map(input => input.value);
+    const applicationId = careerApplicationId();
+    const skills = selectedSkills(form);
 
     const message = [
       "*Samara – Career Application*",
-      `Application ID: ${id}`,
+      `Application ID: ${applicationId}`,
       `Applicant: ${clean(data.get("name"))}`,
       `Gender: ${clean(data.get("gender"))}`,
       `Date of Birth: ${clean(data.get("dob")) || "Not specified"}`,
@@ -178,23 +186,23 @@ document.querySelector("#career-form")?.addEventListener("submit", event => {
       `Certificate selected: ${certificate?.name || "No"}`,
       `Identity Proof selected: ${identity?.name || "No"}`,
       "",
-      "*Please attach the selected Resume and documents manually in this WhatsApp chat.*"
+      "*Please attach the selected Resume and supporting files manually in this WhatsApp chat.*"
     ].join("\n");
 
     localStorage.setItem("samara_last_career_application", JSON.stringify({
-      application_id: id,
+      application_id: applicationId,
       applicant: clean(data.get("name")),
       role: clean(data.get("role")),
       mobile: clean(data.get("mobile")),
-      resume_name: resume.name,
-      submitted_at: new Date().toISOString()
+      submitted_at: new Date().toISOString(),
+      resume_name: resume.name
     }));
 
-    status.classList.add("status-success");
-    status.innerHTML = `Application prepared successfully. <strong>Application ID: ${id}</strong>. Opening WhatsApp…`;
-    setTimeout(() => openWhatsApp(message, status), 350);
+    status.classList.add("success");
+    status.innerHTML = `Application prepared successfully. <strong>Application ID: ${applicationId}</strong>. Opening WhatsApp…`;
+    setTimeout(() => whatsapp(message, status), 350);
   } catch (error) {
-    status.classList.add("status-error");
+    status.classList.add("error");
     status.textContent = error.message || "Unable to prepare the career application.";
   }
 });

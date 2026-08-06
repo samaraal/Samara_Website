@@ -1,42 +1,22 @@
-SAMARA WEBSITE V2.0.0
-Complete replacement package.
+SAMARA PUBLIC WEBSITE — VERSION 1 RESTORED
+Version 1.3.0
 
-UPLOAD ALL CONTENTS TO THE ROOT OF THE Samara_Website REPOSITORY.
+This package restores the original Version 1 wording, homepage layout,
+spacing, typography and information flow.
 
-IMPORTANT
-- Delete the unused root-level app.js from the repository.
-- The working script is js/app.js.
-- Replace the existing files and folders with this package.
+ONLY INTENTIONAL IMPROVEMENTS
+- Careers appears permanently in the top navigation.
+- The approved detailed Careers and Resume Application page is retained.
+- Admission Enquiry remains in the top navigation.
+- Staff Login remains linked to app.samaraassistedliving.com.
+- Mobile navigation remains responsive.
+- No root-level app.js is included. The website uses js/app.js only.
 
-STRUCTURE
-assets/samara-logo.png
-css/style.css
-js/app.js
-index.html
-about.html
-services.html
-rooms.html
-packages.html
-gallery.html
-careers.html
-contact.html
-enquiry.html
-faq.html
-privacy.html
-terms.html
-disclaimer.html
+UPLOAD
+Upload every file and folder in this package to the root of Samara_Website,
+replacing the current Version 2 files.
 
-COMPLETED
-- Careers is permanently included in the top navigation.
-- Full careers application and resume selection.
-- Home, About, Services, Rooms, Packages, Gallery, Contact and Enquiry pages.
-- Mobile responsive layout.
-- WhatsApp enquiry and career workflows.
-- Application and enquiry IDs.
-- Staff Login link to app.samaraassistedliving.com.
-
-BEFORE LIVE LAUNCH
-1. In js/app.js replace SAMARA_WHATSAPP = "910000000000".
-2. Replace placeholder phone and address in contact.html and page headers.
-3. Upload actual facility images later.
-4. Resume files are not permanently uploaded until Supabase integration is completed.
+IMPORTANT BEFORE FINAL PUBLIC USE
+1. Replace the placeholder telephone and WhatsApp numbers.
+2. Replace the placeholder address and email.
+3. Real resume storage requires the later Supabase integration.
