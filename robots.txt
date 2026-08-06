@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://samaraassistedliving.com/sitemap.xml

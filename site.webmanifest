@@ -1,0 +1,22 @@
+{
+  "name": "Samara Assisted Living",
+  "short_name": "Samara",
+  "description": "Samara Assisted Living provides compassionate elderly care, post-hospital recovery support, nursing assistance, medication management, physiotherapy and family updates.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fff7fb",
+  "theme_color": "#b01264",
+  "icons": [
+    {
+      "src": "/assets/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
