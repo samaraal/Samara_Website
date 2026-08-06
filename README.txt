@@ -1,36 +1,26 @@
-SAMARA WEBSITE – PRODUCTION STRUCTURE
-Version 1.1.0
+SAMARA WEBSITE – CAREERS & RESUME APPLICATION
+Version 1.2.0
 
-UPLOAD ALL FILES AND FOLDERS TO THE ROOT OF THE Samara_Website REPOSITORY.
-
-ROOT FILES
-- index.html
-- about.html
-- services.html
-- rooms.html
-- packages.html
-- gallery.html
-- contact.html
-- enquiry.html
+ONLY THESE FILES HAVE CHANGED:
 - careers.html
-- faq.html
-- privacy.html
-- terms.html
-- disclaimer.html
+- css/style.css
+- js/app.js
 
-FOLDERS
-- assets/
-- css/
-- js/
-- images/
+UPLOAD THEM TO THE SAME LOCATIONS IN THE Samara_Website REPOSITORY.
 
-IMPORTANT BEFORE FINAL DOMAIN LAUNCH
-1. Open js/app.js and replace SAMARA_WHATSAPP with the actual WhatsApp number, including 91.
-2. Replace placeholder telephone number and address in contact.html.
-3. Add real facility photographs later to the images folder and replace gallery placeholders.
-4. Keep the ERP at app.samaraassistedliving.com.
-5. Connect samaraassistedliving.com to this repository only after the ERP custom subdomain is confirmed.
-6. Direct Supabase/ERP enquiry integration is planned for Phase 2.
+COMPLETED
+- Careers added automatically to the main public navigation on every page.
+- Current opportunities and Apply Now buttons.
+- Detailed personal and professional application fields.
+- Skills and language selection.
+- Mandatory Resume / CV selection.
+- Optional photograph, professional certificate and identity-proof selection.
+- 10 MB file-size validation.
+- Automatic career application ID.
+- WhatsApp application summary.
+- Mobile-responsive careers application form.
 
-UPLOAD METHOD
-Extract the ZIP. Select every file and folder inside the extracted folder and drag them into GitHub's Upload files page. Do not upload the outer folder itself.
+IMPORTANT
+GitHub Pages is a static website. At this stage, selected files cannot be uploaded permanently to Samara or attached automatically to WhatsApp. Applicants must attach the selected resume and documents manually after WhatsApp opens.
+
+The next Supabase integration phase will securely store resumes and applications directly in the ERP Recruitment Dashboard.
