@@ -336,3 +336,153 @@ img{max-width:100%;display:block}
   .career-submit-bar{align-items:stretch;flex-direction:column}
   .career-submit-bar .btn{width:100%}
 }
+
+
+/* Version 1.4.0 — Premium Hero Care Panel */
+.hero-panel-premium{
+  padding:34px 34px 30px;
+}
+
+.hero-panel-premium h2{
+  margin:18px 0 10px;
+  line-height:1.22;
+}
+
+.hero-panel-tagline{
+  margin:0;
+  max-width:100%;
+  color:var(--muted);
+  font-size:1.02rem !important;
+  line-height:1.68;
+}
+
+.premium-service-list{
+  margin-top:28px;
+  display:flex;
+  flex-direction:column;
+}
+
+.premium-service-item{
+  display:grid;
+  grid-template-columns:46px minmax(0,1fr);
+  align-items:center;
+  column-gap:17px;
+  min-height:67px;
+  padding:15px 0;
+  border-bottom:1px solid rgba(176,18,100,.15);
+}
+
+.premium-service-item:last-child{
+  border-bottom:0;
+  padding-bottom:7px;
+}
+
+.premium-service-icon{
+  display:grid;
+  place-items:center;
+  width:46px;
+  min-width:46px;
+  font-size:2.15rem;
+  line-height:1;
+  filter:drop-shadow(0 5px 7px rgba(87,16,47,.10));
+}
+
+.premium-service-name{
+  color:var(--ink);
+  font-size:1.04rem;
+  font-weight:600;
+  line-height:1.42;
+  letter-spacing:.005em;
+}
+
+@media(max-width:640px){
+  .hero-panel-premium{
+    padding:27px 23px 22px;
+  }
+
+  .hero-panel-tagline{
+    font-size:.98rem !important;
+  }
+
+  .premium-service-item{
+    grid-template-columns:40px minmax(0,1fr);
+    column-gap:14px;
+    min-height:63px;
+    padding:14px 0;
+  }
+
+  .premium-service-icon{
+    width:40px;
+    min-width:40px;
+    font-size:1.88rem;
+  }
+
+  .premium-service-name{
+    font-size:.98rem;
+  }
+}
+
+
+/* Version 1.4.1 — Increased Vertical Spacing In Premium Hero Panel */
+.hero-panel-premium{
+  padding:38px 36px 34px;
+}
+
+.hero-panel-tagline{
+  margin-bottom:30px;
+  line-height:1.72;
+}
+
+.premium-service-list{
+  margin-top:0;
+}
+
+.premium-service-item{
+  grid-template-columns:48px minmax(0,1fr);
+  column-gap:19px;
+  min-height:78px;
+  padding:20px 0;
+  border-bottom:1px solid rgba(176,18,100,.09);
+}
+
+.premium-service-item:last-child{
+  padding-bottom:14px;
+}
+
+.premium-service-icon{
+  width:48px;
+  min-width:48px;
+  font-size:2.2rem;
+}
+
+.premium-service-name{
+  font-weight:600;
+  line-height:1.6;
+}
+
+@media(max-width:640px){
+  .hero-panel-premium{
+    padding:30px 24px 27px;
+  }
+
+  .hero-panel-tagline{
+    margin-bottom:25px;
+  }
+
+  .premium-service-item{
+    grid-template-columns:42px minmax(0,1fr);
+    column-gap:16px;
+    min-height:72px;
+    padding:18px 0;
+  }
+
+  .premium-service-icon{
+    width:42px;
+    min-width:42px;
+    font-size:1.95rem;
+  }
+
+  .premium-service-name{
+    line-height:1.55;
+  }
+}
