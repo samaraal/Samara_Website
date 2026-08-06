@@ -1,32 +1,36 @@
-SAMARA PUBLIC PORTAL – PHASE 1
-Version 1.0.0
+SAMARA WEBSITE – PRODUCTION STRUCTURE
+Version 1.1.0
 
-UPLOAD ALL CONTENTS OF THIS ZIP TO THE ROOT OF THE GitHub REPOSITORY.
+UPLOAD ALL FILES AND FOLDERS TO THE ROOT OF THE Samara_Website REPOSITORY.
 
-FILES
+ROOT FILES
 - index.html
-- styles.css
-- app.js
-- assets/samara-logo.png
+- about.html
+- services.html
+- rooms.html
+- packages.html
+- gallery.html
+- contact.html
+- enquiry.html
+- careers.html
+- faq.html
+- privacy.html
+- terms.html
+- disclaimer.html
 
-CURRENT FEATURES
-- Responsive premium public website
-- Samara logo and brand colours
-- Home, About, Services, Rooms, Packages, Daily Life, Visit, Enquiry and Contact sections
-- Mobile navigation
-- WhatsApp-based Visit and Admission Enquiry forms
-- Staff Login link prepared for app.samaraassistedliving.com
+FOLDERS
+- assets/
+- css/
+- js/
+- images/
 
-IMPORTANT BEFORE FINAL PUBLICATION
-1. In app.js, replace SAMARA_PHONE = '910000000000' with the actual WhatsApp number including country code.
-2. In index.html, replace the placeholder telephone number and address.
-3. Replace care@samaraassistedliving.com if another email is preferred.
-4. Do not add a CNAME file yet while the main domain is still serving the ERP.
-5. After the ERP is moved to app.samaraassistedliving.com, the public repository can be connected to samaraassistedliving.com.
+IMPORTANT BEFORE FINAL DOMAIN LAUNCH
+1. Open js/app.js and replace SAMARA_WHATSAPP with the actual WhatsApp number, including 91.
+2. Replace placeholder telephone number and address in contact.html.
+3. Add real facility photographs later to the images folder and replace gallery placeholders.
+4. Keep the ERP at app.samaraassistedliving.com.
+5. Connect samaraassistedliving.com to this repository only after the ERP custom subdomain is confirmed.
+6. Direct Supabase/ERP enquiry integration is planned for Phase 2.
 
-NEXT PHASE
-- Supabase public_enquiries integration
-- ERP Public Portal module
-- Live package publishing
-- Gallery/content management
-- Privacy Policy, Terms and Medical Disclaimer
+UPLOAD METHOD
+Extract the ZIP. Select every file and folder inside the extracted folder and drag them into GitHub's Upload files page. Do not upload the outer folder itself.
