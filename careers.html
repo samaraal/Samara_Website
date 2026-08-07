@@ -72,37 +72,37 @@
 <span class="career-role-icon">⚕</span>
 <h3>Staff Nurse</h3>
 <p>Medication administration, vitals, documentation, shift handover and clinical coordination.</p>
-<button class="career-role-apply" data-career-role="Staff Nurse" type="button">Apply Now</button>
+<button class="career-role-apply" data-career-department="Nursing" data-career-designation="Staff Nurse" type="button">Apply Now</button>
 </article>
 <article class="career-role-card reveal">
 <span class="career-role-icon">♥</span>
 <h3>Caregiver</h3>
 <p>Daily living assistance, mobility support, feeding, hygiene and compassionate companionship.</p>
-<button class="career-role-apply" data-career-role="Caregiver" type="button">Apply Now</button>
+<button class="career-role-apply" data-career-department="Caregiving" data-career-designation="Caregiver" type="button">Apply Now</button>
 </article>
 <article class="career-role-card reveal">
 <span class="career-role-icon">⚘</span>
 <h3>Physiotherapist</h3>
 <p>Mobility assessment, strengthening, rehabilitation exercises and resident progress documentation.</p>
-<button class="career-role-apply" data-career-role="Physiotherapist" type="button">Apply Now</button>
+<button class="career-role-apply" data-career-department="Physiotherapy &amp; Rehabilitation" data-career-designation="Physiotherapist" type="button">Apply Now</button>
 </article>
 <article class="career-role-card reveal">
 <span class="career-role-icon">▦</span>
 <h3>Manager</h3>
 <p>Care operations, staff coordination, family communication, admissions and quality oversight.</p>
-<button class="career-role-apply" data-career-role="Manager" type="button">Apply Now</button>
+<button class="career-role-apply" data-career-department="Administration" data-career-designation="Manager" type="button">Apply Now</button>
 </article>
 <article class="career-role-card reveal">
 <span class="career-role-icon">♨</span>
 <h3>Kitchen / Support Staff</h3>
 <p>Food service, housekeeping, laundry and resident-support operations.</p>
-<button class="career-role-apply" data-career-role="Kitchen / Support Staff" type="button">Apply Now</button>
+<button class="career-role-apply" data-career-department="Food &amp; Kitchen" data-career-designation="Kitchen Assistant" type="button">Apply Now</button>
 </article>
 <article class="career-role-card reveal">
 <span class="career-role-icon">✦</span>
 <h3>General Application</h3>
 <p>Submit your profile for future suitable opportunities with Samara Assisted Living.</p>
-<button class="career-role-apply" data-career-role="General Application" type="button">Apply Now</button>
+<button class="career-role-apply" data-career-department="Other" data-career-designation="General Application" type="button">Apply Now</button>
 </article>
 </div>
 </div>
@@ -136,25 +136,31 @@
 </div>
 </section>
 <section class="career-form-section">
-<div class="career-form-title"><span>2</span><div><h3>Professional Details</h3><p>Role, qualification, experience and availability.</p></div></div>
+<div class="career-form-title"><span>2</span><div><h3>Professional Details</h3><p>Department, designation, qualification, experience and availability.</p></div></div>
 <div class="form-grid career-grid">
-<label>Position Applying For *
-            <select id="career-role" name="role" required="">
-<option value="">Select position</option>
-<option>Staff Nurse</option>
-<option>Caregiver</option>
-<option>Physiotherapist</option>
-<option>Duty Medical Officer – Part Time</option>
-<option>Manager</option>
-<option>Receptionist</option>
-<option>Accounts Assistant</option>
+<label>Department *
+<select id="career-department" name="department" required="">
+<option value="">Select department</option>
+<option>Nursing</option>
+<option>Caregiving</option>
+<option>Medical</option>
+<option>Physiotherapy & Rehabilitation</option>
 <option>Housekeeping</option>
-<option>Cook</option>
-<option>Driver</option>
-<option>Marketing Executive</option>
-<option>Volunteer</option>
-<option>Kitchen / Support Staff</option>
-<option>General Application</option>
+<option>Food & Kitchen</option>
+<option>Administration</option>
+<option>HR</option>
+<option>Operations</option>
+<option>Accounts & Finance</option>
+<option>Maintenance</option>
+<option>Security</option>
+<option>Transport</option>
+<option>Marketing & Outreach</option>
+<option>Other</option>
+</select>
+</label>
+<label>Designation *
+<select id="career-designation" name="designation" required="" disabled="">
+<option value="">Select department first</option>
 </select>
 </label>
 <label>Highest Qualification *<input name="qualification" placeholder="Example: B.Sc Nursing" required=""/></label>
@@ -164,28 +170,13 @@
 <label>Current Monthly Salary<input inputmode="numeric" name="current_salary"/></label>
 <label>Expected Monthly Salary<input inputmode="numeric" name="expected_salary"/></label>
 <label>Notice Period
-            <select name="notice_period">
-<option>Immediate</option>
-<option>Within 15 days</option>
-<option>Within 30 days</option>
-<option>More than 30 days</option>
-</select>
+<select name="notice_period"><option>Immediate</option><option>Within 15 days</option><option>Within 30 days</option><option>More than 30 days</option></select>
 </label>
 <label>Preferred Employment Type
-            <select name="employment_type">
-<option>Full Time</option>
-<option>Part Time</option>
-<option>Contract</option>
-<option>Any Suitable Type</option>
-</select>
+<select name="employment_type"><option>Full Time</option><option>Part Time</option><option>Contract</option><option>Any Suitable Type</option></select>
 </label>
 <label>Preferred Shift
-            <select name="shift">
-<option>Any Shift</option>
-<option>Day Shift</option>
-<option>Night Shift</option>
-<option>Rotational Shift</option>
-</select>
+<select name="shift"><option>Any Shift</option><option>Day Shift</option><option>Night Shift</option><option>Rotational Shift</option></select>
 </label>
 </div>
 </section>
@@ -240,9 +231,8 @@
 </label>
 </div>
 <div class="career-upload-notice">
-<strong>Current website stage:</strong>
-          the application summary opens in WhatsApp. The selected files remain on your device and must be attached manually in WhatsApp.
-          Automatic secure upload to Samara HR will be enabled when the Careers module is connected to Supabase.
+<strong>Secure online application:</strong>
+          your application and selected documents are submitted directly to Samara HR for review. Your resume is mandatory and supporting documents remain private.
         </div>
 </section>
 <section class="career-form-section">
@@ -274,6 +264,8 @@
 <div class="container footer-bottom"><span>© <span data-year=""></span> Samara Health Care LLP. All rights reserved.</span><span>Public Website v1.6.0</span></div>
 </footer>
 <a aria-label="WhatsApp Samara" class="floating" href="https://wa.me/917395961616">✆</a>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="./config.js"></script>
 <script src="./js/app.js"></script>
 </body>
 </html>
