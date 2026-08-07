@@ -4,6 +4,127 @@ const SAMARA_WHATSAPP = "917395961616";
 const SAMARA_PHONE = "073959 61616";
 
 
+const SAMARA_INVITATION_END = new Date(2026, 8, 1, 0, 0, 0); // Visible through 31-Aug-2026; stops from 01-Sep-2026.
+const SAMARA_INVITATION_SESSION_KEY = 'samara_inauguration_invitation_aug2026_v2';
+
+function showSamaraInaugurationInvitation(){
+  try{
+    if(new Date() >= SAMARA_INVITATION_END)return;
+    if(sessionStorage.getItem(SAMARA_INVITATION_SESSION_KEY)==='shown')return;
+    if(document.getElementById('samara-inauguration-modal'))return;
+    if(!document.body)return;
+
+    if(!document.getElementById('samara-inauguration-style')){
+      const style=document.createElement('style');
+      style.id='samara-inauguration-style';
+      style.textContent=`
+        #samara-inauguration-modal{
+          position:fixed;inset:0;z-index:2147483500;
+          display:flex;align-items:center;justify-content:center;
+          padding:max(12px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom));
+          background:rgba(38,16,29,.78);
+          backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+          animation:samaraInviteFade .28s ease both;
+        }
+        #samara-inauguration-modal .samara-invite-card{
+          position:relative;display:flex;align-items:center;justify-content:center;
+          width:min(94vw,780px);height:min(92vh,1080px);
+          border-radius:18px;overflow:hidden;background:#fff;
+          box-shadow:0 28px 80px rgba(0,0,0,.38);
+          animation:samaraInviteRise .35s ease both;
+        }
+        #samara-inauguration-modal img{
+          display:block;max-width:100%;max-height:100%;
+          width:auto;height:auto;object-fit:contain;background:#fff;
+        }
+        #samara-inauguration-modal .samara-invite-close{
+          position:absolute;top:10px;right:10px;z-index:2;
+          min-width:46px;height:46px;padding:0 13px;border:0;border-radius:999px;
+          display:flex;align-items:center;justify-content:center;
+          background:rgba(255,255,255,.96);color:#7a1247;
+          box-shadow:0 5px 20px rgba(40,10,28,.22);
+          font:800 28px/1 Arial,sans-serif;cursor:pointer;
+          opacity:0;visibility:hidden;transform:scale(.88);
+          transition:.2s ease;
+        }
+        #samara-inauguration-modal .samara-invite-close.ready{
+          opacity:1;visibility:visible;transform:scale(1);
+        }
+        #samara-inauguration-modal .samara-invite-close:focus-visible{
+          outline:3px solid #f08ab9;outline-offset:3px;
+        }
+        @keyframes samaraInviteFade{from{opacity:0}to{opacity:1}}
+        @keyframes samaraInviteRise{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+        @media(max-width:600px){
+          #samara-inauguration-modal{padding:8px}
+          #samara-inauguration-modal .samara-invite-card{
+            width:96vw;height:92dvh;border-radius:14px;
+          }
+          #samara-inauguration-modal .samara-invite-close{
+            top:8px;right:8px;min-width:44px;height:44px;font-size:26px;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    const modal=document.createElement('div');
+    modal.id='samara-inauguration-modal';
+    modal.setAttribute('role','dialog');
+    modal.setAttribute('aria-modal','true');
+    modal.setAttribute('aria-label','Samara Assisted Living inauguration invitation');
+
+    const card=document.createElement('div');
+    card.className='samara-invite-card';
+
+    const image=document.createElement('img');
+    image.src='./assets/samara-inauguration-27-08-2026.png';
+    image.alt='Invitation to the inauguration of Samara Assisted Living on 27 August 2026, Mogappair, Chennai';
+    image.decoding='async';
+
+    const close=document.createElement('button');
+    close.type='button';
+    close.className='samara-invite-close';
+    close.setAttribute('aria-label','Close inauguration invitation');
+    close.title='Close';
+    close.textContent='×';
+
+    const remove=()=>{
+      modal.style.opacity='0';
+      modal.style.transition='opacity .18s ease';
+      window.setTimeout(()=>modal.remove(),190);
+    };
+
+    close.addEventListener('click',remove);
+    document.addEventListener('keydown',function escHandler(event){
+      if(event.key==='Escape'&&close.classList.contains('ready')){
+        document.removeEventListener('keydown',escHandler);
+        remove();
+      }
+    });
+
+    card.append(image,close);
+    modal.appendChild(card);
+    document.body.appendChild(modal);
+    sessionStorage.setItem(SAMARA_INVITATION_SESSION_KEY,'shown');
+
+    window.setTimeout(()=>{
+      if(document.body.contains(close)){
+        close.classList.add('ready');
+        close.focus({preventScroll:true});
+      }
+    },4000);
+  }catch(error){
+    console.warn('Samara inauguration invitation could not be displayed.',error);
+  }
+}
+
+function initSamaraInaugurationInvitation(){
+  window.setTimeout(showSamaraInaugurationInvitation,650);
+}
+
+
+
 // v1.8.0 — iPhone / Android navigation and secure entry-point polish.
 const SAMARA_ERP_URL = "https://app.samaraassistedliving.com/?source=website&v=2.8.32";
 const SAMARA_FAMILY_URL = "https://family.samaraassistedliving.com";
@@ -464,4 +585,5 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
   }
 });
 
+initSamaraInaugurationInvitation();
 console.info(`Samara Website ${WEBSITE_VERSION}`);
