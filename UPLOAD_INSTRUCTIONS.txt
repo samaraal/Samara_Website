@@ -1,17 +1,28 @@
-SAMARA PUBLIC WEBSITE v1.8.0 — iPHONE / ANDROID POLISH
+SAMARA PUBLIC WEBSITE v2.1.0 — 100% ONLINE RECRUITMENT
 
-Purpose:
-- Keep Staff Login visible on mobile beside the hamburger menu.
-- Force every Staff Login (header/footer/all pages) to the live custom ERP:
-  https://app.samaraassistedliving.com/
-- Mobile-safe header/menu, larger touch targets, iOS input zoom prevention,
-  safe-area handling, responsive hero buttons, footer and Careers form polish.
-- Cache-busted CSS/JS references so phones do not keep an older website script.
+Careers changes:
+- Career application is aligned with Samara ERP Employee Master.
+- Current and Permanent Residential Addresses with Tamil Nadu District/Taluk dropdowns.
+- "Same as Current Address" auto-fill.
+- Blood Group dropdown.
+- Department → Designation dropdown.
+- Employee Photo, ID Proof, Qualification Certificate, Experience Certificate,
+  Other Certificate and Resume/CV uploads.
+- Clear ONLINE APPLICATIONS ONLY notice. No paper/walk-in/offline applications.
+- Successful applications go directly to ERP HR Career Applications.
+- HR can convert a selected application into Employee Master with applicant fields prefilled.
 
-Upload:
-- Replace the HTML files included in this ZIP.
-- Replace css/style.css
-- Replace js/app.js
-- Replace config.js
+WhatsApp:
+- Website WhatsApp messages include the public Samara logo URL.
+- Normal wa.me links cannot automatically attach an image file; the logo URL is included so
+  the brand travels with every prepared WhatsApp message and may render as a preview.
 
-No DNS or Supabase SQL change is required.
+INSTALL:
+1. Run 76_online_recruitment_employee_master_alignment.sql ONCE (only once across ERP/Website).
+2. Replace only:
+   careers.html
+   js/app.js
+   config.js
+3. Hard refresh the Careers page.
+
+Public Website version: 2.1.0

@@ -1,11 +1,11 @@
 
-const WEBSITE_VERSION = "1.8.0";
+const WEBSITE_VERSION = "2.1.0";
 const SAMARA_WHATSAPP = "917395961616";
 const SAMARA_PHONE = "073959 61616";
 
 
 // v1.8.0 — iPhone / Android navigation and secure entry-point polish.
-const SAMARA_ERP_URL = "https://app.samaraassistedliving.com/?source=website&v=2.8.22";
+const SAMARA_ERP_URL = "https://app.samaraassistedliving.com/?source=website&v=2.8.32";
 const SAMARA_FAMILY_URL = "https://family.samaraassistedliving.com";
 
 // Always direct every public-site Staff Login link to the same live ERP root.
@@ -87,13 +87,21 @@ function clean(value) {
   return String(value || "").trim();
 }
 
+
+const SAMARA_WHATSAPP_LOGO_URL = "https://samaraassistedliving.com/assets/samara-logo.png";
+function brandWhatsAppMessage(message) {
+  const text = String(message || "").trim();
+  if (text.includes(SAMARA_WHATSAPP_LOGO_URL)) return text;
+  return `*SAMARA ASSISTED LIVING*\n${SAMARA_WHATSAPP_LOGO_URL}\n\n${text}`;
+}
+
 function whatsapp(message, statusNode) {
   localStorage.setItem("samara_public_last_request", JSON.stringify({
     message,
     created_at: new Date().toISOString()
   }));
   if (statusNode) statusNode.textContent = "Opening WhatsApp with your request…";
-  window.open(`https://wa.me/${SAMARA_WHATSAPP}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+  window.open(`https://wa.me/${SAMARA_WHATSAPP}?text=${encodeURIComponent(brandWhatsAppMessage(message))}`, "_blank", "noopener,noreferrer");
 }
 
 document.querySelector("#visit-form")?.addEventListener("submit", event => {
@@ -139,23 +147,61 @@ function careerApplicationId() {
 }
 
 function selectedSkills(form) {
-  return [...form.querySelectorAll('input[name="skills"]:checked')]
-    .map(input => input.value);
+  return [...form.querySelectorAll('input[name="skills"]:checked')].map(input => input.value);
 }
 
 function validateCareerFile(input, required = false) {
-  const file = input.files?.[0];
+  const file = input?.files?.[0];
   if (!file) {
-    if (required) throw new Error("Please select your Resume / CV.");
+    if (required) throw new Error(`Please select ${input?.closest(".career-upload-card")?.querySelector("strong")?.textContent || "the required document"}.`);
     return null;
   }
-  if (file.size > MAX_CAREER_FILE_SIZE) {
-    throw new Error(`${file.name} exceeds the maximum permitted size of 10 MB.`);
-  }
+  if (file.size > MAX_CAREER_FILE_SIZE) throw new Error(`${file.name} exceeds the maximum permitted size of 10 MB.`);
   return file;
 }
 
 const CAREER_DESIGNATIONS = {"Nursing": ["Nurse Manager", "Nursing Supervisor", "Staff Nurse", "ANM"], "Caregiving": ["Senior Caregiver", "Caregiver", "Nursing Assistant"], "Medical": ["Duty Medical Officer – Part Time", "Visiting Doctor", "Medical Officer"], "Physiotherapy & Rehabilitation": ["Physiotherapist", "Rehabilitation Assistant"], "Housekeeping": ["Housekeeping Supervisor", "Housekeeping Staff", "Laundry Staff"], "Food & Kitchen": ["Dietician", "Cook", "Kitchen Assistant", "Food Service Assistant"], "Administration": ["Facility Administrator", "Manager", "Receptionist", "Administrative Assistant"], "HR": ["HR Manager", "HR Executive", "HR Assistant"], "Operations": ["Operations Manager", "Operations Executive", "Facility Coordinator"], "Accounts & Finance": ["Accountant", "Accounts Executive", "Accounts Assistant"], "Maintenance": ["Maintenance Supervisor", "Technician", "Electrician / Plumber"], "Security": ["Security Supervisor", "Security Guard"], "Transport": ["Driver", "Transport Coordinator"], "Marketing & Outreach": ["Marketing Executive", "Community Outreach Executive"], "Other": ["General Application", "Volunteer", "Other"]};
+
+const CAREER_TN_DISTRICT_TALUKS={
+    'Ariyalur':['Andimadam','Ariyalur','Sendurai','Udayarpalayam'],
+    'Chengalpattu':['Cheyyur','Madurantakam','Pallavaram','Tambaram','Thirukalukundram','Tiruporur','Vandalur'],
+    'Chennai':['Alandur','Ambattur','Aminjikarai','Ayanavaram','Egmore','Guindy','Madhavaram','Maduravoyal','Mambalam','Mylapore','Perambur','Purasawalkam','Sholinganallur','Thiruvottriyur','Tondiarpet','Velachery'],
+    'Coimbatore':['Anaimalai','Annur','Coimbatore North','Coimbatore South','Kinathukadavu','Madukkarai','Mettupalayam','Perur','Pollachi','Sulur','Valparai'],
+    'Cuddalore':['Bhuvanagiri','Chidambaram','Cuddalore','Kattumannarkoil','Kurinjipadi','Panruti','Srimushnam','Tittakudi','Vepur','Virudhachalam'],
+    'Dharmapuri':['Dharmapuri','Harur','Karimangalam','Nallampalli','Palacode','Pappireddipatti','Pennagaram'],
+    'Dindigul':['Athoor','Dindigul East','Dindigul West','Gujiliamparai','Kodaikanal','Natham','Nilakottai','Oddanchatram','Palani','Vedasandur'],
+    'Erode':['Anthiyur','Bhavani','Erode','Gobichettipalayam','Kodumudi','Modakkurichi','Nambiyur','Perundurai','Sathyamangalam','Thalavadi'],
+    'Kallakurichi':['Chinnasalem','Kallakurichi','Kalvarayan Hills','Sankarapuram','Tirukoilur','Ulundurpet'],
+    'Kancheepuram':['Kancheepuram','Kundrathur','Sriperumbudur','Uthiramerur','Walajabad'],
+    'Kanniyakumari':['Agastheeswaram','Kalkulam','Killiyur','Thiruvattar','Thovalai','Vilavancode'],
+    'Karur':['Aravakurichi','Kadavur','Karur','Krishnarayapuram','Kulithalai','Manmangalam','Pugalur'],
+    'Krishnagiri':['Anchetty','Bargur','Denkanikottai','Hosur','Krishnagiri','Pochampalli','Shoolagiri','Uthangarai'],
+    'Madurai':['Kalligudi','Madurai East','Madurai North','Madurai South','Madurai West','Melur','Peraiyur','Thirumangalam','Thirupparankundram','Usilampatti','Vadipatti'],
+    'Mayiladuthurai':['Kuthalam','Mayiladuthurai','Sirkazhi','Tharangambadi'],
+    'Nagapattinam':['Kilvelur','Nagapattinam','Thirukkuvalai','Vedaranyam'],
+    'Namakkal':['Kolli Hills','Kumarapalayam','Mohanur','Namakkal','Paramathi Velur','Rasipuram','Sendamangalam','Tiruchengode'],
+    'The Nilgiris':['Coonoor','Gudalur','Kotagiri','Kundah','Pandalur','Udhagamandalam'],
+    'Perambalur':['Alathur','Kunnam','Perambalur','Veppanthattai'],
+    'Pudukkottai':['Alangudi','Aranthangi','Avudaiyarkoil','Gandarvakottai','Iluppur','Karambakudi','Kulathur','Manamelkudi','Ponnamaravathi','Pudukkottai','Thirumayam','Viralimalai'],
+    'Ramanathapuram':['Kadaladi','Kamuthi','Keelakarai','Mudukulathur','Paramakudi','Rajasingamangalam','Ramanathapuram','Rameswaram','Tiruvadanai'],
+    'Ranipet':['Arakkonam','Arcot','Kalavai','Nemili','Sholinghur','Walajah'],
+    'Salem':['Attur','Edappadi','Gangavalli','Kadayampatti','Mettur','Omalur','Pethanaickenpalayam','Salem','Salem South','Sankari','Vazhapadi','Yercaud'],
+    'Sivaganga':['Devakottai','Ilayangudi','Kalaiyarkoil','Karaikudi','Manamadurai','Singampunari','Sivaganga','Thiruppathur','Tiruppuvanam'],
+    'Tenkasi':['Alangulam','Kadayanallur','Sankarankovil','Shenkottai','Sivagiri','Tenkasi','Thiruvengadam','Veerakeralampudur'],
+    'Thanjavur':['Budalur','Kumbakonam','Orathanadu','Papanasam','Pattukkottai','Peravurani','Thanjavur','Thiruvaiyaru','Thiruvidaimarudur'],
+    'Theni':['Andipatti','Bodinayakanur','Periyakulam','Theni','Uthamapalayam'],
+    'Thoothukudi':['Eral','Ettayapuram','Kayathar','Kovilpatti','Ottapidaram','Sathankulam','Srivaikuntam','Thoothukudi','Tiruchendur','Vilathikulam'],
+    'Tiruchirappalli':['Lalgudi','Manachanallur','Manapparai','Marungapuri','Musiri','Srirangam','Thottiyam','Thuraiyur','Tiruchirappalli East','Tiruchirappalli West','Tiruverumbur'],
+    'Tirunelveli':['Ambasamudram','Cheranmahadevi','Manur','Nanguneri','Palayamkottai','Radhapuram','Thisayanvilai','Tirunelveli'],
+    'Tirupathur':['Ambur','Natrampalli','Tirupathur','Vaniyambadi'],
+    'Tiruppur':['Avinashi','Dharapuram','Kangeyam','Madathukulam','Palladam','Tiruppur North','Tiruppur South','Udumalpet','Uthukuli'],
+    'Tiruvallur':['Avadi','Gummidipoondi','Pallipet','Ponneri','Poonamallee','R.K. Pet','Tiruttani','Tiruvallur','Uthukottai'],
+    'Tiruvannamalai':['Arani','Chengam','Chetpet','Cheyyar','Jamunamarathur','Kalasapakkam','Kilpennathur','Polur','Thandrampet','Tiruvannamalai','Vandavasi','Vembakkam'],
+    'Tiruvarur':['Kodavasal','Koothanallur','Mannargudi','Muthupet','Nannilam','Needamangalam','Thiruthuraipoondi','Tiruvarur','Valangaiman'],
+    'Vellore':['Anaicut','Gudiyatham','Katpadi','K.V. Kuppam','Pernambut','Vellore'],
+    'Viluppuram':['Gingee','Kandachipuram','Marakkanam','Melmalayanur','Tindivanam','Vanur','Vikravandi','Viluppuram'],
+    'Virudhunagar':['Aruppukkottai','Kariapatti','Rajapalayam','Sattur','Sivakasi','Srivilliputhur','Tiruchuli','Vembakottai','Virudhunagar','Watrap']
+  };
 
 function populateCareerDesignations(department, selected="") {
   const designation = document.querySelector("#career-designation");
@@ -168,9 +214,52 @@ function populateCareerDesignations(department, selected="") {
   if (selected && choices.includes(selected)) designation.value = selected;
 }
 
-document.querySelector("#career-department")?.addEventListener("change", event => {
-  populateCareerDesignations(event.target.value);
-});
+function populateCareerTaluks(prefix) {
+  const district = document.querySelector(`#career-${prefix}-district`);
+  const taluk = document.querySelector(`#career-${prefix}-taluk`);
+  if (!district || !taluk) return;
+  const values = CAREER_TN_DISTRICT_TALUKS[district.value] || [];
+  const current = taluk.value;
+  taluk.innerHTML = values.length
+    ? '<option value="">Select taluk</option>' + values.map(value => `<option>${value}</option>`).join("")
+    : '<option value="">Select district first</option>';
+  taluk.disabled = !values.length || (prefix === "permanent" && document.querySelector("#career-address-same")?.checked);
+  if (values.includes(current)) taluk.value = current;
+}
+
+const CAREER_ADDRESS_KEYS = [
+  "state","district","taluk","village_town","locality_area","street_name",
+  "house_no","apartment_name","flat_no","landmark","pincode"
+];
+
+function composeCareerAddress(form,prefix) {
+  const value = key => clean(new FormData(form).get(`${prefix}_${key}`));
+  return [
+    [value("flat_no"),value("apartment_name")].filter(Boolean).join(", "),
+    value("house_no"),value("street_name"),value("locality_area"),value("village_town"),
+    value("taluk"),value("district"),value("state"),value("pincode")
+  ].filter(Boolean).join(", ");
+}
+
+function syncCareerAddress(form,prefix) {
+  const output = form.elements[`${prefix}_address`];
+  if (output) output.value = composeCareerAddress(form,prefix);
+}
+
+function copyCareerCurrentToPermanent(form) {
+  CAREER_ADDRESS_KEYS.forEach(key => {
+    const source = form.elements[`current_${key}`];
+    const target = form.elements[`permanent_${key}`];
+    if (source && target) target.value = source.value;
+  });
+  populateCareerTaluks("permanent");
+  if (form.elements.permanent_taluk) form.elements.permanent_taluk.value = form.elements.current_taluk?.value || "";
+  syncCareerAddress(form,"permanent");
+}
+
+document.querySelector("#career-department")?.addEventListener("change", event => populateCareerDesignations(event.target.value));
+document.querySelector("#career-current-district")?.addEventListener("change", () => { populateCareerTaluks("current"); syncCareerAddress(document.querySelector("#career-form"),"current"); });
+document.querySelector("#career-permanent-district")?.addEventListener("change", () => { populateCareerTaluks("permanent"); syncCareerAddress(document.querySelector("#career-form"),"permanent"); });
 
 document.querySelectorAll(".career-role-apply").forEach(button => {
   button.addEventListener("click", () => {
@@ -183,21 +272,44 @@ document.querySelectorAll(".career-role-apply").forEach(button => {
   });
 });
 
+const careerForm = document.querySelector("#career-form");
+if (careerForm) {
+  careerForm.querySelectorAll('[name^="current_"],[name^="permanent_"]').forEach(input => {
+    if (input.name.endsWith("_address")) return;
+    input.addEventListener("input", () => {
+      const prefix = input.name.startsWith("current_") ? "current" : "permanent";
+      syncCareerAddress(careerForm,prefix);
+      if (prefix === "current" && careerForm.elements.permanent_same_as_current?.checked) copyCareerCurrentToPermanent(careerForm);
+    });
+    input.addEventListener("change", () => {
+      const prefix = input.name.startsWith("current_") ? "current" : "permanent";
+      syncCareerAddress(careerForm,prefix);
+      if (prefix === "current" && careerForm.elements.permanent_same_as_current?.checked) copyCareerCurrentToPermanent(careerForm);
+    });
+  });
+
+  careerForm.elements.permanent_same_as_current?.addEventListener("change", event => {
+    const same = event.target.checked;
+    CAREER_ADDRESS_KEYS.forEach(key => {
+      const target = careerForm.elements[`permanent_${key}`];
+      if (target) target.disabled = same;
+    });
+    if (same) copyCareerCurrentToPermanent(careerForm);
+  });
+}
+
 document.querySelectorAll('.career-upload-card input[type="file"]').forEach(input => {
   input.addEventListener("change", () => {
     const display = input.closest(".career-upload-card")?.querySelector(".career-file-name");
     if (!display) return;
     const file = input.files?.[0];
-    display.textContent = file
-      ? `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB`
-      : "No file selected";
+    display.textContent = file ? `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB` : "No file selected";
   });
 });
 
 const publicCfg = window.SAMARA_PUBLIC_CONFIG || {};
 const publicSupabase = window.supabase && publicCfg.supabaseUrl && publicCfg.supabasePublishableKey
-  ? window.supabase.createClient(publicCfg.supabaseUrl, publicCfg.supabasePublishableKey)
-  : null;
+  ? window.supabase.createClient(publicCfg.supabaseUrl, publicCfg.supabasePublishableKey) : null;
 
 function safeCareerFilename(file) {
   return String(file?.name || "document").replace(/[^A-Za-z0-9._-]/g, "_");
@@ -208,8 +320,7 @@ async function uploadCareerDocument(uploadId, kind, file) {
   if (!publicSupabase) throw new Error("Secure application connection is unavailable. Please try again shortly.");
   const path = `public/${uploadId}/${kind}-${safeCareerFilename(file)}`;
   const { error } = await publicSupabase.storage.from("career-applications").upload(path, file, {
-    upsert: false,
-    contentType: file.type || undefined
+    upsert: false, contentType: file.type || undefined
   });
   if (error) throw new Error(`Unable to upload ${file.name}: ${error.message}`);
   return path;
@@ -225,8 +336,7 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
 
   const firstInvalid = form.querySelector(":invalid");
   if (firstInvalid) {
-    firstInvalid.focus();
-    firstInvalid.reportValidity();
+    firstInvalid.focus(); firstInvalid.reportValidity();
     status.classList.add("error");
     status.textContent = "Please complete all mandatory fields before submitting.";
     return;
@@ -237,42 +347,55 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
     submitButton.textContent = "Submitting securely…";
     if (!publicSupabase) throw new Error("Secure application connection is unavailable. Please refresh and try again.");
 
+    if (form.elements.permanent_same_as_current?.checked) copyCareerCurrentToPermanent(form);
+    syncCareerAddress(form,"current"); syncCareerAddress(form,"permanent");
+
     const resume = validateCareerFile(form.elements.resume, true);
-    const photo = validateCareerFile(form.elements.photo);
-    const certificate = validateCareerFile(form.elements.certificate);
-    const identity = validateCareerFile(form.elements.identity);
+    const photo = validateCareerFile(form.elements.photo, true);
+    const identity = validateCareerFile(form.elements.identity, true);
+    const qualificationCert = validateCareerFile(form.elements.qualification_certificate);
+    const experienceCert = validateCareerFile(form.elements.experience_certificate);
+    const otherCert = validateCareerFile(form.elements.other_certificate);
+
     const data = new FormData(form);
     const applicationId = careerApplicationId();
     const uploadId = crypto.randomUUID();
     const skills = selectedSkills(form);
 
-    status.textContent = "Uploading resume and supporting documents…";
-    const [resumePath, photoPath, certificatePath, identityPath] = await Promise.all([
-      uploadCareerDocument(uploadId, "resume", resume),
-      uploadCareerDocument(uploadId, "photo", photo),
-      uploadCareerDocument(uploadId, "certificate", certificate),
-      uploadCareerDocument(uploadId, "identity", identity)
+    status.textContent = "Uploading your employee documents securely…";
+    const [resumePath,photoPath,identityPath,qualificationPath,experiencePath,otherPath] = await Promise.all([
+      uploadCareerDocument(uploadId,"resume",resume),
+      uploadCareerDocument(uploadId,"employee-photo",photo),
+      uploadCareerDocument(uploadId,"identity",identity),
+      uploadCareerDocument(uploadId,"qualification",qualificationCert),
+      uploadCareerDocument(uploadId,"experience",experienceCert),
+      uploadCareerDocument(uploadId,"other-certificate",otherCert)
     ]);
 
-    status.textContent = "Saving your application to Samara HR…";
+    status.textContent = "Saving your online application to Samara HR…";
     const payload = {
       application_id: applicationId,
+      title: clean(data.get("title")),
       applicant_name: clean(data.get("name")),
-      gender: clean(data.get("gender")),
+      father_guardian_name: clean(data.get("father_guardian_name")),
       date_of_birth: clean(data.get("dob")),
+      blood_group: clean(data.get("blood_group")),
       mobile: clean(data.get("mobile")),
-      whatsapp: clean(data.get("whatsapp")) || clean(data.get("mobile")),
+      whatsapp: clean(data.get("mobile")),
+      emergency_contact: clean(data.get("emergency_contact")),
       email: clean(data.get("email")),
-      address: clean(data.get("address")),
-      city: clean(data.get("city")),
-      state: clean(data.get("state")),
-      pincode: clean(data.get("pin")),
+      id_card_type: clean(data.get("id_card_type")),
+      id_card_number: clean(data.get("id_card_number")),
       department: clean(data.get("department")),
       designation: clean(data.get("designation")),
       qualification: clean(data.get("qualification")),
+      previous_workplace: clean(data.get("previous_workplace")),
+      current_employer: clean(data.get("previous_workplace")),
+      reference_type: clean(data.get("reference_type")) || "Direct",
+      reference_name: clean(data.get("reference_name")),
+      reference_contact: clean(data.get("reference_contact")),
       registration_no: clean(data.get("registration")),
       experience: clean(data.get("experience")),
-      current_employer: clean(data.get("employer")),
       current_salary: clean(data.get("current_salary")),
       expected_salary: clean(data.get("expected_salary")),
       notice_period: clean(data.get("notice_period")),
@@ -280,10 +403,38 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
       preferred_shift: clean(data.get("shift")),
       skills,
       additional_information: clean(data.get("additional")),
+      current_address: clean(data.get("current_address")),
+      current_state: clean(data.get("current_state")) || "Tamil Nadu",
+      current_district: clean(data.get("current_district")),
+      current_taluk: clean(data.get("current_taluk")),
+      current_village_town: clean(data.get("current_village_town")),
+      current_locality_area: clean(data.get("current_locality_area")),
+      current_street_name: clean(data.get("current_street_name")),
+      current_house_no: clean(data.get("current_house_no")),
+      current_apartment_name: clean(data.get("current_apartment_name")),
+      current_flat_no: clean(data.get("current_flat_no")),
+      current_landmark: clean(data.get("current_landmark")),
+      current_pincode: clean(data.get("current_pincode")),
+      permanent_same_as_current: !!form.elements.permanent_same_as_current?.checked,
+      permanent_address: clean(data.get("permanent_address")),
+      permanent_state: clean(data.get("permanent_state")) || "Tamil Nadu",
+      permanent_district: clean(data.get("permanent_district")),
+      permanent_taluk: clean(data.get("permanent_taluk")),
+      permanent_village_town: clean(data.get("permanent_village_town")),
+      permanent_locality_area: clean(data.get("permanent_locality_area")),
+      permanent_street_name: clean(data.get("permanent_street_name")),
+      permanent_house_no: clean(data.get("permanent_house_no")),
+      permanent_apartment_name: clean(data.get("permanent_apartment_name")),
+      permanent_flat_no: clean(data.get("permanent_flat_no")),
+      permanent_landmark: clean(data.get("permanent_landmark")),
+      permanent_pincode: clean(data.get("permanent_pincode")),
       resume_path: resumePath,
       photo_path: photoPath,
-      certificate_path: certificatePath,
-      identity_path: identityPath
+      identity_path: identityPath,
+      qualification_certificate_path: qualificationPath,
+      certificate_path: qualificationPath,
+      experience_certificate_path: experiencePath,
+      other_certificate_path: otherPath
     };
 
     const { data: result, error } = await publicSupabase.rpc("submit_career_application", { payload });
@@ -292,26 +443,24 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
     const code = saved?.application_code || applicationId;
 
     localStorage.setItem("samara_last_career_application", JSON.stringify({
-      application_id: code,
-      applicant: payload.applicant_name,
-      department: payload.department,
-      designation: payload.designation,
-      mobile: payload.mobile,
-      submitted_at: new Date().toISOString()
+      application_id: code, applicant: payload.applicant_name,
+      department: payload.department, designation: payload.designation,
+      mobile: payload.mobile, submitted_at: new Date().toISOString()
     }));
 
     status.classList.add("success");
-    status.innerHTML = `Application submitted successfully to Samara HR. <strong>Application ID: ${code}</strong>. Please keep this reference for future communication.`;
+    status.innerHTML = `Online application submitted successfully to Samara HR. <strong>Application ID: ${code}</strong>. Please keep this reference for all recruitment communication.`;
     form.reset();
     populateCareerDesignations("");
+    populateCareerTaluks("current"); populateCareerTaluks("permanent");
     document.querySelectorAll(".career-file-name").forEach(node => node.textContent = "No file selected");
   } catch (error) {
     console.error("Career application submission failed", error);
     status.classList.add("error");
-    status.textContent = error.message || "Unable to submit the career application. Please try again.";
+    status.textContent = error.message || "Unable to submit the online application. Please try again.";
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = "Submit Career Application";
+    submitButton.textContent = "Submit Online Application";
   }
 });
 

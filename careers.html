@@ -159,6 +159,27 @@
   .recruitment-ticker-track,.urgent-nurse-badge:before{animation:none}
   .recruitment-ticker-track{width:auto;justify-content:center;flex-wrap:wrap;white-space:normal;padding:10px 16px}
 }
+
+.career-online-only-notice{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  margin:0 0 24px;padding:16px 18px;border-radius:18px;
+  border:1px solid rgba(176,18,100,.20);
+  background:linear-gradient(100deg,#fff0f6,#fff8fb);
+  color:#5d1039;
+}
+.career-online-only-notice strong{
+  display:inline-flex;padding:7px 11px;border-radius:999px;
+  background:linear-gradient(90deg,#8f0d50,#d71972);color:#fff;
+  font-size:.78rem;letter-spacing:.08em;
+}
+.career-online-only-notice span{font-weight:700;flex:1 1 420px}
+.career-same-address{margin:0 0 16px}
+.career-address-grid textarea[readonly]{background:#fff8fb}
+.career-address-grid select:disabled,.career-address-grid input:disabled,.career-address-grid textarea:disabled{opacity:.72;background:#f5f1f3}
+@media(max-width:760px){
+  .career-online-only-notice{align-items:flex-start}
+}
+
 </style>
 
 </head>
@@ -170,7 +191,7 @@
 <nav class="nav">
 <a class="" href="./index.html">Home</a><a class="" href="./about.html">About</a><a class="" href="./services.html">Services</a><a class="" href="./rooms.html">Rooms</a><a class="" href="./packages.html">Packages</a><a class="" href="./gallery.html">Gallery</a><a class="active" href="./careers.html">Careers</a><a class="" href="./contact.html">Contact</a>
 <a href="./enquiry.html">Admission Enquiry</a>
-<a class="family-portal-link" href="https://family.samaraassistedliving.com" rel="noopener" target="_blank">Family Portal</a><a class="staff" href="https://app.samaraassistedliving.com/?source=website&v=2.8.22">Staff Login</a>
+<a class="family-portal-link" href="https://family.samaraassistedliving.com" rel="noopener" target="_blank">Family Portal</a><a class="staff" href="https://app.samaraassistedliving.com/?source=website&v=2.8.32">Staff Login</a>
 </nav>
 </div>
 </header>
@@ -203,7 +224,7 @@
 <div class="section-heading reveal">
 <span class="eyebrow">Current Opportunities</span>
 <h2>Find a role that matches your experience.</h2>
-<p>Openings are subject to operational requirements. Candidates may also submit a general application for future vacancies.</p>
+<p>Openings are subject to operational requirements. <strong>All employment applications are accepted ONLINE ONLY through this page.</strong> Samara does not accept paper, walk-in or offline job applications.</p>
 </div>
 
 <div class="urgent-nurse-card reveal">
@@ -265,63 +286,64 @@
 <section class="section section-tint" id="career-application">
 <div class="container">
 <div class="section-heading reveal">
-<span class="eyebrow">Application Form</span>
-<h2>Tell us about your qualifications and experience.</h2>
-<p>Your resume is mandatory. Supporting certificates and identity documents may be added where relevant.</p>
+<span class="eyebrow">100% Online Recruitment</span>
+<h2>Samara Online Employment Application</h2>
+<p>This application mirrors the Samara Employee Master so that, after selection, your verified information can be transferred directly into the employee record. <strong>No offline or paper applications are accepted.</strong></p>
 </div>
+
+<div class="career-online-only-notice reveal">
+<strong>ONLINE APPLICATIONS ONLY</strong>
+<span>Please complete this form yourself and upload the requested documents. Walk-in CVs, paper forms and offline applications are not processed.</span>
+</div>
+
 <form class="career-application-form reveal" id="career-form" novalidate="">
 <section class="career-form-section">
-<div class="career-form-title"><span>1</span><div><h3>Personal Details</h3><p>Basic contact and identity particulars.</p></div></div>
+<div class="career-form-title"><span>1</span><div><h3>Identity &amp; Contact Details</h3><p>These fields correspond directly with Samara Employee Master.</p></div></div>
 <div class="form-grid career-grid">
-<label>Full Name *<input autocomplete="name" name="name" placeholder="Full name as per records" required=""/></label>
-<label>Gender *
-            <select name="gender" required="">
-<option value="">Select gender</option>
-<option>Male</option><option>Female</option><option>Other</option><option>Prefer not to say</option>
-</select>
+<label>Title / Salutation *
+<select name="title" required><option value="">Select title</option><option>Dr.</option><option>Prof.</option><option>Mr.</option><option>Mrs.</option><option>Ms.</option><option>Miss</option><option>Shri</option><option>Smt.</option><option>Rev.</option><option>Fr.</option><option>Br.</option><option>Sr.</option><option>Other</option></select>
 </label>
+<label>Applicant Name *<input autocomplete="name" name="name" placeholder="Full name as per records" required/></label>
+<label>Father / Guardian Name<input name="father_guardian_name"/></label>
 <label>Date of Birth<input name="dob" type="date"/></label>
-<label>Mobile Number *<input inputmode="numeric" maxlength="10" name="mobile" placeholder="10-digit mobile number" required=""/></label>
-<label>WhatsApp Number<input inputmode="numeric" maxlength="10" name="whatsapp" placeholder="Leave blank if same as mobile"/></label>
-<label>Email ID *<input autocomplete="email" name="email" placeholder="name@example.com" required="" type="email"/></label>
-<label class="full">Residential Address *<textarea name="address" placeholder="Door number, street, locality" required="" rows="3"></textarea></label>
-<label>City / Town *<input name="city" required=""/></label>
-<label>State *<input name="state" required="" value="Tamil Nadu"/></label>
-<label>PIN Code<input inputmode="numeric" maxlength="6" name="pin"/></label>
+<label>Blood Group
+<select name="blood_group"><option value="">Select blood group</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option><option>Unknown</option></select>
+</label>
+<label>Mobile Number *<input inputmode="numeric" maxlength="10" name="mobile" placeholder="10-digit mobile number" required/></label>
+<label>Emergency Contact<input inputmode="numeric" maxlength="10" name="emergency_contact" placeholder="10-digit emergency number"/></label>
+<label>Email ID *<input autocomplete="email" name="email" placeholder="name@example.com" required type="email"/></label>
+<label>ID Card Type
+<select name="id_card_type"><option>Aadhaar</option><option>PAN</option><option>Driving Licence</option><option>Voter ID</option><option>Passport</option><option>Other</option></select>
+</label>
+<label>ID Card Number<input name="id_card_number"/></label>
 </div>
 </section>
+
 <section class="career-form-section">
-<div class="career-form-title"><span>2</span><div><h3>Professional Details</h3><p>Department, designation, qualification, experience and availability.</p></div></div>
+<div class="career-form-title"><span>2</span><div><h3>Position &amp; Employment Details</h3><p>Choose the department and designation for which you are applying.</p></div></div>
 <div class="form-grid career-grid">
 <label>Department *
-<select id="career-department" name="department" required="">
+<select id="career-department" name="department" required>
 <option value="">Select department</option>
-<option>Nursing</option>
-<option>Caregiving</option>
-<option>Medical</option>
-<option>Physiotherapy & Rehabilitation</option>
-<option>Housekeeping</option>
-<option>Food & Kitchen</option>
-<option>Administration</option>
-<option>HR</option>
-<option>Operations</option>
-<option>Accounts & Finance</option>
-<option>Maintenance</option>
-<option>Security</option>
-<option>Transport</option>
-<option>Marketing & Outreach</option>
-<option>Other</option>
+<option>Nursing</option><option>Caregiving</option><option>Medical</option>
+<option>Physiotherapy & Rehabilitation</option><option>Housekeeping</option>
+<option>Food & Kitchen</option><option>Administration</option><option>HR</option>
+<option>Operations</option><option>Accounts & Finance</option><option>Maintenance</option>
+<option>Security</option><option>Transport</option><option>Marketing & Outreach</option><option>Other</option>
 </select>
 </label>
 <label>Designation *
-<select id="career-designation" name="designation" required="" disabled="">
-<option value="">Select department first</option>
-</select>
+<select id="career-designation" name="designation" required disabled><option value="">Select department first</option></select>
 </label>
-<label>Highest Qualification *<input name="qualification" placeholder="Example: B.Sc Nursing" required=""/></label>
+<label>Highest Qualification *<input name="qualification" placeholder="Example: B.Sc Nursing" required/></label>
+<label>Previous Working Place<input name="previous_workplace" placeholder="Hospital / facility / organisation"/></label>
+<label>Joining Source
+<select name="reference_type"><option>Direct</option><option>Reference</option></select>
+</label>
+<label>Reference Name<input name="reference_name"/></label>
+<label>Reference Contact<input inputmode="numeric" maxlength="10" name="reference_contact"/></label>
 <label>Professional Registration No.<input name="registration" placeholder="TNMC / council number, if applicable"/></label>
 <label>Total Experience<input name="experience" placeholder="Example: 4 years 6 months"/></label>
-<label>Current / Previous Employer<input name="employer"/></label>
 <label>Current Monthly Salary<input inputmode="numeric" name="current_salary"/></label>
 <label>Expected Monthly Salary<input inputmode="numeric" name="expected_salary"/></label>
 <label>Notice Period
@@ -335,8 +357,129 @@
 </label>
 </div>
 </section>
+
 <section class="career-form-section">
-<div class="career-form-title"><span>3</span><div><h3>Skills &amp; Experience</h3><p>Select all areas relevant to your profile.</p></div></div>
+<div class="career-form-title"><span>3</span><div><h3>Current Residential Address</h3><p>Your present place of residence.</p></div></div>
+<div class="form-grid career-grid career-address-grid" data-address-prefix="current">
+<label>State<select name="current_state"><option>Tamil Nadu</option></select></label>
+<label>District *
+<select id="career-current-district" name="current_district" required>
+<option value="">Select district</option><option>Ariyalur</option>
+<option>Chengalpattu</option>
+<option>Chennai</option>
+<option>Coimbatore</option>
+<option>Cuddalore</option>
+<option>Dharmapuri</option>
+<option>Dindigul</option>
+<option>Erode</option>
+<option>Kallakurichi</option>
+<option>Kancheepuram</option>
+<option>Kanniyakumari</option>
+<option>Karur</option>
+<option>Krishnagiri</option>
+<option>Madurai</option>
+<option>Mayiladuthurai</option>
+<option>Nagapattinam</option>
+<option>Namakkal</option>
+<option>Perambalur</option>
+<option>Pudukkottai</option>
+<option>Ramanathapuram</option>
+<option>Ranipet</option>
+<option>Salem</option>
+<option>Sivaganga</option>
+<option>Tenkasi</option>
+<option>Thanjavur</option>
+<option>The Nilgiris</option>
+<option>Theni</option>
+<option>Thoothukudi</option>
+<option>Tiruchirappalli</option>
+<option>Tirunelveli</option>
+<option>Tirupathur</option>
+<option>Tiruppur</option>
+<option>Tiruvallur</option>
+<option>Tiruvannamalai</option>
+<option>Tiruvarur</option>
+<option>Vellore</option>
+<option>Viluppuram</option>
+<option>Virudhunagar</option>
+</select></label>
+<label>Taluk *
+<select id="career-current-taluk" name="current_taluk" required disabled><option value="">Select district first</option></select></label>
+<label>Village / Town / City *<input name="current_village_town" required/></label>
+<label>Locality / Area<input name="current_locality_area"/></label>
+<label>Street Name<input name="current_street_name"/></label>
+<label>House / Door No.<input name="current_house_no"/></label>
+<label>Apartment / Building Name<input name="current_apartment_name"/></label>
+<label>Flat No.<input name="current_flat_no"/></label>
+<label>Landmark<input name="current_landmark"/></label>
+<label>PIN Code *<input inputmode="numeric" maxlength="6" name="current_pincode" required/></label>
+<label class="full">Complete Current Address<textarea name="current_address" rows="2" readonly placeholder="Composed automatically"></textarea></label>
+</div>
+</section>
+
+<section class="career-form-section">
+<div class="career-form-title"><span>4</span><div><h3>Permanent Residential Address</h3><p>Your permanent/native residential address.</p></div></div>
+<label class="career-declaration career-same-address">
+<input id="career-address-same" name="permanent_same_as_current" type="checkbox"/>
+<span>Permanent Address is the same as Current Address</span>
+</label>
+<div class="form-grid career-grid career-address-grid" data-address-prefix="permanent">
+<label>State<select name="permanent_state"><option>Tamil Nadu</option></select></label>
+<label>District
+<select id="career-permanent-district" name="permanent_district"><option value="">Select district</option><option>Ariyalur</option>
+<option>Chengalpattu</option>
+<option>Chennai</option>
+<option>Coimbatore</option>
+<option>Cuddalore</option>
+<option>Dharmapuri</option>
+<option>Dindigul</option>
+<option>Erode</option>
+<option>Kallakurichi</option>
+<option>Kancheepuram</option>
+<option>Kanniyakumari</option>
+<option>Karur</option>
+<option>Krishnagiri</option>
+<option>Madurai</option>
+<option>Mayiladuthurai</option>
+<option>Nagapattinam</option>
+<option>Namakkal</option>
+<option>Perambalur</option>
+<option>Pudukkottai</option>
+<option>Ramanathapuram</option>
+<option>Ranipet</option>
+<option>Salem</option>
+<option>Sivaganga</option>
+<option>Tenkasi</option>
+<option>Thanjavur</option>
+<option>The Nilgiris</option>
+<option>Theni</option>
+<option>Thoothukudi</option>
+<option>Tiruchirappalli</option>
+<option>Tirunelveli</option>
+<option>Tirupathur</option>
+<option>Tiruppur</option>
+<option>Tiruvallur</option>
+<option>Tiruvannamalai</option>
+<option>Tiruvarur</option>
+<option>Vellore</option>
+<option>Viluppuram</option>
+<option>Virudhunagar</option></select></label>
+<label>Taluk
+<select id="career-permanent-taluk" name="permanent_taluk" disabled><option value="">Select district first</option></select></label>
+<label>Village / Town / City<input name="permanent_village_town"/></label>
+<label>Locality / Area<input name="permanent_locality_area"/></label>
+<label>Street Name<input name="permanent_street_name"/></label>
+<label>House / Door No.<input name="permanent_house_no"/></label>
+<label>Apartment / Building Name<input name="permanent_apartment_name"/></label>
+<label>Flat No.<input name="permanent_flat_no"/></label>
+<label>Landmark<input name="permanent_landmark"/></label>
+<label>PIN Code<input inputmode="numeric" maxlength="6" name="permanent_pincode"/></label>
+<label class="full">Complete Permanent Address<textarea name="permanent_address" rows="2" readonly placeholder="Composed automatically"></textarea></label>
+</div>
+</section>
+
+<section class="career-form-section">
+<div class="career-form-title"><span>5</span><div><h3>Skills &amp; Additional Information</h3><p>Select relevant skills and provide any additional employment information.</p></div></div>
 <div class="career-skill-grid">
 <label><input name="skills" type="checkbox" value="Elderly Care"/> Elderly Care</label>
 <label><input name="skills" type="checkbox" value="Medication Administration"/> Medication Administration</label>
@@ -344,7 +487,7 @@
 <label><input name="skills" type="checkbox" value="Dementia Care"/> Dementia Care</label>
 <label><input name="skills" type="checkbox" value="Palliative Care"/> Palliative Care</label>
 <label><input name="skills" type="checkbox" value="Physiotherapy"/> Physiotherapy</label>
-<label><input name="skills" type="checkbox" value="Patient Documentation"/> Patient Documentation</label>
+<label><input name="skills" type="checkbox" value="Resident Documentation"/> Resident Documentation</label>
 <label><input name="skills" type="checkbox" value="Computer Knowledge"/> Computer Knowledge</label>
 <label><input name="skills" type="checkbox" value="Tamil"/> Tamil</label>
 <label><input name="skills" type="checkbox" value="English"/> English</label>
@@ -353,56 +496,30 @@
 </div>
 <label class="career-full-label">Additional Information<textarea name="additional" placeholder="Briefly describe relevant achievements, duties or special skills" rows="4"></textarea></label>
 </section>
+
 <section class="career-form-section">
-<div class="career-form-title"><span>4</span><div><h3>Resume &amp; Documents</h3><p>Resume is mandatory. Maximum 10 MB per file.</p></div></div>
+<div class="career-form-title"><span>6</span><div><h3>Photo, Resume &amp; Employee Documents</h3><p>These correspond with the documents maintained in Samara Employee Master. Maximum 10 MB per file.</p></div></div>
 <div class="career-upload-grid">
-<label class="career-upload-card">
-<span class="career-upload-icon">▤</span>
-<strong>Resume / CV *</strong>
-<small>PDF, DOC, DOCX or image — maximum 10 MB</small>
-<input accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/*" id="career-resume" name="resume" required="" type="file"/>
-<span class="career-file-name" data-file-name="resume">No file selected</span>
-</label>
-<label class="career-upload-card">
-<span class="career-upload-icon">◉</span>
-<strong>Passport Photograph</strong>
-<small>JPG, JPEG or PNG — maximum 10 MB</small>
-<input accept=".jpg,.jpeg,.png,image/*" name="photo" type="file"/>
-<span class="career-file-name" data-file-name="photo">No file selected</span>
-</label>
-<label class="career-upload-card">
-<span class="career-upload-icon">✚</span>
-<strong>Professional Certificate</strong>
-<small>Registration / qualification certificate</small>
-<input accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/*" name="certificate" type="file"/>
-<span class="career-file-name" data-file-name="certificate">No file selected</span>
-</label>
-<label class="career-upload-card">
-<span class="career-upload-icon">▣</span>
-<strong>Identity Proof</strong>
-<small>Aadhaar / PAN / other government ID</small>
-<input accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/*" name="identity" type="file"/>
-<span class="career-file-name" data-file-name="identity">No file selected</span>
-</label>
+<label class="career-upload-card"><span class="career-upload-icon">▤</span><strong>Resume / CV *</strong><small>Mandatory for recruitment</small><input accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/*" name="resume" required type="file"/><span class="career-file-name">No file selected</span></label>
+<label class="career-upload-card"><span class="career-upload-icon">◉</span><strong>Employee Photo *</strong><small>Passport-style photograph</small><input accept=".jpg,.jpeg,.png,image/*" name="photo" required type="file"/><span class="career-file-name">No file selected</span></label>
+<label class="career-upload-card"><span class="career-upload-icon">▣</span><strong>ID Card / Identity Proof *</strong><small>Aadhaar / PAN / other selected ID</small><input accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/*" name="identity" required type="file"/><span class="career-file-name">No file selected</span></label>
+<label class="career-upload-card"><span class="career-upload-icon">✚</span><strong>Qualification Certificates</strong><small>Qualification / professional registration certificate</small><input accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/*" name="qualification_certificate" type="file"/><span class="career-file-name">No file selected</span></label>
+<label class="career-upload-card"><span class="career-upload-icon">▤</span><strong>Experience / Previous Employment Certificate</strong><small>Previous employment / experience proof</small><input accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/*" name="experience_certificate" type="file"/><span class="career-file-name">No file selected</span></label>
+<label class="career-upload-card"><span class="career-upload-icon">＋</span><strong>Other Certificate</strong><small>Any additional relevant certificate</small><input accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/*" name="other_certificate" type="file"/><span class="career-file-name">No file selected</span></label>
 </div>
-<div class="career-upload-notice">
-<strong>Secure online application:</strong>
-          your application and selected documents are submitted directly to Samara HR for review. Your resume is mandatory and supporting documents remain private.
-        </div>
 </section>
+
 <section class="career-form-section">
-<div class="career-form-title"><span>5</span><div><h3>Declaration</h3><p>Please confirm before submitting.</p></div></div>
+<div class="career-form-title"><span>7</span><div><h3>Declaration</h3><p>Submission is entirely online.</p></div></div>
 <label class="career-declaration">
-<input name="declaration" required="" type="checkbox"/>
-<span>I declare that the information furnished above is true and complete to the best of my knowledge. I authorise Samara Health Care LLP to contact me regarding employment opportunities.</span>
+<input name="declaration" required type="checkbox"/>
+<span>I declare that the information furnished above is true and complete to the best of my knowledge. I understand that Samara recruitment is processed online and authorise Samara Health Care LLP to verify the submitted information and contact me regarding employment.</span>
 </label>
 </section>
+
 <div class="career-submit-bar">
-<div>
-<strong>Application ID will be generated automatically.</strong>
-<small>Keep the ID for future reference.</small>
-</div>
-<button class="btn btn-primary" type="submit">Submit Career Application</button>
+<div><strong>Application ID will be generated automatically.</strong><small>After selection, verified details can be transferred directly to Employee Master.</small></div>
+<button class="btn btn-primary" type="submit">Submit Online Application</button>
 </div>
 <p aria-live="polite" class="form-status career-form-status"></p>
 </form>
@@ -413,10 +530,10 @@
 <div class="container footer-grid">
 <div><img alt="Samara Assisted Living" src="./assets/samara-logo.png"/><p>Compassion • Comfort • Dignity</p></div>
 <div><b>Explore</b><a href="./about.html">About</a><a href="./services.html">Services</a><a href="./rooms.html">Rooms</a><a href="./packages.html">Packages</a></div>
-<div><b>Connect</b><a href="./contact.html">Book a Visit</a><a href="./enquiry.html">Admission Enquiry</a><a href="./careers.html">Careers</a><a href="https://family.samaraassistedliving.com" rel="noopener" target="_blank">Family Portal</a><a href="https://app.samaraassistedliving.com/?source=website&v=2.8.22">Staff Login</a></div>
+<div><b>Connect</b><a href="./contact.html">Book a Visit</a><a href="./enquiry.html">Admission Enquiry</a><a href="./careers.html">Careers</a><a href="https://family.samaraassistedliving.com" rel="noopener" target="_blank">Family Portal</a><a href="https://app.samaraassistedliving.com/?source=website&v=2.8.32">Staff Login</a></div>
 <div><b>Legal</b><a href="./privacy.html">Privacy Policy</a><a href="./terms.html">Terms of Use</a><a href="./disclaimer.html">Medical Disclaimer</a></div>
 </div>
-<div class="container footer-bottom"><span>© <span data-year=""></span> Samara Health Care LLP. All rights reserved.</span><span>Public Website v1.8.0</span></div>
+<div class="container footer-bottom"><span>© <span data-year=""></span> Samara Health Care LLP. All rights reserved.</span><span>Public Website v2.1.0</span></div>
 </footer>
 <a aria-label="WhatsApp Samara" class="floating" href="https://wa.me/917395961616">✆</a>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
