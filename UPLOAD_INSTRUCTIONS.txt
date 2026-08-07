@@ -1,14 +1,17 @@
-SAMARA WEBSITE — ACTUAL MOBILE NUMBER UPDATE
+SAMARA PUBLIC WEBSITE v1.8.0 — iPHONE / ANDROID POLISH
 
-Official number:
-073959 61616
+Purpose:
+- Keep Staff Login visible on mobile beside the hamburger menu.
+- Force every Staff Login (header/footer/all pages) to the live custom ERP:
+  https://app.samaraassistedliving.com/
+- Mobile-safe header/menu, larger touch targets, iOS input zoom prevention,
+  safe-area handling, responsive hero buttons, footer and Careers form polish.
+- Cache-busted CSS/JS references so phones do not keep an older website script.
 
-WhatsApp links use:
-https://wa.me/917395961616
+Upload:
+- Replace the HTML files included in this ZIP.
+- Replace css/style.css
+- Replace js/app.js
+- Replace config.js
 
-This package contains ONLY files where the old dummy number appeared.
-Upload/replace these files in the same folders of the Samara_Website repository.
-
-No DNS, ERP, Family Portal, sitemap, Supabase or design changes are required.
-
-After GitHub Pages deploys, press Ctrl + Shift + R once.
+No DNS or Supabase SQL change is required.

@@ -1,7 +1,48 @@
 
-const WEBSITE_VERSION = "1.3.0";
+const WEBSITE_VERSION = "1.8.0";
 const SAMARA_WHATSAPP = "917395961616";
 const SAMARA_PHONE = "073959 61616";
+
+
+// v1.8.0 — iPhone / Android navigation and secure entry-point polish.
+const SAMARA_ERP_URL = "https://app.samaraassistedliving.com/?source=website&v=2.8.22";
+const SAMARA_FAMILY_URL = "https://family.samaraassistedliving.com";
+
+// Always direct every public-site Staff Login link to the same live ERP root.
+document.querySelectorAll('a[href*="app.samaraassistedliving.com"]').forEach(link => {
+  link.href = SAMARA_ERP_URL;
+  link.removeAttribute("target");
+  link.setAttribute("aria-label", "Staff Login – Samara Care ERP");
+});
+
+// Keep every Family Portal link on the current custom domain.
+document.querySelectorAll('a[href*="family.samaraassistedliving.com"]').forEach(link => {
+  link.href = SAMARA_FAMILY_URL;
+});
+
+// On phones, Staff Login remains visible even when the main navigation is collapsed.
+(() => {
+  const headerInner = document.querySelector(".header .header-inner");
+  const menuButton = headerInner?.querySelector(".menu-button");
+  if (!headerInner || !menuButton || headerInner.querySelector(".mobile-staff-login")) return;
+
+  const staff = document.createElement("a");
+  staff.className = "mobile-staff-login";
+  staff.href = SAMARA_ERP_URL;
+  staff.textContent = "Staff Login";
+  staff.setAttribute("aria-label", "Open Samara Care ERP Staff Login");
+  headerInner.insertBefore(staff, menuButton);
+})();
+
+// Close the mobile menu after tapping outside it.
+document.addEventListener("click", event => {
+  if (!nav?.classList.contains("open")) return;
+  const header = document.querySelector(".header");
+  if (header && !header.contains(event.target)) {
+    nav.classList.remove("open");
+    menu?.setAttribute("aria-expanded", "false");
+  }
+});
 
 
 // Add Careers to the public navigation on every page.
