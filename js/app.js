@@ -1,7 +1,7 @@
 
 const WEBSITE_VERSION = "1.3.0";
-const SAMARA_WHATSAPP = "910000000000";
-const SAMARA_PHONE = "+91 00000 00000";
+const SAMARA_WHATSAPP = "917395961616";
+const SAMARA_PHONE = "073959 61616";
 
 
 // Add Careers to the public navigation on every page.

@@ -1,5 +1,5 @@
 const PUBLIC_PORTAL_VERSION = '1.0.0';
-const SAMARA_PHONE = '910000000000';
+const SAMARA_PHONE = '917395961616';
 
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.site-nav');

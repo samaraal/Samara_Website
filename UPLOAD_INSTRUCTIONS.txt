@@ -1,0 +1,14 @@
+SAMARA WEBSITE — ACTUAL MOBILE NUMBER UPDATE
+
+Official number:
+073959 61616
+
+WhatsApp links use:
+https://wa.me/917395961616
+
+This package contains ONLY files where the old dummy number appeared.
+Upload/replace these files in the same folders of the Samara_Website repository.
+
+No DNS, ERP, Family Portal, sitemap, Supabase or design changes are required.
+
+After GitHub Pages deploys, press Ctrl + Shift + R once.
