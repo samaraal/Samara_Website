@@ -587,3 +587,20 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
 
 initSamaraInaugurationInvitation();
 console.info(`Samara Website ${WEBSITE_VERSION}`);
+
+
+// v2.2.0 — Unified Feedback submission.
+document.querySelector('#feedback-form')?.addEventListener('submit', async event => {
+  event.preventDefault();
+  const form=event.currentTarget,status=form.querySelector('.form-status'),button=form.querySelector('button[type="submit"]');
+  const fd=new FormData(form);
+  try{
+    button.disabled=true; button.textContent='Submitting…'; status.className='form-status'; status.textContent='Saving your feedback securely…';
+    if(!publicSupabase)throw new Error('Secure feedback connection is unavailable. Please try again shortly.');
+    const rating=fd.get('rating');
+    const payload={source:'Website',respondent_type:clean(fd.get('respondent_type'))||'Visitor',respondent_name:clean(fd.get('name')),mobile:clean(fd.get('mobile')),email:clean(fd.get('email')),patient_code:clean(fd.get('patient_code')),category:clean(fd.get('category'))||'General',rating:rating?Number(rating):null,subject:clean(fd.get('subject')),message:clean(fd.get('message')),consent_to_contact:!!fd.get('consent')};
+    const {error}=await publicSupabase.from('feedback').insert(payload); if(error)throw error;
+    form.reset(); status.className='form-status success'; status.textContent='Thank you. Your feedback has been submitted successfully to Samara.';
+  }catch(error){console.error(error);status.className='form-status error';status.textContent=error.message||'Feedback could not be submitted. Please try again.';}
+  finally{button.disabled=false;button.textContent='Submit Feedback';}
+});

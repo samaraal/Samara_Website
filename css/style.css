@@ -841,3 +841,7 @@ html,body{max-width:100%;overflow-x:hidden}
   .floating.whatsapp-float{width:58px;height:58px;border-width:3px}
   .floating.whatsapp-float svg{width:33px;height:33px}
 }
+
+
+/* v2.2.0 — Feedback */
+.feedback-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:start}.feedback-intro h2{color:var(--plum);font-size:clamp(2rem,4vw,3rem);margin:10px 0 16px}.feedback-note{margin-top:24px;padding:20px;border-radius:18px;background:#fff4f8;border:1px solid #f0d3e0;color:var(--muted)}.feedback-form{padding:30px;border-radius:24px;background:#fff;box-shadow:0 20px 55px rgba(87,16,47,.1);border:1px solid #f0dbe5}.feedback-form .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.feedback-form .span-2{grid-column:1/-1}.feedback-consent label{display:flex;gap:10px;align-items:flex-start}.feedback-consent input{width:auto;margin-top:3px}.star-rating{display:flex;flex-direction:row-reverse;justify-content:flex-end;gap:5px}.star-rating input{position:absolute;opacity:0}.star-rating label{font-size:2rem;color:#d7c7cf;cursor:pointer;line-height:1}.star-rating input:checked~label,.star-rating label:hover,.star-rating label:hover~label{color:#b01264}.form-status.success{color:#147a51;font-weight:700}.form-status.error{color:#b42318;font-weight:700}@media(max-width:760px){.feedback-layout{grid-template-columns:1fr}.feedback-form .form-grid{grid-template-columns:1fr}.feedback-form .span-2{grid-column:auto}}
