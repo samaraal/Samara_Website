@@ -589,18 +589,113 @@ initSamaraInaugurationInvitation();
 console.info(`Samara Website ${WEBSITE_VERSION}`);
 
 
-// v2.2.0 — Unified Feedback submission.
-document.querySelector('#feedback-form')?.addEventListener('submit', async event => {
-  event.preventDefault();
-  const form=event.currentTarget,status=form.querySelector('.form-status'),button=form.querySelector('button[type="submit"]');
-  const fd=new FormData(form);
-  try{
-    button.disabled=true; button.textContent='Submitting…'; status.className='form-status'; status.textContent='Saving your feedback securely…';
-    if(!publicSupabase)throw new Error('Secure feedback connection is unavailable. Please try again shortly.');
-    const rating=fd.get('rating');
-    const payload={source:'Website',respondent_type:clean(fd.get('respondent_type'))||'Visitor',respondent_name:clean(fd.get('name')),mobile:clean(fd.get('mobile')),email:clean(fd.get('email')),patient_code:clean(fd.get('patient_code')),category:clean(fd.get('category'))||'General',rating:rating?Number(rating):null,subject:clean(fd.get('subject')),message:clean(fd.get('message')),consent_to_contact:!!fd.get('consent')};
-    const {error}=await publicSupabase.from('feedback').insert(payload); if(error)throw error;
-    form.reset(); status.className='form-status success'; status.textContent='Thank you. Your feedback has been submitted successfully to Samara.';
-  }catch(error){console.error(error);status.className='form-status error';status.textContent=error.message||'Feedback could not be submitted. Please try again.';}
-  finally{button.disabled=false;button.textContent='Submit Feedback';}
-});
+
+// v2.3.0 — Verified Website Feedback with WhatsApp OTP.
+(() => {
+  const form=document.querySelector('#feedback-form');
+  if(!form)return;
+
+  const replyRequested=form.querySelector('#feedback-reply-requested');
+  const mobileInput=form.querySelector('#feedback-mobile');
+  const otpBox=form.querySelector('#feedback-otp-box');
+  const sendOtp=form.querySelector('#feedback-send-otp');
+  const verifyOtp=form.querySelector('#feedback-verify-otp');
+  const otpInput=form.querySelector('#feedback-otp-code');
+  const verifiedState=form.querySelector('#feedback-verified-state');
+  const status=form.querySelector('.form-status');
+  const submitButton=form.querySelector('button[type="submit"]');
+
+  let challengeId='';
+  let verificationToken='';
+  let verifiedMobile='';
+
+  const invokeFeedback=async body=>{
+    if(!publicSupabase)throw new Error('Secure feedback connection is unavailable.');
+    const {data,error}=await publicSupabase.functions.invoke('feedback-public',{body});
+    if(error)throw error;
+    if(data?.error)throw new Error(data.error);
+    return data;
+  };
+
+  function resetVerification(){
+    challengeId='';verificationToken='';verifiedMobile='';
+    if(verifiedState){verifiedState.textContent='Not verified';verifiedState.classList.remove('verified');}
+  }
+
+  replyRequested?.addEventListener('change',()=>{
+    otpBox.hidden=!replyRequested.checked;
+    if(replyRequested.checked)mobileInput?.focus();
+    else resetVerification();
+  });
+
+  mobileInput?.addEventListener('input',()=>{
+    if(verifiedMobile && String(mobileInput.value||'').replace(/\D/g,'')!==verifiedMobile.replace(/^91/,''))resetVerification();
+  });
+
+  sendOtp?.addEventListener('click',async()=>{
+    try{
+      const mobile=clean(mobileInput?.value);
+      if(!mobile)throw new Error('Please enter your WhatsApp number.');
+      sendOtp.disabled=true;sendOtp.textContent='Sending…';
+      const result=await invokeFeedback({action:'send_otp',mobile});
+      challengeId=result.challenge_id;
+      otpBox.hidden=false;
+      verifiedState.textContent='Verification code sent through WhatsApp. It expires in 10 minutes.';
+      otpInput?.focus();
+    }catch(error){status.className='form-status error';status.textContent=error.message||'Unable to send verification code.';}
+    finally{sendOtp.disabled=false;sendOtp.textContent='Verify';}
+  });
+
+  verifyOtp?.addEventListener('click',async()=>{
+    try{
+      if(!challengeId)throw new Error('Please request a verification code first.');
+      const mobile=clean(mobileInput?.value),code=clean(otpInput?.value);
+      verifyOtp.disabled=true;verifyOtp.textContent='Checking…';
+      const result=await invokeFeedback({action:'verify_otp',mobile,challenge_id:challengeId,code});
+      verificationToken=result.verification_token;
+      verifiedMobile=String(mobile||'').replace(/\D/g,'');
+      verifiedState.textContent='✓ WhatsApp number verified';
+      verifiedState.classList.add('verified');
+      status.className='form-status success';status.textContent='WhatsApp number verified successfully.';
+    }catch(error){status.className='form-status error';status.textContent=error.message||'Verification failed.';}
+    finally{verifyOtp.disabled=false;verifyOtp.textContent='Confirm Code';}
+  });
+
+  form.addEventListener('submit',async event=>{
+    event.preventDefault();
+    const fd=new FormData(form);
+    try{
+      const wantsReply=!!fd.get('reply_requested');
+      if(wantsReply && !verificationToken)throw new Error('Please verify your WhatsApp number before submitting feedback.');
+
+      submitButton.disabled=true;submitButton.textContent='Submitting…';
+      status.className='form-status';status.textContent='Saving your feedback securely…';
+      const rating=fd.get('rating');
+
+      const result=await invokeFeedback({
+        action:'submit_feedback',
+        respondent_name:clean(fd.get('name')),
+        respondent_type:clean(fd.get('respondent_type'))||'Visitor',
+        mobile:clean(fd.get('mobile')),
+        email:clean(fd.get('email')),
+        patient_code:clean(fd.get('patient_code')),
+        category:clean(fd.get('category'))||'General',
+        rating:rating?Number(rating):null,
+        subject:clean(fd.get('subject')),
+        message:clean(fd.get('message')),
+        reply_requested:wantsReply,
+        verification_token:verificationToken
+      });
+
+      form.reset();otpBox.hidden=true;resetVerification();
+      status.className='form-status success';
+      status.innerHTML=`Thank you. Your feedback has been submitted successfully. <strong>Reference: ${result.feedback_reference}</strong>${wantsReply?' Samara will reply through your verified WhatsApp number.':''}`;
+    }catch(error){
+      console.error(error);
+      status.className='form-status error';
+      status.textContent=error.message||'Feedback could not be submitted. Please try again.';
+    }finally{
+      submitButton.disabled=false;submitButton.textContent='Submit Feedback';
+    }
+  });
+})();
