@@ -378,6 +378,35 @@ function copyCareerCurrentToPermanent(form) {
   syncCareerAddress(form,"permanent");
 }
 
+function setCareerExperienceLevel(level) {
+  const form = document.querySelector("#career-form");
+  if (!form) return;
+  const isFresher = level === "Fresher";
+  const isExperienced = level === "Experienced";
+
+  form.querySelectorAll(".career-fresher-only").forEach(label => {
+    label.hidden = !isFresher;
+    label.querySelectorAll("input,select,textarea").forEach(field => {
+      field.disabled = !isFresher;
+      field.required = isFresher && (field.name === "last_institution" || field.name === "course_details");
+      if (!isFresher) field.value = "";
+    });
+  });
+
+  form.querySelectorAll(".career-experienced-only").forEach(label => {
+    label.hidden = !isExperienced;
+    label.querySelectorAll("input,select,textarea").forEach(field => {
+      field.disabled = !isExperienced;
+      field.required = isExperienced && field.name === "qualification";
+      if (!isExperienced) {
+        if (field.tagName === "SELECT") field.selectedIndex = 0;
+        else field.value = "";
+      }
+    });
+  });
+}
+
+document.querySelector("#career-experience-level")?.addEventListener("change", event => setCareerExperienceLevel(event.target.value));
 document.querySelector("#career-department")?.addEventListener("change", event => populateCareerDesignations(event.target.value));
 document.querySelector("#career-current-district")?.addEventListener("change", () => { populateCareerTaluks("current"); syncCareerAddress(document.querySelector("#career-form"),"current"); });
 document.querySelector("#career-permanent-district")?.addEventListener("change", () => { populateCareerTaluks("permanent"); syncCareerAddress(document.querySelector("#career-form"),"permanent"); });
@@ -395,6 +424,7 @@ document.querySelectorAll(".career-role-apply").forEach(button => {
 
 const careerForm = document.querySelector("#career-form");
 if (careerForm) {
+  setCareerExperienceLevel(careerForm.elements.experience_level?.value || "");
   careerForm.querySelectorAll('[name^="current_"],[name^="permanent_"]').forEach(input => {
     if (input.name.endsWith("_address")) return;
     input.addEventListener("input", () => {
@@ -509,21 +539,26 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
       id_card_number: clean(data.get("id_card_number")),
       department: clean(data.get("department")),
       designation: clean(data.get("designation")),
-      qualification: clean(data.get("qualification")),
+      qualification: clean(data.get("experience_level")) === "Fresher" ? clean(data.get("course_details")) : clean(data.get("qualification")),
       previous_workplace: clean(data.get("previous_workplace")),
       current_employer: clean(data.get("previous_workplace")),
       reference_type: clean(data.get("reference_type")) || "Direct",
       reference_name: clean(data.get("reference_name")),
       reference_contact: clean(data.get("reference_contact")),
       registration_no: clean(data.get("registration")),
-      experience: clean(data.get("experience")),
+      experience: clean(data.get("experience_level")) === "Fresher" ? "Fresher" : clean(data.get("experience")),
       current_salary: clean(data.get("current_salary")),
       expected_salary: clean(data.get("expected_salary")),
       notice_period: clean(data.get("notice_period")),
       employment_type: clean(data.get("employment_type")),
       preferred_shift: clean(data.get("shift")),
       skills,
-      additional_information: clean(data.get("additional")),
+      additional_information: [
+        `Experience Level: ${clean(data.get("experience_level"))}`,
+        clean(data.get("experience_level")) === "Fresher" && clean(data.get("last_institution")) ? `Last Institution: ${clean(data.get("last_institution"))}` : "",
+        clean(data.get("experience_level")) === "Fresher" && clean(data.get("course_details")) ? `Course Details: ${clean(data.get("course_details"))}` : "",
+        clean(data.get("additional"))
+      ].filter(Boolean).join("\n"),
       current_address: clean(data.get("current_address")),
       current_state: clean(data.get("current_state")) || "Tamil Nadu",
       current_district: clean(data.get("current_district")),
@@ -572,6 +607,7 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
     status.classList.add("success");
     status.innerHTML = `Online application submitted successfully to Samara HR. <strong>Application ID: ${code}</strong>. Please keep this reference for all recruitment communication.`;
     form.reset();
+    setCareerExperienceLevel("");
     populateCareerDesignations("");
     populateCareerTaluks("current"); populateCareerTaluks("permanent");
     document.querySelectorAll(".career-file-name").forEach(node => node.textContent = "No file selected");

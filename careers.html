@@ -327,18 +327,23 @@
 <label>Designation *
 <select disabled="" id="career-designation" name="designation" required=""><option value="">Select department first</option></select>
 </label>
-<label>Highest Qualification *<input name="qualification" placeholder="Example: B.Sc Nursing" required=""/></label>
-<label>Previous Working Place<input name="previous_workplace" placeholder="Hospital / facility / organisation"/></label>
-<label>Joining Source
+<label>Experience Level *
+<select id="career-experience-level" name="experience_level" required=""><option value="">Select Fresher / Experienced</option><option>Fresher</option><option>Experienced</option></select>
+</label>
+<label class="career-fresher-only" hidden>Last Institution *<input name="last_institution" placeholder="College / university / training institution"/></label>
+<label class="career-fresher-only" hidden>Course Details *<input name="course_details" placeholder="Example: B.Sc Nursing, 2026"/></label>
+<label class="career-experienced-only">Highest Qualification *<input name="qualification" placeholder="Example: B.Sc Nursing" required=""/></label>
+<label class="career-experienced-only">Previous Working Place<input name="previous_workplace" placeholder="Hospital / facility / organisation"/></label>
+<label class="career-experienced-only">Joining Source
 <select name="reference_type"><option>Direct</option><option>Reference</option></select>
 </label>
-<label>Reference Name<input name="reference_name"/></label>
-<label>Reference Contact<input inputmode="numeric" maxlength="10" name="reference_contact"/></label>
-<label>Professional Registration No.<input name="registration" placeholder="TNMC / council number, if applicable"/></label>
-<label>Total Experience<input name="experience" placeholder="Example: 4 years 6 months"/></label>
-<label>Current Monthly Salary<input inputmode="numeric" name="current_salary"/></label>
-<label>Expected Monthly Salary<input inputmode="numeric" name="expected_salary"/></label>
-<label>Notice Period
+<label class="career-experienced-only">Reference Name<input name="reference_name"/></label>
+<label class="career-experienced-only">Reference Contact<input inputmode="numeric" maxlength="10" name="reference_contact"/></label>
+<label class="career-experienced-only">Professional Registration No.<input name="registration" placeholder="TNMC / council number, if applicable"/></label>
+<label class="career-experienced-only">Total Experience<input name="experience" placeholder="Example: 4 years 6 months"/></label>
+<label class="career-experienced-only">Current Monthly Salary<input inputmode="numeric" name="current_salary"/></label>
+<label class="career-experienced-only">Expected Monthly Salary<input inputmode="numeric" name="expected_salary"/></label>
+<label class="career-experienced-only">Notice Period
 <select name="notice_period"><option>Immediate</option><option>Within 15 days</option><option>Within 30 days</option><option>More than 30 days</option></select>
 </label>
 <label>Preferred Employment Type
@@ -526,6 +531,6 @@
 </a>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="./config.js"></script>
-<script src="./js/app.js?v=1.8.0"></script>
+<script src="./js/app.js?v=1.8.1"></script>
 </body>
 </html>
