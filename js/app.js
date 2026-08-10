@@ -120,6 +120,10 @@ function showSamaraInaugurationInvitation(){
 }
 
 function initSamaraInaugurationInvitation(){
+  // Do not show the inauguration invitation on the Careers application page.
+  // The invitation remains unchanged on all other website pages.
+  const pagePath=(window.location.pathname||'').toLowerCase().replace(/\/+$/,'');
+  if(pagePath.endsWith('/careers.html'))return;
   window.setTimeout(showSamaraInaugurationInvitation,650);
 }
 
