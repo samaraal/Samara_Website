@@ -346,8 +346,8 @@
 <label class="career-fresher-only" hidden>Last Institution *<input name="last_institution" placeholder="College / university / training institution"/></label>
 <label class="career-fresher-only" hidden>Course Details *<input name="course_details" placeholder="Example: B.Sc Nursing, 2026"/></label>
 <label class="career-experienced-only">Previous Working Place<input name="previous_workplace" placeholder="Hospital / facility / organisation"/></label>
-<label class="career-personal-reference-only" hidden>Reference Name *<input name="reference_name" placeholder="Name of friend / relative / senior"/></label>
-<label class="career-personal-reference-only" hidden>Reference Mobile No. *<input inputmode="numeric" maxlength="10" name="reference_contact" placeholder="10-digit mobile number"/></label>
+<label class="career-personal-reference-only" hidden style="display:none">Reference Name *<input name="reference_name" placeholder="Name of friend / relative / senior" autocomplete="name"/></label>
+<label class="career-personal-reference-only" hidden style="display:none">Reference Mobile No. *<input inputmode="numeric" maxlength="10" minlength="10" pattern="[0-9]{10}" name="reference_contact" placeholder="10-digit mobile number" autocomplete="tel"/></label>
 <label class="career-experienced-only">Total Experience<input name="experience" placeholder="Example: 4 years 6 months"/></label>
 <label class="career-experienced-only">Current Monthly Salary<input inputmode="numeric" name="current_salary"/></label>
 <label class="career-experienced-only">Expected Monthly Salary<input inputmode="numeric" name="expected_salary"/></label>

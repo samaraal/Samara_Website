@@ -435,9 +435,11 @@ function updateCareerReferenceDetails() {
   const show = form.elements.reference_type?.value === "Friends / Relatives / Seniors";
   form.querySelectorAll(".career-personal-reference-only").forEach(label => {
     label.hidden = !show;
+    label.style.display = show ? "" : "none";
     label.querySelectorAll("input,select,textarea").forEach(field => {
       field.disabled = !show;
       field.required = show;
+      field.setAttribute("aria-required", show ? "true" : "false");
       if (!show) field.value = "";
     });
   });
