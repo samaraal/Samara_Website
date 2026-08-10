@@ -267,8 +267,29 @@ function careerApplicationId() {
   return `SAM-HR-${date}-${random}`;
 }
 
-function selectedSkills(form) {
-  return [...form.querySelectorAll('input[name="skills"]:checked')].map(input => input.value);
+function selectedLanguages(form) {
+  return [...form.querySelectorAll('input[name="languages_known"]:checked')].map(input => input.value);
+}
+
+function selectedNursingDepartments(form) {
+  return [...form.querySelectorAll('input[name="nursing_departments"]:checked')].map(input => input.value);
+}
+
+function careerSkillsSummary(form) {
+  const data = new FormData(form);
+  const languages = [...(form.dataset.languages ? JSON.parse(form.dataset.languages) : [])];
+  const otherLanguage = clean(data.get("other_language"));
+  if (languages.includes("Others") && otherLanguage) languages[languages.indexOf("Others")] = otherLanguage;
+  const departments = selectedNursingDepartments(form);
+  const otherDepartment = clean(data.get("other_nursing_department"));
+  const normalizedDepartments = departments.map(value => value === "Other Nursing Department" && otherDepartment ? otherDepartment : value);
+  return [
+    ...languages.map(value => `Language: ${value}`),
+    clean(data.get("other_skills")) ? `Other Skills: ${clean(data.get("other_skills"))}` : "",
+    clean(data.get("driving")) ? `Driving: ${clean(data.get("driving"))}` : "",
+    clean(data.get("driving")) === "Yes" && clean(data.get("driving_license")) ? `Valid Driving Licence: ${clean(data.get("driving_license"))}` : "",
+    ...normalizedDepartments.map(value => `Nursing Department: ${value}`)
+  ].filter(Boolean);
 }
 
 function validateCareerFile(input, required = false) {
@@ -406,8 +427,92 @@ function setCareerExperienceLevel(level) {
   });
 }
 
-document.querySelector("#career-experience-level")?.addEventListener("change", event => setCareerExperienceLevel(event.target.value));
-document.querySelector("#career-department")?.addEventListener("change", event => populateCareerDesignations(event.target.value));
+
+function updateCareerExperiencedNursing() {
+  const form = document.querySelector("#career-form");
+  if (!form) return;
+  const show = form.elements.experience_level?.value === "Experienced" && form.elements.department?.value === "Nursing";
+  form.querySelectorAll(".career-experienced-nursing-only").forEach(section => {
+    section.hidden = !show;
+    section.querySelectorAll("input,select,textarea").forEach(field => {
+      field.disabled = !show;
+      if (!show) {
+        if (field.type === "checkbox") field.checked = false;
+        else field.value = "";
+      }
+    });
+  });
+  updateCareerOtherNursingDepartment();
+}
+
+function updateCareerOtherNursingDepartment() {
+  const form = document.querySelector("#career-form");
+  if (!form) return;
+  const wrap = document.querySelector("#career-other-nursing-dept-wrap");
+  const field = form.elements.other_nursing_department;
+  const checked = !!form.querySelector('input[name="nursing_departments"][value="Other Nursing Department"]:checked');
+  if (wrap) wrap.hidden = !checked;
+  if (field) {
+    field.disabled = !checked;
+    if (!checked) field.value = "";
+  }
+}
+
+function addCareerLanguage(value) {
+  const form = document.querySelector("#career-form");
+  if (!form || !value) return;
+  let values = [];
+  try { values = JSON.parse(form.dataset.languages || "[]"); } catch (_) {}
+  if (!values.includes(value)) values.push(value);
+  form.dataset.languages = JSON.stringify(values);
+  renderCareerLanguages();
+}
+
+function renderCareerLanguages() {
+  const form = document.querySelector("#career-form");
+  const holder = document.querySelector("#career-selected-languages");
+  if (!form || !holder) return;
+  let values = [];
+  try { values = JSON.parse(form.dataset.languages || "[]"); } catch (_) {}
+  const target = holder.querySelector("span");
+  if (target) target.innerHTML = values.length ? values.map(value => `<button type="button" class="career-language-chip" data-remove-language="${value.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;")}">${value} ×</button>`).join(" ") : "None";
+  const otherWrap = document.querySelector("#career-other-language-wrap");
+  const otherField = form.elements.other_language;
+  const showOther = values.includes("Others");
+  if (otherWrap) otherWrap.hidden = !showOther;
+  if (otherField) {
+    otherField.disabled = !showOther;
+    if (!showOther) otherField.value = "";
+  }
+}
+
+function updateCareerDriving() {
+  const form = document.querySelector("#career-form");
+  const wrap = document.querySelector("#career-driving-license-wrap");
+  if (!form) return;
+  const show = form.elements.driving?.value === "Yes";
+  if (wrap) wrap.hidden = !show;
+  if (form.elements.driving_license) {
+    form.elements.driving_license.disabled = !show;
+    if (!show) form.elements.driving_license.value = "";
+  }
+}
+
+document.querySelector("#career-experience-level")?.addEventListener("change", event => { setCareerExperienceLevel(event.target.value); updateCareerExperiencedNursing(); });
+document.querySelector("#career-department")?.addEventListener("change", event => { populateCareerDesignations(event.target.value); updateCareerExperiencedNursing(); });
+document.querySelector("#career-language-select")?.addEventListener("change", event => { addCareerLanguage(event.target.value); event.target.value = ""; });
+document.querySelector("#career-selected-languages")?.addEventListener("click", event => {
+  const button = event.target.closest("[data-remove-language]");
+  const form = document.querySelector("#career-form");
+  if (!button || !form) return;
+  let values = [];
+  try { values = JSON.parse(form.dataset.languages || "[]"); } catch (_) {}
+  values = values.filter(value => value !== button.dataset.removeLanguage);
+  form.dataset.languages = JSON.stringify(values);
+  renderCareerLanguages();
+});
+document.querySelector("#career-driving")?.addEventListener("change", updateCareerDriving);
+document.querySelectorAll('input[name="nursing_departments"]').forEach(input => input.addEventListener("change", updateCareerOtherNursingDepartment));
 document.querySelector("#career-current-district")?.addEventListener("change", () => { populateCareerTaluks("current"); syncCareerAddress(document.querySelector("#career-form"),"current"); });
 document.querySelector("#career-permanent-district")?.addEventListener("change", () => { populateCareerTaluks("permanent"); syncCareerAddress(document.querySelector("#career-form"),"permanent"); });
 
@@ -424,7 +529,11 @@ document.querySelectorAll(".career-role-apply").forEach(button => {
 
 const careerForm = document.querySelector("#career-form");
 if (careerForm) {
+  careerForm.dataset.languages = "[]";
   setCareerExperienceLevel(careerForm.elements.experience_level?.value || "");
+  updateCareerExperiencedNursing();
+  renderCareerLanguages();
+  updateCareerDriving();
   careerForm.querySelectorAll('[name^="current_"],[name^="permanent_"]').forEach(input => {
     if (input.name.endsWith("_address")) return;
     input.addEventListener("input", () => {
@@ -505,13 +614,13 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
     const photo = validateCareerFile(form.elements.photo, true);
     const identity = validateCareerFile(form.elements.identity, true);
     const qualificationCert = validateCareerFile(form.elements.qualification_certificate);
-    const experienceCert = validateCareerFile(form.elements.experience_certificate);
+    const experienceCert = form.elements.experience_level?.value === "Experienced" ? validateCareerFile(form.elements.experience_certificate) : null;
     const otherCert = validateCareerFile(form.elements.other_certificate);
 
     const data = new FormData(form);
     const applicationId = careerApplicationId();
     const uploadId = crypto.randomUUID();
-    const skills = selectedSkills(form);
+    const skills = careerSkillsSummary(form);
 
     status.textContent = "Uploading your employee documents securely…";
     const [resumePath,photoPath,identityPath,qualificationPath,experiencePath,otherPath] = await Promise.all([
@@ -550,14 +659,18 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
       current_salary: clean(data.get("current_salary")),
       expected_salary: clean(data.get("expected_salary")),
       notice_period: clean(data.get("notice_period")),
-      employment_type: clean(data.get("employment_type")),
-      preferred_shift: clean(data.get("shift")),
+      employment_type: "",
+      preferred_shift: "",
       skills,
       additional_information: [
         `Experience Level: ${clean(data.get("experience_level"))}`,
         clean(data.get("experience_level")) === "Fresher" && clean(data.get("last_institution")) ? `Last Institution: ${clean(data.get("last_institution"))}` : "",
         clean(data.get("experience_level")) === "Fresher" && clean(data.get("course_details")) ? `Course Details: ${clean(data.get("course_details"))}` : "",
-        clean(data.get("additional"))
+        (() => { let v=[]; try { v=JSON.parse(form.dataset.languages||"[]"); } catch(_){}; const other=clean(data.get("other_language")); return v.length ? `Languages Known: ${v.map(x=>x==="Others"&&other?other:x).join(", ")}` : ""; })(),
+        clean(data.get("other_skills")) ? `Other Skills: ${clean(data.get("other_skills"))}` : "",
+        clean(data.get("driving")) ? `Driving: ${clean(data.get("driving"))}` : "",
+        clean(data.get("driving")) === "Yes" && clean(data.get("driving_license")) ? `Valid Driving Licence: ${clean(data.get("driving_license"))}` : "",
+        selectedNursingDepartments(form).length ? `Nursing Departments Worked In: ${selectedNursingDepartments(form).map(x=>x==="Other Nursing Department"&&clean(data.get("other_nursing_department"))?clean(data.get("other_nursing_department")):x).join(", ")}` : ""
       ].filter(Boolean).join("\n"),
       current_address: clean(data.get("current_address")),
       current_state: clean(data.get("current_state")) || "Tamil Nadu",
@@ -607,7 +720,11 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
     status.classList.add("success");
     status.innerHTML = `Online application submitted successfully to Samara HR. <strong>Application ID: ${code}</strong>. Please keep this reference for all recruitment communication.`;
     form.reset();
+    form.dataset.languages = "[]";
     setCareerExperienceLevel("");
+    updateCareerExperiencedNursing();
+    renderCareerLanguages();
+    updateCareerDriving();
     populateCareerDesignations("");
     populateCareerTaluks("current"); populateCareerTaluks("permanent");
     document.querySelectorAll(".career-file-name").forEach(node => node.textContent = "No file selected");

@@ -346,12 +346,6 @@
 <label class="career-experienced-only">Notice Period
 <select name="notice_period"><option>Immediate</option><option>Within 15 days</option><option>Within 30 days</option><option>More than 30 days</option></select>
 </label>
-<label>Preferred Employment Type
-<select name="employment_type"><option>Full Time</option><option>Part Time</option><option>Contract</option><option>Any Suitable Type</option></select>
-</label>
-<label>Preferred Shift
-<select name="shift"><option>Any Shift</option><option>Day Shift</option><option>Night Shift</option><option>Rotational Shift</option></select>
-</label>
 </div>
 </section>
 <section class="career-form-section">
@@ -473,22 +467,39 @@
 </div>
 </section>
 <section class="career-form-section">
-<div class="career-form-title"><span>5</span><div><h3>Skills &amp; Additional Information</h3><p>Select relevant skills and provide any additional employment information.</p></div></div>
-<div class="career-skill-grid">
-<label><input name="skills" type="checkbox" value="Elderly Care"/> Elderly Care</label>
-<label><input name="skills" type="checkbox" value="Medication Administration"/> Medication Administration</label>
-<label><input name="skills" type="checkbox" value="Post-operative Care"/> Post-operative Care</label>
-<label><input name="skills" type="checkbox" value="Dementia Care"/> Dementia Care</label>
-<label><input name="skills" type="checkbox" value="Palliative Care"/> Palliative Care</label>
-<label><input name="skills" type="checkbox" value="Physiotherapy"/> Physiotherapy</label>
-<label><input name="skills" type="checkbox" value="Resident Documentation"/> Resident Documentation</label>
-<label><input name="skills" type="checkbox" value="Computer Knowledge"/> Computer Knowledge</label>
-<label><input name="skills" type="checkbox" value="Tamil"/> Tamil</label>
-<label><input name="skills" type="checkbox" value="English"/> English</label>
-<label><input name="skills" type="checkbox" value="Hindi"/> Hindi</label>
-<label><input name="skills" type="checkbox" value="Driving"/> Driving</label>
+<div class="career-form-title"><span>5</span><div><h3>Additional Details</h3><p>Provide only the additional information relevant to your application.</p></div></div>
+<div class="form-grid career-grid">
+<label>Languages Known
+<select id="career-language-select" name="language_selector">
+<option value="">Select a language to add</option>
+<option>Tamil</option><option>English</option><option>Malayalam</option><option>Telugu</option><option>Others</option>
+</select>
+</label>
+<div class="career-full-label" id="career-selected-languages"><strong>Selected Languages:</strong> <span>None</span></div>
+<label id="career-other-language-wrap" hidden>Other Language<input id="career-other-language" name="other_language" placeholder="Specify language"/></label>
+<label class="full">Other Skills<textarea name="other_skills" placeholder="Any other relevant skills" rows="3"></textarea></label>
+<label>Driving
+<select id="career-driving" name="driving"><option value="">Select</option><option>Yes</option><option>No</option></select>
+</label>
+<label id="career-driving-license-wrap" hidden>Have Valid Driving Licence?
+<select id="career-driving-license" name="driving_license"><option value="">Select</option><option>Yes</option><option>No</option></select>
+</label>
 </div>
-<label class="career-full-label">Additional Information<textarea name="additional" placeholder="Briefly describe relevant achievements, duties or special skills" rows="4"></textarea></label>
+<div class="career-experienced-nursing-only" hidden>
+<label class="career-full-label"><strong>Nursing Departments Worked In</strong><small style="display:block;margin-top:4px">For experienced nursing candidates only. Tick all applicable departments.</small></label>
+<div class="career-skill-grid">
+<label><input name="nursing_departments" type="checkbox" value="ICU / Critical Care"/> ICU / Critical Care</label>
+<label><input name="nursing_departments" type="checkbox" value="Emergency / Casualty"/> Emergency / Casualty</label>
+<label><input name="nursing_departments" type="checkbox" value="Medical Ward"/> Medical Ward</label>
+<label><input name="nursing_departments" type="checkbox" value="Surgical Ward"/> Surgical Ward</label>
+<label><input name="nursing_departments" type="checkbox" value="Operation Theatre"/> Operation Theatre</label>
+<label><input name="nursing_departments" type="checkbox" value="Post-operative Care"/> Post-operative Care</label>
+<label><input name="nursing_departments" type="checkbox" value="Geriatric / Elderly Care"/> Geriatric / Elderly Care</label>
+<label><input name="nursing_departments" type="checkbox" value="Palliative Care"/> Palliative Care</label>
+<label><input name="nursing_departments" type="checkbox" value="Other Nursing Department"/> Other</label>
+</div>
+<label class="career-full-label" id="career-other-nursing-dept-wrap" hidden>Other Nursing Department<input name="other_nursing_department" placeholder="Specify department"/></label>
+</div>
 </section>
 <section class="career-form-section">
 <div class="career-form-title"><span>6</span><div><h3>Photo, Resume &amp; Employee Documents</h3><p>These correspond with the documents maintained in Samara Employee Master. Maximum 10 MB per file.</p></div></div>
@@ -497,7 +508,7 @@
 <label class="career-upload-card"><span class="career-upload-icon">◉</span><strong>Employee Photo *</strong><small>Passport-style photograph</small><input accept=".jpg,.jpeg,.png,image/*" name="photo" required="" type="file"/><span class="career-file-name">No file selected</span></label>
 <label class="career-upload-card"><span class="career-upload-icon">▣</span><strong>ID Card / Identity Proof *</strong><small>Aadhaar / PAN / other selected ID</small><input accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/*" name="identity" required="" type="file"/><span class="career-file-name">No file selected</span></label>
 <label class="career-upload-card"><span class="career-upload-icon">✚</span><strong>Qualification Certificates</strong><small>Qualification / professional registration certificate</small><input accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/*" name="qualification_certificate" type="file"/><span class="career-file-name">No file selected</span></label>
-<label class="career-upload-card"><span class="career-upload-icon">▤</span><strong>Experience / Previous Employment Certificate</strong><small>Previous employment / experience proof</small><input accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/*" name="experience_certificate" type="file"/><span class="career-file-name">No file selected</span></label>
+<label class="career-upload-card career-experienced-only"><span class="career-upload-icon">▤</span><strong>Experience / Previous Employment Certificate</strong><small>Previous employment / experience proof</small><input accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/*" name="experience_certificate" type="file"/><span class="career-file-name">No file selected</span></label>
 <label class="career-upload-card"><span class="career-upload-icon">＋</span><strong>Other Certificate</strong><small>Any additional relevant certificate</small><input accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/*" name="other_certificate" type="file"/><span class="career-file-name">No file selected</span></label>
 </div>
 </section>
@@ -531,6 +542,6 @@
 </a>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="./config.js"></script>
-<script src="./js/app.js?v=1.8.1"></script>
+<script src="./js/app.js?v=1.8.2"></script>
 </body>
 </html>
