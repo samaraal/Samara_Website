@@ -535,13 +535,38 @@ document.querySelector("#career-current-district")?.addEventListener("change", (
 document.querySelector("#career-permanent-district")?.addEventListener("change", () => { populateCareerTaluks("permanent"); syncCareerAddress(document.querySelector("#career-form"),"permanent"); });
 
 document.querySelectorAll(".career-role-apply").forEach(button => {
-  button.addEventListener("click", () => {
+  button.addEventListener("click", event => {
+    // Keep the #career-application href as a no-JavaScript/mobile fallback,
+    // but use an offset-aware scroll when JavaScript is available.
+    event.preventDefault();
+
     const department = document.querySelector("#career-department");
     if (department) {
       department.value = button.dataset.careerDepartment || "";
       populateCareerDesignations(department.value, button.dataset.careerDesignation || "");
     }
-    document.querySelector("#career-application")?.scrollIntoView({ behavior: "smooth" });
+
+    const target = document.querySelector("#career-application");
+    const form = document.querySelector("#career-form");
+    if (!target) return;
+
+    // The careers page uses reveal-on-scroll. Make the application content
+    // visible immediately so mobile browsers cannot land on an invisible form.
+    target.querySelectorAll(".reveal").forEach(node => node.classList.add("visible"));
+    form?.classList.add("visible");
+
+    // Allow the browser one frame to finish any mobile layout changes before scrolling.
+    requestAnimationFrame(() => {
+      const header = document.querySelector(".header");
+      const headerOffset = (header?.getBoundingClientRect().height || 72) + 12;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+      try {
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      } catch (_) {
+        window.scrollTo(0, Math.max(0, top));
+      }
+      history.replaceState(null, "", "#career-application");
+    });
   });
 });
 
