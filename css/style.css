@@ -855,3 +855,37 @@ html,body{max-width:100%;overflow-x:hidden}
 .feedback-verified-state{margin-top:9px;font-size:.86rem;font-weight:800;color:#8a6b7a}
 .feedback-verified-state.verified{color:#167654}
 @media(max-width:640px){.feedback-mobile-row{align-items:stretch;flex-direction:column}.feedback-mobile-row .btn{width:100%}}
+
+/* Samara location QR — floating beside WhatsApp on every page */
+.floating.location-qr-float{
+  right:96px;
+  width:64px;
+  height:64px;
+  padding:5px;
+  background:#fff;
+  border:4px solid #fff;
+  overflow:hidden;
+  box-shadow:0 12px 30px rgba(0,0,0,.22);
+  text-decoration:none;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.floating.location-qr-float:hover{
+  transform:translateY(-3px) scale(1.04);
+  box-shadow:0 16px 34px rgba(0,0,0,.26);
+}
+.floating.location-qr-float img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:5px;
+}
+@media(max-width:640px){
+  .floating.location-qr-float{
+    right:88px;
+    width:58px;
+    height:58px;
+    padding:4px;
+    border-width:3px;
+  }
+}

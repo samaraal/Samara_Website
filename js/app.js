@@ -871,3 +871,26 @@ console.info(`Samara Website ${WEBSITE_VERSION}`);
     }
   });
 })();
+
+/* Samara location QR floating shortcut — shown beside WhatsApp on every page */
+(function(){
+  function addLocationQr(){
+    if(document.querySelector('.location-qr-float')) return;
+    const whatsapp=document.querySelector('.whatsapp-float');
+    if(!whatsapp) return;
+    const link=document.createElement('a');
+    link.className='floating location-qr-float';
+    link.href='https://maps.app.goo.gl/NwdW9T6WFnosJg8V7?g_st=iw';
+    link.target='_blank';
+    link.rel='noopener';
+    link.title='Samara Location – Open in Google Maps';
+    link.setAttribute('aria-label','Open Samara Assisted Living location in Google Maps');
+    const img=document.createElement('img');
+    img.src='./assets/location-qr.jpeg';
+    img.alt='Samara location QR code';
+    link.appendChild(img);
+    whatsapp.insertAdjacentElement('beforebegin',link);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addLocationQr);
+  else addLocationQr();
+})();
