@@ -418,7 +418,7 @@ function setCareerExperienceLevel(level) {
     label.hidden = !isExperienced;
     label.querySelectorAll("input,select,textarea").forEach(field => {
       field.disabled = !isExperienced;
-      field.required = isExperienced && field.name === "qualification";
+      field.required = false;
       if (!isExperienced) {
         if (field.tagName === "SELECT") field.selectedIndex = 0;
         else field.value = "";
@@ -648,7 +648,7 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
       id_card_number: clean(data.get("id_card_number")),
       department: clean(data.get("department")),
       designation: clean(data.get("designation")),
-      qualification: clean(data.get("experience_level")) === "Fresher" ? clean(data.get("course_details")) : clean(data.get("qualification")),
+      qualification: clean(data.get("qualification")),
       previous_workplace: clean(data.get("previous_workplace")),
       current_employer: clean(data.get("previous_workplace")),
       reference_type: clean(data.get("reference_type")) || "Direct",

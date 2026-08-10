@@ -297,13 +297,13 @@
 <select name="title" required=""><option value="">Select title</option><option>Dr.</option><option>Prof.</option><option>Mr.</option><option>Mrs.</option><option>Ms.</option><option>Miss</option><option>Shri</option><option>Smt.</option><option>Rev.</option><option>Fr.</option><option>Br.</option><option>Sr.</option><option>Other</option></select>
 </label>
 <label>Applicant Name *<input autocomplete="name" name="name" placeholder="Full name as per records" required=""/></label>
-<label>Father / Guardian Name<input name="father_guardian_name"/></label>
+<label>Father / Mother / Guardian Name *<input name="father_guardian_name" required=""/></label>
 <label>Date of Birth<input name="dob" type="date"/></label>
 <label>Blood Group
 <select name="blood_group"><option value="">Select blood group</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option><option>Unknown</option></select>
 </label>
 <label>Mobile Number *<input inputmode="numeric" maxlength="10" name="mobile" placeholder="10-digit mobile number" required=""/></label>
-<label>Emergency Contact<input inputmode="numeric" maxlength="10" name="emergency_contact" placeholder="10-digit emergency number"/></label>
+<label>Father / Mother / Guardian Mobile No. *<input inputmode="numeric" maxlength="10" name="emergency_contact" placeholder="10-digit mobile number" required=""/></label>
 <label>Email ID *<input autocomplete="email" name="email" placeholder="name@example.com" required="" type="email"/></label>
 <label>ID Card Type
 <select name="id_card_type"><option>Aadhaar</option><option>PAN</option><option>Driving Licence</option><option>Voter ID</option><option>Passport</option><option>Other</option></select>
@@ -330,16 +330,24 @@
 <label>Experience Level *
 <select id="career-experience-level" name="experience_level" required=""><option value="">Select Fresher / Experienced</option><option>Fresher</option><option>Experienced</option></select>
 </label>
+<label>Qualification *<input name="qualification" placeholder="Example: B.Sc Nursing / GNM / ANM" required=""/></label>
+<label>Reference Source *
+<select name="reference_type" required="">
+<option value="">Select source</option>
+<option>Online Search</option>
+<option>Friends / Relatives</option>
+<option>Colleagues</option>
+<option>Samara Website / Direct Call</option>
+<option>Campus Interview</option>
+<option>Social Media</option>
+<option>Other</option>
+</select>
+</label>
 <label class="career-fresher-only" hidden>Last Institution *<input name="last_institution" placeholder="College / university / training institution"/></label>
 <label class="career-fresher-only" hidden>Course Details *<input name="course_details" placeholder="Example: B.Sc Nursing, 2026"/></label>
-<label class="career-experienced-only">Highest Qualification *<input name="qualification" placeholder="Example: B.Sc Nursing" required=""/></label>
 <label class="career-experienced-only">Previous Working Place<input name="previous_workplace" placeholder="Hospital / facility / organisation"/></label>
-<label class="career-experienced-only">Joining Source
-<select name="reference_type"><option>Direct</option><option>Reference</option></select>
-</label>
 <label class="career-experienced-only">Reference Name<input name="reference_name"/></label>
 <label class="career-experienced-only">Reference Contact<input inputmode="numeric" maxlength="10" name="reference_contact"/></label>
-<label class="career-experienced-only">Professional Registration No.<input name="registration" placeholder="TNMC / council number, if applicable"/></label>
 <label class="career-experienced-only">Total Experience<input name="experience" placeholder="Example: 4 years 6 months"/></label>
 <label class="career-experienced-only">Current Monthly Salary<input inputmode="numeric" name="current_salary"/></label>
 <label class="career-experienced-only">Expected Monthly Salary<input inputmode="numeric" name="expected_salary"/></label>
