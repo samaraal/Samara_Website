@@ -428,6 +428,21 @@ function setCareerExperienceLevel(level) {
 }
 
 
+
+function updateCareerReferenceDetails() {
+  const form = document.querySelector("#career-form");
+  if (!form) return;
+  const show = form.elements.reference_type?.value === "Friends / Relatives / Seniors";
+  form.querySelectorAll(".career-personal-reference-only").forEach(label => {
+    label.hidden = !show;
+    label.querySelectorAll("input,select,textarea").forEach(field => {
+      field.disabled = !show;
+      field.required = show;
+      if (!show) field.value = "";
+    });
+  });
+}
+
 function updateCareerExperiencedNursing() {
   const form = document.querySelector("#career-form");
   if (!form) return;
@@ -499,6 +514,7 @@ function updateCareerDriving() {
 }
 
 document.querySelector("#career-experience-level")?.addEventListener("change", event => { setCareerExperienceLevel(event.target.value); updateCareerExperiencedNursing(); });
+document.querySelector("#career-reference-source")?.addEventListener("change", updateCareerReferenceDetails);
 document.querySelector("#career-department")?.addEventListener("change", event => { populateCareerDesignations(event.target.value); updateCareerExperiencedNursing(); });
 document.querySelector("#career-language-select")?.addEventListener("change", event => { addCareerLanguage(event.target.value); event.target.value = ""; });
 document.querySelector("#career-selected-languages")?.addEventListener("click", event => {
@@ -532,6 +548,7 @@ if (careerForm) {
   careerForm.dataset.languages = "[]";
   setCareerExperienceLevel(careerForm.elements.experience_level?.value || "");
   updateCareerExperiencedNursing();
+  updateCareerReferenceDetails();
   renderCareerLanguages();
   updateCareerDriving();
   careerForm.querySelectorAll('[name^="current_"],[name^="permanent_"]').forEach(input => {
