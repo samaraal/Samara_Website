@@ -517,8 +517,10 @@ function validateCareerContactsAndSalutation(form, showPopup = true) {
   return { ok:true, message:"" };
 }
 
-const careerForm = document.querySelector("#career-form");
+function initialiseCareerGenderAndValidation() {
+const careerForm = document.querySelector("#career-form") || document.querySelector('form[action*=career]') || [...document.forms].find(f=>f.elements?.title && f.elements?.mobile && (f.elements?.emergency_contact || f.elements?.father_guardian_mobile));
 if (careerForm) {
+  if (!careerForm.elements.emergency_contact && careerForm.elements.father_guardian_mobile) careerForm.elements.father_guardian_mobile.name='emergency_contact';
   const careerGender = ensureCareerGenderField(careerForm);
   updateCareerSalutations(careerForm);
   careerGender?.addEventListener('change', () => updateCareerSalutations(careerForm));
@@ -736,4 +738,9 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
 });
 
 initSamaraInaugurationInvitation();
-console.info(`Samara Website ${WEBSITE_VERSION}`);
+console.info(`Samara Website ${WEBSITE_VERSION}`);}
+
+
+
+
+if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initialiseCareerGenderAndValidation, {once:true}); } else { initialiseCareerGenderAndValidation(); }
