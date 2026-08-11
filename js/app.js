@@ -5,7 +5,7 @@ const SAMARA_PHONE = "073959 61616";
 
 
 const SAMARA_INVITATION_END = new Date(2026, 8, 1, 0, 0, 0); // Visible through 31-Aug-2026; stops from 01-Sep-2026.
-const SAMARA_INVITATION_SESSION_KEY = 'samara_grand_opening_invitation_aug2026_v7';
+const SAMARA_INVITATION_SESSION_KEY = 'samara_grand_opening_invitation_aug2026_v8';
 const SAMARA_GRAND_BANNER_MS = 15000; // Grand Opening stage stays on screen for 15 seconds.
 const SAMARA_INVITATION_SCROLL_MS = 24000; // Invitation gently scrolls through the full screen.
 
@@ -174,7 +174,7 @@ function showSamaraInaugurationInvitation(){
     const banner=document.createElement('div');
     banner.className='samara-opening-banner';
     banner.innerHTML=`
-      <img class="samara-grand-banner-art" src="./assets/samara-grand-opening-banner-27-08-2026.png?v=20260811-v8" alt="Samara Assisted Living Grand Opening on 27 August 2026">
+      <img class="samara-grand-banner-art" src="./assets/samara-grand-opening-banner-27-08-2026.png?v=20260811-v9" alt="Samara Assisted Living Grand Opening on 27 August 2026">
       <div class="samara-curtain left" aria-hidden="true"></div><div class="samara-curtain right" aria-hidden="true"></div>`;
 
     const scrollStage=document.createElement('div');
