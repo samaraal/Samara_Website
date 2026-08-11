@@ -239,6 +239,55 @@ document.querySelector("#visit-form")?.addEventListener("submit", event => {
   whatsapp(message, event.currentTarget.querySelector(".form-status"));
 });
 
+
+function ensureAdmissionEnquiryGenderField(form) {
+  if (!form || form.elements.gender) return form?.elements.gender || null;
+  const anchor = form.elements.age || form.elements.resident || form.elements.contact;
+  if (!anchor) return null;
+  const anchorBlock = anchor.closest("label") || anchor.parentElement;
+  if (!anchorBlock || !anchorBlock.parentNode) return null;
+
+  const wrapper = document.createElement(anchorBlock.tagName === "LABEL" ? "label" : "div");
+  wrapper.className = anchorBlock.className || "";
+  if (wrapper.tagName === "LABEL") {
+    wrapper.append(document.createTextNode("Gender *"));
+  } else {
+    const label = document.createElement("label");
+    label.setAttribute("for", "admission-enquiry-gender");
+    label.textContent = "Gender *";
+    wrapper.appendChild(label);
+  }
+  const select = document.createElement("select");
+  select.id = "admission-enquiry-gender";
+  select.name = "gender";
+  select.required = true;
+  select.innerHTML = '<option value="">Select gender</option><option value="Male">Male</option><option value="Female">Female</option><option value="Other">Other</option>';
+  wrapper.appendChild(select);
+  anchorBlock.parentNode.insertBefore(wrapper, anchorBlock.nextSibling);
+  return select;
+}
+
+function initialisePublicGenderFields() {
+  const enquiryForm = document.querySelector("#enquiry-form");
+  if (enquiryForm) ensureAdmissionEnquiryGenderField(enquiryForm);
+
+  const form = document.querySelector("#career-form");
+  if (form) {
+    const gender = ensureCareerGenderField(form);
+    updateCareerSalutations(form);
+    if (gender && !gender.dataset.samaraGenderBound) {
+      gender.dataset.samaraGenderBound = "1";
+      gender.addEventListener("change", () => updateCareerSalutations(form));
+    }
+  }
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initialisePublicGenderFields, { once:true });
+} else {
+  initialisePublicGenderFields();
+}
+
 document.querySelector("#enquiry-form")?.addEventListener("submit", event => {
   event.preventDefault();
   const data = new FormData(event.currentTarget);
@@ -246,6 +295,7 @@ document.querySelector("#enquiry-form")?.addEventListener("submit", event => {
     "*Samara – Admission Enquiry*",
     `Resident: ${clean(data.get("resident"))}`,
     `Age: ${clean(data.get("age")) || "Not specified"}`,
+    `Gender: ${clean(data.get("gender")) || "Not specified"}`,
     `Contact Person: ${clean(data.get("contact"))}`,
     `Mobile: ${clean(data.get("mobile"))}`,
     `Care Type: ${clean(data.get("care"))}`,
@@ -414,11 +464,11 @@ function ensureCareerGenderField(form) {
   const wrapper = document.createElement(isLabel ? "label" : "div");
   wrapper.className = titleBlock.className || "";
   if (isLabel) {
-    wrapper.append(document.createTextNode("Gender"));
+    wrapper.append(document.createTextNode("Gender *"));
   } else {
     const label = document.createElement("label");
     label.setAttribute("for", "career-gender");
-    label.textContent = "Gender";
+    label.textContent = "Gender *";
     wrapper.appendChild(label);
   }
   const select = document.createElement("select");
@@ -671,6 +721,7 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
     status.classList.add("success");
     status.innerHTML = `Online application submitted successfully to Samara HR. <strong>Application ID: ${code}</strong>. Please keep this reference for all recruitment communication.`;
     form.reset();
+    updateCareerSalutations(form);
     populateCareerDesignations("");
     populateCareerTaluks("current"); populateCareerTaluks("permanent");
     document.querySelectorAll(".career-file-name").forEach(node => node.textContent = "No file selected");
