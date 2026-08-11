@@ -744,3 +744,39 @@ console.info(`Samara Website ${WEBSITE_VERSION}`);}
 
 
 if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initialiseCareerGenderAndValidation, {once:true}); } else { initialiseCareerGenderAndValidation(); }
+
+
+
+// Careers gender safety fallback: works even if careers.html uses a different form id or renders after app.js.
+function initialiseCareerGenderSafety() {
+  const titleEl = document.querySelector('select[name="title"], select#title');
+  const applicantEl = document.querySelector('input[name="applicant_name"], input[name="name"]');
+  const form = document.querySelector('#career-form')
+    || titleEl?.closest('form')
+    || applicantEl?.closest('form')
+    || [...document.forms].find(f => f.elements?.title && f.elements?.mobile);
+  if (!form) return false;
+
+  if (!form.elements.emergency_contact && form.elements.father_guardian_mobile) {
+    form.elements.father_guardian_mobile.name = 'emergency_contact';
+  }
+  const genderField = ensureCareerGenderField(form);
+  updateCareerSalutations(form);
+  if (genderField && !genderField.dataset.samaraGenderBound) {
+    genderField.dataset.samaraGenderBound = '1';
+    genderField.addEventListener('change', () => updateCareerSalutations(form));
+  }
+  return !!genderField;
+}
+
+initialiseCareerGenderSafety();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initialiseCareerGenderSafety, {once:true});
+}
+setTimeout(initialiseCareerGenderSafety, 150);
+setTimeout(initialiseCareerGenderSafety, 750);
+const careerGenderObserver = new MutationObserver(() => {
+  if (initialiseCareerGenderSafety()) careerGenderObserver.disconnect();
+});
+careerGenderObserver.observe(document.documentElement, {childList:true, subtree:true});
+setTimeout(() => careerGenderObserver.disconnect(), 5000);
