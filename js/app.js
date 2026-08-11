@@ -1,12 +1,12 @@
 
-const WEBSITE_VERSION = "2.1.0";
+const WEBSITE_VERSION = "2.1.1";
 const SAMARA_WHATSAPP = "917395961616";
 const SAMARA_PHONE = "073959 61616";
 
 
 const SAMARA_INVITATION_END = new Date(2026, 8, 1, 0, 0, 0); // Visible through 31-Aug-2026; stops from 01-Sep-2026.
-const SAMARA_INVITATION_SESSION_KEY = 'samara_grand_opening_invitation_aug2026_v8';
-const SAMARA_GRAND_BANNER_MS = 15000; // Grand Opening stage stays on screen for 15 seconds.
+const SAMARA_INVITATION_SESSION_KEY = 'samara_grand_opening_invitation_aug2026_v9';
+const SAMARA_GRAND_BANNER_MS = 9000; // Grand Opening stage stays on screen for 9 seconds.
 const SAMARA_INVITATION_SCROLL_MS = 24000; // Invitation gently scrolls through the full screen.
 
 function showSamaraInaugurationInvitation(){
@@ -39,6 +39,7 @@ function showSamaraInaugurationInvitation(){
           position:absolute;left:50%;top:50%;z-index:4;width:auto!important;height:auto!important;max-width:100vw!important;max-height:100dvh!important;display:block;object-fit:contain!important;object-position:center center;transform:translate(-50%,-50%);
           background:#8b500a;filter:saturate(1.02) contrast(1.01);
         }
+        #samara-inauguration-modal .samara-grand-banner-art.mobile{display:none!important}
         #samara-inauguration-modal .samara-opening-banner::before{
           content:'';position:absolute;inset:2.2%;border:2px solid rgba(255,242,177,.82);border-radius:26px;
           box-shadow:inset 0 0 0 4px rgba(130,39,26,.18),0 0 36px rgba(255,221,117,.25);pointer-events:none
@@ -147,6 +148,8 @@ function showSamaraInaugurationInvitation(){
           to{transform:translate(-50%,calc(-100% - 100dvh))}
         }
         @media(max-width:600px){
+          #samara-inauguration-modal .samara-grand-banner-art.desktop{display:none!important}
+          #samara-inauguration-modal .samara-grand-banner-art.mobile{display:block!important;max-width:100vw!important;max-height:100dvh!important}
           #samara-inauguration-modal .samara-grand-panel{width:94vw;min-height:80dvh;padding:30px 14px 25px}
           #samara-inauguration-modal .samara-banner-logo{width:min(82vw,430px);max-height:21vh}
           #samara-inauguration-modal .samara-opening-word{letter-spacing:.08em}
@@ -174,7 +177,8 @@ function showSamaraInaugurationInvitation(){
     const banner=document.createElement('div');
     banner.className='samara-opening-banner';
     banner.innerHTML=`
-      <img class="samara-grand-banner-art" src="./assets/samara-grand-opening-banner-27-08-2026.png?v=20260811-v9" alt="Samara Assisted Living Grand Opening on 27 August 2026">
+      <img class="samara-grand-banner-art desktop" src="./assets/samara-grand-opening-banner-27-08-2026.png?v=20260811-v10" alt="Samara Assisted Living Grand Opening on 27 August 2026">
+      <img class="samara-grand-banner-art mobile" src="./assets/samara-grand-opening-banner-mobile-27-08-2026.png?v=20260811-v10" alt="Samara Assisted Living Grand Opening on 27 August 2026">
       <div class="samara-curtain left" aria-hidden="true"></div><div class="samara-curtain right" aria-hidden="true"></div>`;
 
     const scrollStage=document.createElement('div');
@@ -197,10 +201,10 @@ function showSamaraInaugurationInvitation(){
     document.body.appendChild(modal);
     sessionStorage.setItem(SAMARA_INVITATION_SESSION_KEY,'shown');
 
-    // Slowly part the ceremonial curtains while the 15-second Grand Opening stage remains visible.
+    // Slowly part the ceremonial curtains while the 9-second Grand Opening stage remains visible.
     window.setTimeout(()=>banner.classList.add('curtains-open'),700);
 
-    // After 15 seconds, the invitation enters from below and gently scrolls upward through the full screen.
+    // After 9 seconds, the invitation enters from below and gently scrolls upward through the full screen.
     window.setTimeout(()=>{
       scrollStage.classList.add('ready');
       requestAnimationFrame(()=>requestAnimationFrame(()=>card.classList.add('scrolling')));
