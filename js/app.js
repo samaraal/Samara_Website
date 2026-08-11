@@ -675,9 +675,66 @@ document.querySelectorAll(".career-role-apply").forEach(button => {
   });
 });
 
+const CAREER_SALUTATIONS_BY_GENDER = {
+  Male: ["Mr.","Dr.","Prof.","Shri","Rev.","Fr.","Br.","Other"],
+  Female: ["Mrs.","Ms.","Miss","Dr.","Prof.","Smt.","Rev.","Sr.","Other"],
+  Other: ["Dr.","Prof.","Mx.","Rev.","Other"]
+};
+
+function normaliseCareerPhone(value) {
+  return String(value || "").replace(/\D/g, "").slice(-10);
+}
+
+function updateCareerSalutations(form) {
+  if (!form) return;
+  const gender = form.elements.gender?.value || "";
+  const title = form.elements.title;
+  if (!title) return;
+  const previous = title.value;
+  const choices = CAREER_SALUTATIONS_BY_GENDER[gender] || [];
+  title.innerHTML = `<option value="">${gender ? "Select salutation" : "Select gender first"}</option>` + choices.map(value => `<option value="${value}">${value}</option>`).join("");
+  title.disabled = !gender;
+  if (previous && choices.includes(previous)) title.value = previous;
+}
+
+function validateCareerIdentity(form, showPopup = true) {
+  const mobile = normaliseCareerPhone(form.elements.mobile?.value);
+  const emergency = normaliseCareerPhone(form.elements.emergency_contact?.value);
+  if (mobile.length === 10 && emergency.length === 10 && mobile === emergency) {
+    const message = "Applicant mobile number and Father / Mother / Guardian mobile number must be different. Please provide a different emergency contact number.";
+    form.elements.emergency_contact?.setCustomValidity(message);
+    if (showPopup) window.alert(message);
+    form.elements.emergency_contact?.focus();
+    return false;
+  }
+  form.elements.emergency_contact?.setCustomValidity("");
+  const gender = form.elements.gender?.value || "";
+  const title = form.elements.title?.value || "";
+  const allowed = CAREER_SALUTATIONS_BY_GENDER[gender] || [];
+  if (gender && title && !allowed.includes(title)) {
+    const message = `The selected salutation (${title}) does not match the selected gender (${gender}). Please choose the correct salutation.`;
+    if (showPopup) window.alert(message);
+    form.elements.title?.focus();
+    return false;
+  }
+  return true;
+}
+
 const careerForm = document.querySelector("#career-form");
 if (careerForm) {
   careerForm.dataset.languages = "[]";
+  updateCareerSalutations(careerForm);
+  careerForm.elements.gender?.addEventListener("change", () => updateCareerSalutations(careerForm));
+  careerForm.elements.mobile?.addEventListener("input", () => careerForm.elements.emergency_contact?.setCustomValidity(""));
+  careerForm.elements.emergency_contact?.addEventListener("input", () => {
+    careerForm.elements.emergency_contact.setCustomValidity("");
+    const mobile = normaliseCareerPhone(careerForm.elements.mobile?.value);
+    const emergency = normaliseCareerPhone(careerForm.elements.emergency_contact?.value);
+    if (mobile.length === 10 && emergency.length === 10 && mobile === emergency) {
+      careerForm.elements.emergency_contact.setCustomValidity("Applicant and emergency / guardian mobile numbers must be different.");
+    }
+  });
+  careerForm.elements.emergency_contact?.addEventListener("blur", () => validateCareerIdentity(careerForm, true));
   setCareerExperienceLevel(careerForm.elements.experience_level?.value || "");
   updateCareerExperiencedNursing();
   updateCareerReferenceDetails();
@@ -743,6 +800,12 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
   status.className = "form-status career-form-status";
   status.textContent = "";
 
+  if (!validateCareerIdentity(form, true)) {
+    status.classList.add("error");
+    status.textContent = "Please correct the identity / contact details before submitting.";
+    return;
+  }
+
   const firstInvalid = form.querySelector(":invalid");
   if (firstInvalid) {
     firstInvalid.focus(); firstInvalid.reportValidity();
@@ -785,6 +848,7 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
     const payload = {
       application_id: applicationId,
       title: clean(data.get("title")),
+      gender: clean(data.get("gender")),
       applicant_name: clean(data.get("name")),
       father_guardian_name: clean(data.get("father_guardian_name")),
       date_of_birth: clean(data.get("dob")),

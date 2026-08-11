@@ -303,7 +303,10 @@
 <div class="career-form-title"><span>1</span><div><h3>Identity &amp; Contact Details</h3><p>These fields correspond directly with Samara Employee Master.</p></div></div>
 <div class="form-grid career-grid">
 <label>Title / Salutation *
-<select name="title" required=""><option value="">Select title</option><option>Dr.</option><option>Prof.</option><option>Mr.</option><option>Mrs.</option><option>Ms.</option><option>Miss</option><option>Shri</option><option>Smt.</option><option>Rev.</option><option>Fr.</option><option>Br.</option><option>Sr.</option><option>Other</option></select>
+<select name="title" required="" disabled><option value="">Select gender first</option></select>
+</label>
+<label>Gender *
+<select name="gender" required=""><option value="">Select gender</option><option value="Male">Male</option><option value="Female">Female</option><option value="Other">Other / Prefer to self-describe</option></select>
 </label>
 <label>Applicant Name *<input autocomplete="name" name="name" placeholder="Full name as per records" required=""/></label>
 <label>Father / Mother / Guardian Name *<input name="father_guardian_name" required=""/></label>
@@ -559,6 +562,6 @@
 </a>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="./config.js"></script>
-<script src="./js/app.js?v=grand-opening-20260811-v9"></script>
+<script src="./js/app.js?v=careers-gender-rectification-20260811-v1"></script>
 </body>
 </html>
