@@ -36,7 +36,7 @@ function showSamaraInaugurationInvitation(){
         }
         #samara-inauguration-modal .samara-opening-banner.banner-done{opacity:0;visibility:hidden;pointer-events:none}
         #samara-inauguration-modal .samara-grand-banner-art{
-          position:absolute;inset:0;z-index:4;width:100%;height:100%;display:block;object-fit:contain;object-position:center center;
+          position:absolute;left:50%;top:50%;z-index:4;width:auto!important;height:auto!important;max-width:100vw!important;max-height:100dvh!important;display:block;object-fit:contain!important;object-position:center center;transform:translate(-50%,-50%);
           background:#8b500a;filter:saturate(1.02) contrast(1.01);
         }
         #samara-inauguration-modal .samara-opening-banner::before{
@@ -174,7 +174,7 @@ function showSamaraInaugurationInvitation(){
     const banner=document.createElement('div');
     banner.className='samara-opening-banner';
     banner.innerHTML=`
-      <img class="samara-grand-banner-art" src="./assets/samara-grand-opening-banner-27-08-2026.png?v=20260811-v7" alt="Samara Assisted Living Grand Opening on 27 August 2026">
+      <img class="samara-grand-banner-art" src="./assets/samara-grand-opening-banner-27-08-2026.png?v=20260811-v8" alt="Samara Assisted Living Grand Opening on 27 August 2026">
       <div class="samara-curtain left" aria-hidden="true"></div><div class="samara-curtain right" aria-hidden="true"></div>`;
 
     const scrollStage=document.createElement('div');
