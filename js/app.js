@@ -5,8 +5,9 @@ const SAMARA_PHONE = "073959 61616";
 
 
 const SAMARA_INVITATION_END = new Date(2026, 8, 1, 0, 0, 0); // Visible through 31-Aug-2026; stops from 01-Sep-2026.
-const SAMARA_INVITATION_SESSION_KEY = 'samara_grand_opening_invitation_aug2026_v5';
-const SAMARA_GRAND_BANNER_MS = 10000; // Keep the ceremonial Grand Opening screen visible for 10 seconds.
+const SAMARA_INVITATION_SESSION_KEY = 'samara_grand_opening_invitation_aug2026_v6';
+const SAMARA_GRAND_BANNER_MS = 15000; // Grand Opening stage stays on screen for 15 seconds.
+const SAMARA_INVITATION_SCROLL_MS = 24000; // Invitation gently scrolls through the full screen.
 
 function showSamaraInaugurationInvitation(){
   try{
@@ -20,156 +21,138 @@ function showSamaraInaugurationInvitation(){
       style.id='samara-inauguration-style';
       style.textContent=`
         #samara-inauguration-modal{
-          position:fixed;inset:0;z-index:2147483500;
-          display:flex;align-items:center;justify-content:center;
-          padding:max(8px,env(safe-area-inset-top)) 8px max(8px,env(safe-area-inset-bottom));
-          background:radial-gradient(circle at 50% 32%,#fff5c9 0%,#e6b94e 48%,#8f5b0c 100%);
-          backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
-          animation:samaraInviteFade .35s ease both;
-          overflow:hidden;
+          position:fixed;inset:0;z-index:2147483500;overflow:hidden;
+          background:#4a1708;animation:samaraInviteFade .45s ease both;
         }
-        #samara-inauguration-modal .samara-opening-stage{
-          position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;
-        }
+        #samara-inauguration-modal .samara-opening-stage{position:absolute;inset:0;overflow:hidden}
         #samara-inauguration-modal .samara-opening-banner{
-          position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;
-          padding:clamp(12px,2.4vw,34px);overflow:hidden;
+          position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;
+          overflow:hidden;padding:clamp(12px,2vw,28px);
           background:
-            radial-gradient(circle at 50% 42%,rgba(255,236,178,.19),transparent 31%),
-            linear-gradient(145deg,#fff4bd 0%,#dba62f 43%,#fff0a1 100%);
-          border:clamp(3px,.45vw,7px) solid #d9a028;
-          box-shadow:inset 0 0 0 3px rgba(255,238,185,.45),inset 0 0 95px rgba(69,0,27,.68);
-          transition:opacity .75s ease,transform .75s ease,visibility .75s;
+            radial-gradient(circle at 50% 38%,rgba(255,255,224,.92) 0%,rgba(255,224,120,.82) 19%,transparent 44%),
+            radial-gradient(circle at 50% 55%,#f7ce65 0%,#d99a22 52%,#8b500a 100%);
+          box-shadow:inset 0 0 120px rgba(88,37,0,.32);
+          transition:opacity 1.15s ease,visibility 1.15s ease;
         }
-        #samara-inauguration-modal .samara-opening-banner::before,
+        #samara-inauguration-modal .samara-opening-banner.banner-done{opacity:0;visibility:hidden;pointer-events:none}
+        #samara-inauguration-modal .samara-opening-banner::before{
+          content:'';position:absolute;inset:2.2%;border:2px solid rgba(255,242,177,.82);border-radius:26px;
+          box-shadow:inset 0 0 0 4px rgba(130,39,26,.18),0 0 36px rgba(255,221,117,.25);pointer-events:none
+        }
         #samara-inauguration-modal .samara-opening-banner::after{
-          content:'';position:absolute;left:2.2%;right:2.2%;height:10px;z-index:1;
-          background:repeating-linear-gradient(90deg,#f4c85f 0 16px,transparent 16px 28px,#fff1b0 28px 34px,transparent 34px 48px);
-          opacity:.78;
+          content:'';position:absolute;left:5%;right:5%;bottom:4%;height:9px;
+          background:repeating-linear-gradient(90deg,#7d153a 0 18px,#f8d274 18px 25px,transparent 25px 36px);
+          opacity:.62;border-radius:999px
         }
-        #samara-inauguration-modal .samara-opening-banner::before{top:3.5%}
-        #samara-inauguration-modal .samara-opening-banner::after{bottom:3.5%}
-        #samara-inauguration-modal .samara-opening-banner.banner-done{
-          opacity:0;visibility:hidden;transform:scale(1.035);
-          pointer-events:none;
+        #samara-inauguration-modal .samara-curtain{
+          position:absolute;top:0;bottom:0;width:53%;z-index:10;pointer-events:none;
+          background:
+            linear-gradient(90deg,rgba(255,255,255,.08),transparent 18%,rgba(0,0,0,.12) 35%,rgba(255,255,255,.08) 52%,rgba(0,0,0,.19) 72%,rgba(255,255,255,.08)),
+            repeating-linear-gradient(90deg,#640723 0 8%,#a80d43 8% 17%,#73062a 17% 26%);
+          box-shadow:inset 0 0 55px rgba(255,206,92,.2),0 0 45px rgba(48,0,15,.45);
+          transition:transform 4.8s cubic-bezier(.52,.02,.18,1);
         }
-        #samara-inauguration-modal .samara-toran{
-          position:absolute;top:2.5%;left:50%;transform:translateX(-50%);width:min(94vw,1200px);
-          display:flex;align-items:flex-start;justify-content:space-around;gap:5px;
-          color:#f3c658;font-size:clamp(19px,3.1vw,38px);letter-spacing:.02em;
-          filter:drop-shadow(0 3px 3px rgba(40,0,18,.4));white-space:nowrap;
-          animation:samaraToranSway 2.6s ease-in-out infinite alternate;
+        #samara-inauguration-modal .samara-curtain::after{
+          content:'';position:absolute;top:0;bottom:0;width:14px;background:linear-gradient(#ffe6a0,#b67a18,#f8d26f,#8d5a0b,#ffe6a0)
         }
-        #samara-inauguration-modal .samara-kolam{
-          position:absolute;width:clamp(92px,17vw,220px);height:clamp(92px,17vw,220px);opacity:.5;
-          border:2px solid rgba(255,231,160,.8);border-radius:50%;transform:rotate(45deg);
-          box-shadow:inset 0 0 0 9px transparent,inset 0 0 0 11px rgba(255,231,160,.5),0 0 24px rgba(255,200,82,.18);
-        }
-        #samara-inauguration-modal .samara-kolam::before,
-        #samara-inauguration-modal .samara-kolam::after{
-          content:'';position:absolute;inset:18%;border:2px solid rgba(255,231,160,.8);border-radius:18% 50%;
-        }
-        #samara-inauguration-modal .samara-kolam::after{inset:35%;border-radius:50%;transform:rotate(45deg)}
-        #samara-inauguration-modal .samara-kolam.tl{top:7%;left:4%}
-        #samara-inauguration-modal .samara-kolam.tr{top:7%;right:4%;transform:rotate(135deg)}
-        #samara-inauguration-modal .samara-kolam.bl{bottom:7%;left:4%;transform:rotate(-45deg)}
-        #samara-inauguration-modal .samara-kolam.br{bottom:7%;right:4%;transform:rotate(225deg)}
-        #samara-inauguration-modal .samara-grand-panel{
-          position:relative;z-index:2;width:min(92vw,1120px);min-height:min(76vh,780px);
-          display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-          padding:clamp(28px,5vw,78px) clamp(18px,5vw,70px);
-          border:2px solid rgba(255,222,136,.86);border-radius:clamp(18px,3vw,38px);
-          background:linear-gradient(180deg,rgba(255,248,210,.72),rgba(212,158,38,.38));
-          box-shadow:0 30px 90px rgba(20,0,8,.36),inset 0 0 44px rgba(255,232,177,.08);
-          animation:samaraGrandArrive 1.05s cubic-bezier(.16,.9,.26,1.15) both;
-        }
-        #samara-inauguration-modal .samara-vanakkam{
-          font:600 clamp(17px,2.3vw,28px)/1.2 Georgia,'Times New Roman',serif;
-          color:#7b1238;letter-spacing:.08em;margin-bottom:clamp(12px,2vh,22px);
-        }
-        #samara-inauguration-modal .samara-brandline{
-          font:600 clamp(14px,1.8vw,22px)/1.2 Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;
-          color:#7b1238;margin-bottom:clamp(15px,2.4vh,30px);
-        }
-        #samara-inauguration-modal .samara-grand-word{
-          font:700 clamp(52px,11vw,132px)/.91 Georgia,'Times New Roman',serif;color:#7b1238;
-          letter-spacing:.035em;text-transform:uppercase;text-shadow:0 5px 0 rgba(92,0,38,.3),0 10px 30px rgba(0,0,0,.34);
-        }
-        #samara-inauguration-modal .samara-opening-word{
-          margin-top:clamp(8px,1.2vh,16px);font:700 clamp(30px,6.2vw,72px)/1 Georgia,'Times New Roman',serif;
-          letter-spacing:.16em;text-transform:uppercase;color:#8c153f;text-shadow:0 4px 18px rgba(0,0,0,.32);
-        }
-        #samara-inauguration-modal .samara-grand-date{
-          margin-top:clamp(24px,4vh,45px);padding:clamp(12px,1.8vw,20px) clamp(26px,4vw,56px);
-          border-top:1px solid rgba(255,224,148,.8);border-bottom:1px solid rgba(255,224,148,.8);
-          font:700 clamp(27px,5vw,56px)/1.05 Georgia,'Times New Roman',serif;color:#6f1034;letter-spacing:.06em;
-        }
-        #samara-inauguration-modal .samara-lamp-row{
-          width:min(88vw,900px);display:flex;justify-content:space-between;align-items:center;
-          margin-top:clamp(20px,4vh,42px);font-size:clamp(42px,7vw,82px);line-height:1;
-          filter:drop-shadow(0 6px 9px rgba(0,0,0,.3));
-        }
-        #samara-inauguration-modal .samara-lamp-row span:first-child{animation:samaraLampFloat 1.7s ease-in-out infinite alternate}
-        #samara-inauguration-modal .samara-lamp-row span:last-child{animation:samaraLampFloat 1.7s ease-in-out .45s infinite alternate}
-        #samara-inauguration-modal .samara-grand-sub{
-          margin-top:-1.05em;font:500 clamp(13px,1.7vw,20px)/1.35 Georgia,'Times New Roman',serif;
-          color:#6f1034;letter-spacing:.06em;
-        }
-        #samara-inauguration-modal .samara-curtain{position:absolute;top:0;bottom:0;width:52%;z-index:8;pointer-events:none;background:repeating-linear-gradient(90deg,#7b082f 0 9%,#b20d49 9% 18%,#6b0629 18% 27%);box-shadow:inset 0 0 38px rgba(255,215,100,.22),0 0 30px rgba(45,0,15,.35);transition:transform 3.2s cubic-bezier(.55,.02,.22,1)}
-        #samara-inauguration-modal .samara-curtain::after{content:'';position:absolute;top:0;bottom:0;width:12px;background:linear-gradient(#f8d778,#a56b0d,#f8d778)}
-        #samara-inauguration-modal .samara-curtain.left{left:0;transform-origin:left}.samara-curtain.right{right:0;transform-origin:right}
+        #samara-inauguration-modal .samara-curtain.left{left:0}.samara-curtain.right{right:0}
         #samara-inauguration-modal .samara-curtain.left::after{right:0} #samara-inauguration-modal .samara-curtain.right::after{left:0}
         #samara-inauguration-modal .samara-opening-banner.curtains-open .samara-curtain.left{transform:translateX(-96%)}
         #samara-inauguration-modal .samara-opening-banner.curtains-open .samara-curtain.right{transform:translateX(96%)}
-        #samara-inauguration-modal .samara-kuthu{position:absolute;z-index:4;bottom:5%;font-size:clamp(100px,17vw,220px);line-height:1;filter:drop-shadow(0 10px 10px rgba(74,39,0,.28));color:#7b1238}
-        #samara-inauguration-modal .samara-kuthu.left{left:4%} #samara-inauguration-modal .samara-kuthu.right{right:4%}
+        #samara-inauguration-modal .samara-toran{
+          position:absolute;top:2%;left:50%;transform:translateX(-50%);z-index:3;width:min(94vw,1200px);
+          text-align:center;color:#7c1238;font-size:clamp(20px,3.2vw,42px);letter-spacing:.2em;
+          filter:drop-shadow(0 3px 3px rgba(255,235,162,.55));white-space:nowrap
+        }
+        #samara-inauguration-modal .samara-grand-panel{
+          position:relative;z-index:4;width:min(92vw,1120px);min-height:min(82dvh,820px);
+          display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+          padding:clamp(24px,4vw,58px) clamp(16px,4vw,56px);
+          border:2px solid rgba(122,25,55,.38);border-radius:clamp(18px,3vw,36px);
+          background:linear-gradient(180deg,rgba(255,249,218,.70),rgba(255,223,130,.40));
+          box-shadow:0 32px 88px rgba(84,35,0,.32),inset 0 0 42px rgba(255,255,255,.25);
+          animation:samaraGrandArrive 1.25s cubic-bezier(.16,.9,.26,1.15) both;
+        }
+        #samara-inauguration-modal .samara-banner-logo{
+          display:block;width:min(70vw,500px);max-height:25vh;object-fit:contain;margin:0 auto clamp(6px,1.3vh,14px);
+          filter:drop-shadow(0 7px 14px rgba(95,23,48,.16));
+        }
+        #samara-inauguration-modal .samara-vanakkam{
+          font:700 clamp(18px,2.2vw,29px)/1.2 Georgia,'Times New Roman',serif;color:#7c143b;
+          letter-spacing:.08em;margin-bottom:clamp(8px,1.5vh,16px)
+        }
+        #samara-inauguration-modal .samara-grand-word{
+          font:800 clamp(48px,9.6vw,124px)/.9 Georgia,'Times New Roman',serif;color:#7b1038;
+          letter-spacing:.035em;text-transform:uppercase;text-shadow:0 2px 0 #f6d875,0 5px 0 rgba(95,37,0,.18),0 12px 28px rgba(76,28,0,.28)
+        }
+        #samara-inauguration-modal .samara-opening-word{
+          margin-top:clamp(8px,1vh,14px);font:800 clamp(30px,5.8vw,72px)/1 Georgia,'Times New Roman',serif;
+          color:#8d153f;letter-spacing:.14em;text-transform:uppercase;text-shadow:0 3px 16px rgba(88,34,0,.22)
+        }
+        #samara-inauguration-modal .samara-grand-date{
+          margin-top:clamp(20px,3vh,36px);padding:clamp(10px,1.4vw,16px) clamp(24px,4vw,52px);
+          border:2px solid rgba(130,27,56,.34);border-radius:999px;background:rgba(126,20,56,.92);
+          font:800 clamp(27px,4.4vw,54px)/1 Georgia,'Times New Roman',serif;color:#ffe59a;letter-spacing:.06em;
+          box-shadow:0 8px 22px rgba(95,34,0,.22),inset 0 0 0 2px rgba(255,220,120,.22)
+        }
+        #samara-inauguration-modal .samara-grand-sub{
+          margin-top:clamp(15px,2.4vh,26px);font:600 clamp(14px,1.6vw,20px)/1.35 Georgia,'Times New Roman',serif;
+          color:#731136;letter-spacing:.04em
+        }
+        #samara-inauguration-modal .samara-countdown{
+          margin-top:clamp(12px,2vh,20px);font:600 clamp(12px,1.3vw,16px)/1 Arial,sans-serif;color:#784318;
+          letter-spacing:.08em;text-transform:uppercase
+        }
+        #samara-inauguration-modal .samara-kuthu{
+          position:absolute;z-index:5;bottom:4%;width:clamp(90px,14vw,190px);height:clamp(170px,27vw,350px);
+          opacity:.96;filter:drop-shadow(0 12px 12px rgba(74,39,0,.22));pointer-events:none
+        }
+        #samara-inauguration-modal .samara-kuthu.left{left:2.2%}.samara-kuthu.right{right:2.2%;transform:scaleX(-1)}
+        #samara-inauguration-modal .samara-kuthu::before{
+          content:'';position:absolute;left:45%;bottom:0;width:10%;height:64%;border-radius:50% 50% 16% 16%;
+          background:linear-gradient(90deg,#7a4a09,#ffd777 35%,#9d6612 65%,#f4c55a);box-shadow:0 0 0 2px rgba(119,73,5,.25)
+        }
+        #samara-inauguration-modal .samara-kuthu::after{
+          content:'🪔';position:absolute;left:50%;top:0;transform:translateX(-50%);font-size:clamp(70px,11vw,145px);line-height:1;
+          filter:saturate(.75) sepia(.12)
+        }
+        #samara-inauguration-modal .samara-invite-scroll-stage{
+          position:absolute;inset:0;z-index:2;overflow:hidden;display:none;align-items:flex-start;justify-content:center;
+          background:radial-gradient(circle at 50% 20%,#fff8eb 0%,#f6ead7 55%,#d7b576 100%)
+        }
+        #samara-inauguration-modal .samara-invite-scroll-stage.ready{display:flex}
         #samara-inauguration-modal .samara-invite-card{
-          position:relative;display:flex;align-items:center;justify-content:center;width:min(96vw,820px);height:min(94dvh,1160px);
-          border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 28px 90px rgba(0,0,0,.48);
-          opacity:0;transform:translateY(24px) scale(.975);pointer-events:none;
-          transition:opacity .75s ease,transform .75s cubic-bezier(.2,.78,.25,1);
+          position:absolute;top:100dvh;left:50%;width:min(100vw,980px);transform:translateX(-50%);
+          background:#fff7f7;box-shadow:0 18px 70px rgba(69,24,0,.36);will-change:transform;
         }
-        #samara-inauguration-modal .samara-invite-card.invitation-ready{
-          opacity:1;transform:none;pointer-events:auto;
+        #samara-inauguration-modal .samara-invite-card.scrolling{
+          animation:samaraInvitationScroll ${SAMARA_INVITATION_SCROLL_MS}ms linear forwards
         }
-        #samara-inauguration-modal .samara-invite-card img{
-          display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;background:#fff;
+        #samara-inauguration-modal .samara-invite-card img{display:block;width:100%;height:auto}
+        #samara-inauguration-modal .samara-scroll-note{
+          position:fixed;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:6;
+          padding:8px 14px;border-radius:999px;background:rgba(106,16,51,.88);color:#fff4d0;
+          font:600 clamp(11px,1.2vw,14px)/1 Arial,sans-serif;letter-spacing:.04em;box-shadow:0 6px 20px rgba(0,0,0,.2);
+          opacity:0;transition:opacity .4s ease;pointer-events:none
         }
-        #samara-inauguration-modal .samara-close-wrap{
-          position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:9;
-          display:flex;align-items:center;gap:10px;max-width:min(520px,92vw);
-          padding:8px 8px 8px 16px;border-radius:999px;background:rgba(255,255,255,.98);color:#681037;
-          box-shadow:0 7px 28px rgba(27,0,12,.32);border:1px solid rgba(178,16,79,.2);
-          opacity:0;visibility:hidden;transform:translateY(-8px);transition:.25s ease;
-        }
-        #samara-inauguration-modal .samara-close-wrap.ready{opacity:1;visibility:visible;transform:none}
-        #samara-inauguration-modal .samara-close-text{
-          font:600 clamp(12px,1.5vw,16px)/1.25 Arial,sans-serif;white-space:normal;text-align:right;
-        }
-        #samara-inauguration-modal .samara-invite-close{
-          flex:0 0 auto;width:44px;height:44px;border:0;border-radius:50%;display:flex;align-items:center;justify-content:center;
-          background:#a80d4c;color:#fff;box-shadow:0 4px 15px rgba(95,7,43,.3);font:700 29px/1 Arial,sans-serif;cursor:pointer;
-        }
-        #samara-inauguration-modal .samara-invite-close:hover{transform:scale(1.04)}
-        #samara-inauguration-modal .samara-invite-close:focus-visible{outline:3px solid #f0b838;outline-offset:3px}
+        #samara-inauguration-modal .samara-invite-scroll-stage.ready .samara-scroll-note{opacity:1}
         @keyframes samaraInviteFade{from{opacity:0}to{opacity:1}}
-        @keyframes samaraGrandArrive{0%{opacity:0;transform:translateY(26px) scale(.92)}70%{opacity:1;transform:translateY(-3px) scale(1.008)}100%{opacity:1;transform:none}}
-        @keyframes samaraToranSway{from{transform:translateX(-50%) rotate(-.5deg)}to{transform:translateX(-50%) rotate(.5deg)}}
-        @keyframes samaraLampFloat{from{transform:translateY(2px) scale(.98)}to{transform:translateY(-5px) scale(1.025)}}
+        @keyframes samaraGrandArrive{0%{opacity:0;transform:translateY(28px) scale(.93)}75%{opacity:1;transform:translateY(-4px) scale(1.008)}100%{opacity:1;transform:none}}
+        @keyframes samaraInvitationScroll{
+          from{transform:translate(-50%,0)}
+          to{transform:translate(-50%,calc(-100% - 100dvh))}
+        }
         @media(max-width:600px){
-          #samara-inauguration-modal{padding:4px}
-          #samara-inauguration-modal .samara-grand-panel{width:94vw;min-height:76dvh;padding:42px 16px 34px}
-          #samara-inauguration-modal .samara-toran{top:3.6%;font-size:20px;width:94vw;overflow:hidden}
-          #samara-inauguration-modal .samara-kolam{opacity:.33}
-          #samara-inauguration-modal .samara-brandline{letter-spacing:.13em}
-          #samara-inauguration-modal .samara-opening-word{letter-spacing:.1em}
-          #samara-inauguration-modal .samara-invite-card{width:98vw;height:93dvh;border-radius:12px}
-          #samara-inauguration-modal .samara-close-wrap{top:max(7px,env(safe-area-inset-top));right:7px;left:7px;max-width:none;justify-content:flex-end;padding-left:12px}
-          #samara-inauguration-modal .samara-close-text{font-size:12px;text-align:left;flex:1}
-          #samara-inauguration-modal .samara-invite-close{width:42px;height:42px;font-size:27px}
+          #samara-inauguration-modal .samara-grand-panel{width:94vw;min-height:80dvh;padding:30px 14px 25px}
+          #samara-inauguration-modal .samara-banner-logo{width:min(82vw,430px);max-height:21vh}
+          #samara-inauguration-modal .samara-opening-word{letter-spacing:.08em}
+          #samara-inauguration-modal .samara-kuthu{width:88px;height:170px;bottom:2%;opacity:.8}
+          #samara-inauguration-modal .samara-invite-card{width:100vw}
+          #samara-inauguration-modal .samara-scroll-note{font-size:10px;padding:7px 11px}
         }
         @media(prefers-reduced-motion:reduce){
-          #samara-inauguration-modal *,#samara-inauguration-modal *::before,#samara-inauguration-modal *::after{animation:none!important}
+          #samara-inauguration-modal .samara-curtain{transition-duration:.5s}
+          #samara-inauguration-modal .samara-invite-card.scrolling{animation-duration:12000ms}
         }
       `;
       document.head.appendChild(style);
@@ -179,7 +162,7 @@ function showSamaraInaugurationInvitation(){
     modal.id='samara-inauguration-modal';
     modal.setAttribute('role','dialog');
     modal.setAttribute('aria-modal','true');
-    modal.setAttribute('aria-label','Samara Assisted Living grand opening invitation');
+    modal.setAttribute('aria-label','Samara Assisted Living grand opening presentation and inauguration invitation');
 
     const stage=document.createElement('div');
     stage.className='samara-opening-stage';
@@ -188,81 +171,61 @@ function showSamaraInaugurationInvitation(){
     banner.className='samara-opening-banner';
     banner.innerHTML=`
       <div class="samara-curtain left" aria-hidden="true"></div><div class="samara-curtain right" aria-hidden="true"></div>
-      <div class="samara-toran" aria-hidden="true">❧ ❦ ❧ ❦ ❧ ❦ ❧ ❦ ❧ ❦ ❧</div>
-      <span class="samara-kolam tl" aria-hidden="true"></span><span class="samara-kolam tr" aria-hidden="true"></span>
-      <span class="samara-kolam bl" aria-hidden="true"></span><span class="samara-kolam br" aria-hidden="true"></span>
+      <div class="samara-toran" aria-hidden="true">❧ ❦ ❧ ❦ ❧ ❦ ❧ ❦ ❧</div>
       <div class="samara-grand-panel">
         <div class="samara-vanakkam">✦ &nbsp; வணக்கம் &nbsp; ✦</div>
-        <div class="samara-brandline">Samara Assisted Living</div>
+        <img class="samara-banner-logo" src="./assets/samara-logo.png?v=20260811-v6" alt="Samara Assisted Living">
         <div class="samara-grand-word">Grand</div>
         <div class="samara-opening-word">Opening</div>
         <div class="samara-grand-date">27.08.2026</div>
-        <div class="samara-kuthu left" aria-hidden="true">♨</div><div class="samara-kuthu right" aria-hidden="true">♨</div>
-        <div class="samara-grand-sub">With traditional warmth, we welcome you to our inauguration</div>
-      </div>`;
+        <div class="samara-grand-sub">Compassion • Comfort • Dignity</div>
+        <div class="samara-countdown">The inauguration invitation follows shortly</div>
+      </div>
+      <span class="samara-kuthu left" aria-hidden="true"></span><span class="samara-kuthu right" aria-hidden="true"></span>`;
+
+    const scrollStage=document.createElement('div');
+    scrollStage.className='samara-invite-scroll-stage';
 
     const card=document.createElement('div');
     card.className='samara-invite-card';
-
     const image=document.createElement('img');
-    image.src='./assets/samara-inauguration-27-08-2026.png?v=20260811-v4';
+    image.src='./assets/samara-inauguration-27-08-2026.png?v=20260811-v6';
     image.alt='Invitation to the inauguration of Samara Assisted Living on 27 August 2026, Mogappair, Chennai';
     image.decoding='async';
-
-    const closeWrap=document.createElement('div');
-    closeWrap.className='samara-close-wrap';
-    closeWrap.setAttribute('role','group');
-    closeWrap.setAttribute('aria-label','Enter the website');
-
-    const closeText=document.createElement('span');
-    closeText.className='samara-close-text';
-    closeText.textContent='To enter the Website, kindly click here';
-
-    const close=document.createElement('button');
-    close.type='button';
-    close.className='samara-invite-close';
-    close.setAttribute('aria-label','Close invitation and enter the website');
-    close.title='Close and enter the Website';
-    close.textContent='×';
-
-    const remove=()=>{
-      modal.style.opacity='0';
-      modal.style.transition='opacity .22s ease';
-      window.setTimeout(()=>modal.remove(),230);
-    };
-
-    close.addEventListener('click',remove);
-    document.addEventListener('keydown',function escHandler(event){
-      if(event.key==='Escape'&&closeWrap.classList.contains('ready')){
-        document.removeEventListener('keydown',escHandler);
-        remove();
-      }
-    });
-
-    closeWrap.append(closeText,close);
     card.appendChild(image);
-    stage.append(banner,card);
-    modal.append(stage,closeWrap);
+
+    const note=document.createElement('div');
+    note.className='samara-scroll-note';
+    note.textContent='Inauguration Invitation';
+    scrollStage.append(card,note);
+    stage.append(banner,scrollStage);
+    modal.appendChild(stage);
     document.body.appendChild(modal);
     sessionStorage.setItem(SAMARA_INVITATION_SESSION_KEY,'shown');
-    window.setTimeout(()=>banner.classList.add('curtains-open'),650);
 
-    // Keep the full-screen ceremonial Grand Opening presentation visible for a full 10 seconds.
+    // Slowly part the ceremonial curtains while the 15-second Grand Opening stage remains visible.
+    window.setTimeout(()=>banner.classList.add('curtains-open'),700);
+
+    // After 15 seconds, the invitation enters from below and gently scrolls upward through the full screen.
     window.setTimeout(()=>{
+      scrollStage.classList.add('ready');
+      requestAnimationFrame(()=>requestAnimationFrame(()=>card.classList.add('scrolling')));
       banner.classList.add('banner-done');
-      card.classList.add('invitation-ready');
-      window.setTimeout(()=>{
-        closeWrap.classList.add('ready');
-        close.focus({preventScroll:true});
-      },850);
     },SAMARA_GRAND_BANNER_MS);
+
+    // Once the invitation has fully passed, close the entire presentation automatically and reveal the website.
+    window.setTimeout(()=>{
+      modal.style.opacity='0';
+      modal.style.transition='opacity .85s ease';
+      window.setTimeout(()=>modal.remove(),900);
+    },SAMARA_GRAND_BANNER_MS + SAMARA_INVITATION_SCROLL_MS + 350);
   }catch(error){
     console.warn('Samara inauguration invitation could not be displayed.',error);
   }
 }
 
 function initSamaraInaugurationInvitation(){
-  // Do not show the inauguration invitation on the Careers application page.
+  // Do not show the inauguration presentation on the Careers application page.
   const pagePath=(window.location.pathname||'').toLowerCase().replace(/\/+$/,'');
   if(pagePath.endsWith('/careers.html'))return;
   window.setTimeout(showSamaraInaugurationInvitation,500);
