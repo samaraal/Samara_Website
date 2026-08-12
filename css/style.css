@@ -176,14 +176,14 @@ img{max-width:100%;display:block}
 .contact-card span{font-size:1.25rem;color:var(--magenta)}
 .contact-card p{margin:0;color:var(--muted)}
 .contact-card b{color:var(--plum)}
-.footer{padding:60px 0 24px;background:linear-gradient(145deg,#4f0b30,#761044);color:#fff}
+.footer{padding:60px 0 24px;background:linear-gradient(145deg,#fffafc 0%,#fdeaf3 42%,#f7c8dd 72%,#e99bc1 100%);color:#5b1235}
 .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:34px}
-.footer-grid img{width:180px;filter:none}
+.footer-grid img{width:180px;filter:none;background:transparent;mix-blend-mode:multiply}
 .footer-grid div{display:flex;flex-direction:column;gap:9px}
-.footer-grid a{color:#f4dce7}
+.footer-grid a{color:#6b1740}
 .footer-bottom{
-  margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15);
-  display:flex;justify-content:space-between;color:#e7cbd9;font-size:.86rem
+  margin-top:40px;padding-top:20px;border-top:1px solid rgba(112,18,67,.18);
+  display:flex;justify-content:space-between;color:#7a3456;font-size:.86rem
 }
 .floating{
   position:fixed;right:22px;bottom:22px;width:58px;height:58px;border-radius:50%;
