@@ -5,7 +5,7 @@ const SAMARA_PHONE = "073959 61616";
 
 
 const SAMARA_INVITATION_END = new Date(2026, 8, 1, 0, 0, 0); // Visible through 31-Aug-2026; stops from 01-Sep-2026.
-const SAMARA_INVITATION_SESSION_KEY = 'samara_grand_opening_invitation_aug2026_v9';
+const SAMARA_INVITATION_SESSION_KEY = 'samara_grand_opening_invitation_aug2026_v10';
 const SAMARA_GRAND_BANNER_MS = 9000; // Grand Opening stage stays on screen for 9 seconds.
 const SAMARA_INVITATION_SCROLL_MS = 24000; // Invitation gently scrolls through the full screen.
 
@@ -187,7 +187,7 @@ function showSamaraInaugurationInvitation(){
     const card=document.createElement('div');
     card.className='samara-invite-card';
     const image=document.createElement('img');
-    image.src='./assets/samara-inauguration-27-08-2026.png?v=20260811-v6';
+    image.src='./assets/samara-inauguration-27-08-2026.png?v=20260812-v8';
     image.alt='Invitation to the inauguration of Samara Assisted Living on 27 August 2026, Mogappair, Chennai';
     image.decoding='async';
     card.appendChild(image);
