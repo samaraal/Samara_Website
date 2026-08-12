@@ -1041,7 +1041,8 @@ console.info(`Samara Website ${WEBSITE_VERSION}`);
       const result=await invokeFeedback({
         action:'submit_feedback',
         respondent_name:clean(fd.get('name')),
-        respondent_type:clean(fd.get('respondent_type'))||'Visitor',
+        respondent_type:clean(fd.get('respondent_type'))||'Public',
+        feedback_nature:clean(fd.get('feedback_nature'))||'',
         mobile:clean(fd.get('mobile')),
         email:clean(fd.get('email')),
         patient_code:clean(fd.get('patient_code')),
