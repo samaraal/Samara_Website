@@ -956,75 +956,29 @@ console.info(`Samara Website ${WEBSITE_VERSION}`);
 
 
 
-// v2.3.0 — Verified Website Feedback with WhatsApp OTP.
+// v2.3.2 — Website Feedback without WhatsApp OTP.
 (() => {
   const form=document.querySelector('#feedback-form');
   if(!form)return;
 
   const replyRequested=form.querySelector('#feedback-reply-requested');
   const mobileInput=form.querySelector('#feedback-mobile');
-  const otpBox=form.querySelector('#feedback-otp-box');
-  const sendOtp=form.querySelector('#feedback-send-otp');
-  const verifyOtp=form.querySelector('#feedback-verify-otp');
-  const otpInput=form.querySelector('#feedback-otp-code');
-  const verifiedState=form.querySelector('#feedback-verified-state');
   const status=form.querySelector('.form-status');
   const submitButton=form.querySelector('button[type="submit"]');
-
-  let challengeId='';
-  let verificationToken='';
-  let verifiedMobile='';
 
   const invokeFeedback=async body=>{
     if(!publicSupabase)throw new Error('Secure feedback connection is unavailable.');
     const {data,error}=await publicSupabase.functions.invoke('feedback-public',{body});
-    if(error)throw error;
+    if(error){
+      const message=error?.context?.body?.error||error?.message||'Feedback service returned an error.';
+      throw new Error(message);
+    }
     if(data?.error)throw new Error(data.error);
     return data;
   };
 
-  function resetVerification(){
-    challengeId='';verificationToken='';verifiedMobile='';
-    if(verifiedState){verifiedState.textContent='Not verified';verifiedState.classList.remove('verified');}
-  }
-
   replyRequested?.addEventListener('change',()=>{
-    otpBox.hidden=!replyRequested.checked;
     if(replyRequested.checked)mobileInput?.focus();
-    else resetVerification();
-  });
-
-  mobileInput?.addEventListener('input',()=>{
-    if(verifiedMobile && String(mobileInput.value||'').replace(/\D/g,'')!==verifiedMobile.replace(/^91/,''))resetVerification();
-  });
-
-  sendOtp?.addEventListener('click',async()=>{
-    try{
-      const mobile=clean(mobileInput?.value);
-      if(!mobile)throw new Error('Please enter your WhatsApp number.');
-      sendOtp.disabled=true;sendOtp.textContent='Sending…';
-      const result=await invokeFeedback({action:'send_otp',mobile});
-      challengeId=result.challenge_id;
-      otpBox.hidden=false;
-      verifiedState.textContent='Verification code sent through WhatsApp. It expires in 10 minutes.';
-      otpInput?.focus();
-    }catch(error){status.className='form-status error';status.textContent=error.message||'Unable to send verification code.';}
-    finally{sendOtp.disabled=false;sendOtp.textContent='Verify';}
-  });
-
-  verifyOtp?.addEventListener('click',async()=>{
-    try{
-      if(!challengeId)throw new Error('Please request a verification code first.');
-      const mobile=clean(mobileInput?.value),code=clean(otpInput?.value);
-      verifyOtp.disabled=true;verifyOtp.textContent='Checking…';
-      const result=await invokeFeedback({action:'verify_otp',mobile,challenge_id:challengeId,code});
-      verificationToken=result.verification_token;
-      verifiedMobile=String(mobile||'').replace(/\D/g,'');
-      verifiedState.textContent='✓ WhatsApp number verified';
-      verifiedState.classList.add('verified');
-      status.className='form-status success';status.textContent='WhatsApp number verified successfully.';
-    }catch(error){status.className='form-status error';status.textContent=error.message||'Verification failed.';}
-    finally{verifyOtp.disabled=false;verifyOtp.textContent='Confirm Code';}
   });
 
   form.addEventListener('submit',async event=>{
@@ -1032,7 +986,8 @@ console.info(`Samara Website ${WEBSITE_VERSION}`);
     const fd=new FormData(form);
     try{
       const wantsReply=!!fd.get('reply_requested');
-      if(wantsReply && !verificationToken)throw new Error('Please verify your WhatsApp number before submitting feedback.');
+      const mobile=clean(fd.get('mobile'));
+      if(wantsReply && !mobile)throw new Error('Please enter your mobile number if you would like a WhatsApp reply.');
 
       submitButton.disabled=true;submitButton.textContent='Submitting…';
       status.className='form-status';status.textContent='Saving your feedback securely…';
@@ -1043,22 +998,21 @@ console.info(`Samara Website ${WEBSITE_VERSION}`);
         respondent_name:clean(fd.get('name')),
         respondent_type:clean(fd.get('respondent_type'))||'Public',
         feedback_nature:clean(fd.get('feedback_nature'))||'',
-        mobile:clean(fd.get('mobile')),
+        mobile,
         email:clean(fd.get('email')),
         patient_code:clean(fd.get('patient_code')),
         category:clean(fd.get('category'))||'General',
         rating:rating?Number(rating):null,
         subject:clean(fd.get('subject')),
         message:clean(fd.get('message')),
-        reply_requested:wantsReply,
-        verification_token:verificationToken
+        reply_requested:wantsReply
       });
 
-      form.reset();otpBox.hidden=true;resetVerification();
+      form.reset();
       status.className='form-status success';
-      status.innerHTML=`Thank you. Your feedback has been submitted successfully. <strong>Reference: ${result.feedback_reference}</strong>${wantsReply?' Samara will reply through your verified WhatsApp number.':''}`;
+      status.innerHTML=`Thank you. Your feedback has been submitted successfully. <strong>Reference: ${result.feedback_reference}</strong>${wantsReply?' Samara will respond manually through the mobile/WhatsApp number provided.':''}`;
     }catch(error){
-      console.error(error);
+      console.error('Website feedback submission failed',error);
       status.className='form-status error';
       status.textContent=error.message||'Feedback could not be submitted. Please try again.';
     }finally{
