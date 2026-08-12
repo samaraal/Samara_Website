@@ -176,14 +176,14 @@ img{max-width:100%;display:block}
 .contact-card span{font-size:1.25rem;color:var(--magenta)}
 .contact-card p{margin:0;color:var(--muted)}
 .contact-card b{color:var(--plum)}
-.footer{padding:60px 0 24px;background:linear-gradient(145deg,#fffafc 0%,#fdeaf3 42%,#f7c8dd 72%,#e99bc1 100%);color:#5b1235}
+.footer{padding:60px 0 24px;background:linear-gradient(145deg,#4f0b30,#761044);color:#fff}
 .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:34px}
-.footer-grid img{width:180px;filter:none;background:transparent;mix-blend-mode:multiply}
+.footer-grid img{width:180px;filter:none}
 .footer-grid div{display:flex;flex-direction:column;gap:9px}
-.footer-grid a{color:#6b1740}
+.footer-grid a{color:#f4dce7}
 .footer-bottom{
-  margin-top:40px;padding-top:20px;border-top:1px solid rgba(112,18,67,.18);
-  display:flex;justify-content:space-between;color:#7a3456;font-size:.86rem
+  margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15);
+  display:flex;justify-content:space-between;color:#e7cbd9;font-size:.86rem
 }
 .floating{
   position:fixed;right:22px;bottom:22px;width:58px;height:58px;border-radius:50%;
@@ -892,213 +892,113 @@ html,body{max-width:100%;overflow-x:hidden}
 
 
 /* =========================================================
-   Samara Website – Header/Footer Final Visual Match
-   Larger top logo + Kauvery Purple pink gradient + green WhatsApp
+   Samara Website – transparent logo + final header/footer fix
+   Keeps the original Samara artwork unchanged.
    ========================================================= */
-
 :root{
   --kauvery-purple:#962067;
-  --samara-magenta:#b00055;
   --whatsapp-green:#25D366;
 }
 
-/* HEADER: soft branded gradient instead of plain white */
+/* Soft Kauvery-purple family gradient at page top */
 .header{
   background:
     linear-gradient(145deg,
       #fff9fc 0%,
-      #fdebf4 34%,
-      #f9d5e7 68%,
-      #f3bfd9 100%) !important;
-  border-bottom:1px solid rgba(150,32,103,.16);
-  box-shadow:0 3px 16px rgba(150,32,103,.06);
+      #fdebf4 35%,
+      #f8d6e7 69%,
+      #f2bed9 100%) !important;
+  border-bottom:1px solid rgba(150,32,103,.16) !important;
+  box-shadow:0 3px 16px rgba(150,32,103,.06) !important;
   overflow:hidden;
-  position:relative;
 }
-
-.header::after{
-  content:"";
-  position:absolute;
-  left:-8%;
-  right:-8%;
-  bottom:-38px;
-  height:88px;
-  pointer-events:none;
-  background:
-    radial-gradient(80% 80px at 30% 0%,
-      rgba(150,32,103,.055) 0 58%,
-      transparent 59%),
-    radial-gradient(75% 70px at 75% 0%,
-      rgba(220,42,120,.05) 0 58%,
-      transparent 59%);
-}
-
-/* TOP LOGO: deliberately larger than footer logo */
 .header-inner{
-  min-height:150px !important;
-  position:relative;
-  z-index:1;
+  min-height:142px !important;
+  gap:20px !important;
 }
-
 .brand{
-  flex:0 0 auto;
+  flex:0 0 350px !important;
+  display:flex !important;
+  align-items:center !important;
 }
-
 .brand img{
-  width:330px !important;
-  max-width:330px !important;
-  max-height:136px !important;
+  width:350px !important;
+  max-width:350px !important;
+  max-height:126px !important;
   height:auto !important;
-  object-fit:contain;
+  object-fit:contain !important;
   filter:none !important;
   background:transparent !important;
-  mix-blend-mode:multiply;
+  mix-blend-mode:normal !important;
 }
 
-/* Navigation remains readable and vertically balanced */
-.nav{
-  position:relative;
-  z-index:2;
-}
-
-.nav a{
-  color:#28151f;
-}
-
-.nav a.active,
-.nav a:hover{
-  color:var(--kauvery-purple);
-}
-
-/* FOOTER: matching branded gradient */
+/* Footer: deeper pink / Kauvery-purple blend */
 .footer{
-  position:relative;
-  overflow:hidden;
   background:
     linear-gradient(145deg,
-      #fff7fb 0%,
-      #fce2ee 23%,
-      #f7bdd8 48%,
-      #ea72ab 72%,
-      var(--kauvery-purple) 100%) !important;
-  color:#4f1734 !important;
+      #fff6fb 0%,
+      #fbd9e9 22%,
+      #f4acd0 48%,
+      #df5798 73%,
+      #962067 100%) !important;
+  color:#4d1733 !important;
 }
-
-.footer::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(95% 160px at 15% 100%,
-      rgba(255,255,255,.12) 0 48%,
-      transparent 49%),
-    radial-gradient(90% 145px at 70% 100%,
-      rgba(255,255,255,.09) 0 48%,
-      transparent 49%);
-}
-
-.footer .container{
-  position:relative;
-  z-index:1;
-}
-
-/* Footer logo stays large, but smaller than header logo */
 .footer-grid img{
-  width:275px !important;
+  width:285px !important;
   max-width:100% !important;
   height:auto !important;
   filter:none !important;
   background:transparent !important;
-  mix-blend-mode:multiply;
+  mix-blend-mode:normal !important;
 }
-
-/* Tagline is already inside the logo artwork */
 .footer-grid > div:first-child > p{
   display:none !important;
 }
-
 .footer-grid b,
 .footer-grid a{
-  color:#541337 !important;
+  color:#4d1733 !important;
 }
-
 .footer-bottom{
   color:#fff !important;
-  border-top-color:rgba(255,255,255,.40) !important;
+  border-top-color:rgba(255,255,255,.42) !important;
 }
 
-/* WHATSAPP: official green, overriding old pink floating-button rules */
-.floating.whatsapp-float,
-.whatsapp-float,
-a.whatsapp-float{
-  background:var(--whatsapp-green) !important;
-  background-color:var(--whatsapp-green) !important;
+/* WhatsApp must always use official WhatsApp green.
+   Attribute selector also catches the existing button even if it lacks whatsapp-float class. */
+a.floating[href*="wa.me"],
+a[href*="wa.me"].floating{
+  background:#25D366 !important;
+  background-color:#25D366 !important;
   color:#fff !important;
-  border-color:#fff !important;
-  box-shadow:0 10px 26px rgba(37,211,102,.30) !important;
+  border:3px solid #fff !important;
+  box-shadow:0 10px 26px rgba(37,211,102,.34) !important;
+}
+a.floating[href*="wa.me"]:hover,
+a[href*="wa.me"].floating:hover{
+  background:#20BD5A !important;
+  background-color:#20BD5A !important;
 }
 
-.floating.whatsapp-float:hover,
-.whatsapp-float:hover,
-a.whatsapp-float:hover{
-  background:#20bd5a !important;
-  background-color:#20bd5a !important;
+/* Responsive sizing */
+@media(max-width:1180px){
+  .header-inner{min-height:122px !important}
+  .brand{flex-basis:285px !important}
+  .brand img{width:285px !important;max-width:285px !important;max-height:108px !important}
 }
-
-/* Tablet */
-@media(max-width:1100px){
-  .header-inner{
-    min-height:126px !important;
-  }
-  .brand img{
-    width:265px !important;
-    max-width:265px !important;
-    max-height:112px !important;
-  }
-}
-
-/* Mobile */
 @media(max-width:980px){
-  .header-inner{
-    min-height:104px !important;
-  }
-  .brand img{
-    width:215px !important;
-    max-width:215px !important;
-    max-height:92px !important;
-  }
-  .nav{
-    top:calc(104px + env(safe-area-inset-top)) !important;
-  }
-  .footer-grid img{
-    width:245px !important;
-  }
+  .header-inner{min-height:96px !important}
+  .brand{flex-basis:auto !important}
+  .brand img{width:220px !important;max-width:220px !important;max-height:84px !important}
+  .nav{top:calc(96px + env(safe-area-inset-top)) !important}
+  .footer-grid img{width:250px !important}
 }
-
 @media(max-width:640px){
-  .header-inner{
-    min-height:92px !important;
-  }
-  .brand img{
-    width:185px !important;
-    max-width:185px !important;
-    max-height:80px !important;
-  }
-  .nav{
-    top:calc(92px + env(safe-area-inset-top)) !important;
-  }
-  .footer-grid img{
-    width:225px !important;
-  }
+  .header-inner{min-height:84px !important}
+  .brand img{width:188px !important;max-width:188px !important;max-height:74px !important}
+  .nav{top:calc(84px + env(safe-area-inset-top)) !important}
+  .footer-grid img{width:225px !important}
 }
-
 @media(max-width:390px){
-  .brand img{
-    width:170px !important;
-    max-width:170px !important;
-  }
-  .footer-grid img{
-    width:205px !important;
-  }
+  .brand img{width:170px !important;max-width:170px !important}
+  .footer-grid img{width:205px !important}
 }
