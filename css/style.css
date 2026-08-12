@@ -178,7 +178,7 @@ img{max-width:100%;display:block}
 .contact-card b{color:var(--plum)}
 .footer{padding:60px 0 24px;background:linear-gradient(145deg,#4f0b30,#761044);color:#fff}
 .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:34px}
-.footer-grid img{width:180px;filter:brightness(0) invert(1)}
+.footer-grid img{width:180px;filter:none}
 .footer-grid div{display:flex;flex-direction:column;gap:9px}
 .footer-grid a{color:#f4dce7}
 .footer-bottom{
