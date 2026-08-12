@@ -1,0 +1,30 @@
+SAMARA FEEDBACK – AUTOMATIC POSITIVE / NEGATIVE CLASSIFICATION + ELEGANT ERP DASHBOARD
+
+Install in this order:
+
+1. Supabase SQL Editor
+   Run: SQL/83_feedback_automatic_classification.sql
+
+2. Public Website GitHub
+   Replace:
+   - feedback.html
+   - js/app.js
+
+3. Family Portal GitHub
+   Replace:
+   - index.html
+   - js/family-app-v1.0.6.js
+
+4. Samara ERP GitHub
+   Replace:
+   - app.js
+
+No Edge Function change is required for this update.
+
+WHAT CHANGES
+- Website/Family Portal no longer asks users to choose Positive or Negative.
+- Classification is automatic from star rating + category + subject + written feedback.
+- Server-side database trigger recalculates the classification for consistency.
+- ERP Feedback dashboard stat cards and filter buttons are larger, rounded and easier to use.
+- Existing Public / Patient / Relative / Visitor classification is retained.
+- Existing WhatsApp manual-reply workflow is unchanged.
