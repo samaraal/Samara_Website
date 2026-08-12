@@ -187,7 +187,7 @@ function showSamaraInaugurationInvitation(){
     const card=document.createElement('div');
     card.className='samara-invite-card';
     const image=document.createElement('img');
-    image.src='./assets/samara-inauguration-27-08-2026.png?v=20260811-v6';
+    image.src='./assets/samara-inauguration-27-08-2026.png?v=20260812-v7';
     image.alt='Invitation to the inauguration of Samara Assisted Living on 27 August 2026, Mogappair, Chennai';
     image.decoding='async';
     card.appendChild(image);
@@ -956,6 +956,26 @@ console.info(`Samara Website ${WEBSITE_VERSION}`);
 
 
 
+// Automatic feedback sentiment classification — rating + written feedback.
+function samaraClassifyFeedbackNature({rating,category,subject,message}){
+  const r=Number(rating||0);
+  const text=`${category||''} ${subject||''} ${message||''}`.toLowerCase();
+  let score=0;
+  if(r>=5) score+=4; else if(r===4) score+=3; else if(r===3) score+=0; else if(r===2) score-=3; else if(r===1) score-=4;
+  const positive=[
+    ['excellent',3],['very good',2],['good',1],['great',2],['wonderful',3],['fantastic',3],['superb',3],['happy',2],['satisfied',2],['thank',1],['thanks',1],['appreciate',2],['appreciation',2],['caring',2],['careful',1],['kind',2],['compassion',2],['comfortable',1],['helpful',2],['supportive',2],['professional',2],['clean',1],['prompt',1],['compliment',3],['improved',1],['well cared',3],['reassured',2]
+  ];
+  const negative=[
+    ['bad',-2],['poor',-3],['terrible',-4],['worst',-4],['unhappy',-3],['dissatisfied',-3],['complaint',-3],['concern',-2],['problem',-2],['issue',-1],['delay',-2],['late',-1],['rude',-4],['unclean',-3],['dirty',-3],['pain',-1],['missed',-2],['not given',-3],['not done',-3],['no response',-3],['unresponsive',-3],['overcharge',-3],['wrong',-2],['disappointed',-3],['improve',-1],['improvement needed',-2],['unsafe',-4]
+  ];
+  positive.forEach(([term,val])=>{if(text.includes(term))score+=val});
+  negative.forEach(([term,val])=>{if(text.includes(term))score+=val});
+  if(String(category||'').toLowerCase().includes('compliment'))score+=3;
+  if(String(category||'').toLowerCase().includes('complaint'))score-=3;
+  // Strong star ratings remain decisive unless the written feedback strongly contradicts them.
+  return score>=0?'Positive':'Negative';
+}
+
 // v2.3.2 — Website Feedback without WhatsApp OTP.
 (() => {
   const form=document.querySelector('#feedback-form');
@@ -997,7 +1017,7 @@ console.info(`Samara Website ${WEBSITE_VERSION}`);
         action:'submit_feedback',
         respondent_name:clean(fd.get('name')),
         respondent_type:clean(fd.get('respondent_type'))||'Public',
-        feedback_nature:clean(fd.get('feedback_nature'))||'',
+        feedback_nature:samaraClassifyFeedbackNature({rating:rating?Number(rating):null,category:clean(fd.get('category')),subject:clean(fd.get('subject')),message:clean(fd.get('message'))}),
         mobile,
         email:clean(fd.get('email')),
         patient_code:clean(fd.get('patient_code')),
