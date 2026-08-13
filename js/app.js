@@ -330,34 +330,49 @@ function whatsapp(message, statusNode) {
   window.open(`https://wa.me/${SAMARA_WHATSAPP}?text=${encodeURIComponent(brandWhatsAppMessage(message))}`, "_blank", "noopener,noreferrer");
 }
 
-document.querySelector("#visit-form")?.addEventListener("submit", event => {
+function getSamaraPublicSupabase(){
+  const cfg=window.SAMARA_PUBLIC_CONFIG||{};
+  return window.supabase&&cfg.supabaseUrl&&cfg.supabasePublishableKey
+    ? window.supabase.createClient(cfg.supabaseUrl,cfg.supabasePublishableKey)
+    : null;
+}
+
+document.querySelector("#visit-form")?.addEventListener("submit", async event => {
   event.preventDefault();
-  const data = new FormData(event.currentTarget);
-  const message = [
-    "*Samara – Visit Request*",
-    `Visitor: ${clean(data.get("name"))}`,
-    `Mobile: ${clean(data.get("mobile"))}`,
-    `Preferred Date: ${clean(data.get("date"))}`,
-    `Preferred Time: ${clean(data.get("time"))}`,
-    `Purpose: ${clean(data.get("message")) || "Not specified"}`
-  ].join("\n");
-  whatsapp(message, event.currentTarget.querySelector(".form-status"));
+  const form=event.currentTarget, data=new FormData(form), status=form.querySelector(".form-status"), button=form.querySelector('button[type="submit"]');
+  const client=getSamaraPublicSupabase();
+  if(!client){ status.className='form-status error'; status.textContent='Secure connection is unavailable. Please try again shortly.'; return; }
+  button.disabled=true; button.textContent='Sending…'; status.className='form-status'; status.textContent='Sending your visit request securely to Samara…';
+  try{
+    const {data:result,error}=await client.rpc('public_submit_visit_request',{
+      p_visitor_name:clean(data.get('name')), p_visitor_mobile:clean(data.get('mobile')),
+      p_visit_date:clean(data.get('date')), p_visit_time:clean(data.get('time')), p_message:clean(data.get('message'))
+    });
+    if(error) throw error;
+    form.reset(); status.className='form-status success';
+    status.textContent='Visit request sent successfully. Samara Admin / Manager will review and confirm it.';
+  }catch(error){ console.error('Visit request failed',error); status.className='form-status error'; status.textContent=error.message||'Unable to send visit request. Please try again.'; }
+  finally{ button.disabled=false; button.textContent='Send Visit Request'; }
 });
 
-document.querySelector("#enquiry-form")?.addEventListener("submit", event => {
+document.querySelector("#enquiry-form")?.addEventListener("submit", async event => {
   event.preventDefault();
-  const data = new FormData(event.currentTarget);
-  const message = [
-    "*Samara – Admission Enquiry*",
-    `Resident: ${clean(data.get("resident"))}`,
-    `Age: ${clean(data.get("age")) || "Not specified"}`,
-    `Contact Person: ${clean(data.get("contact"))}`,
-    `Mobile: ${clean(data.get("mobile"))}`,
-    `Care Type: ${clean(data.get("care"))}`,
-    `Preferred Room: ${clean(data.get("room"))}`,
-    `Condition / Requirements: ${clean(data.get("condition")) || "Not specified"}`
-  ].join("\n");
-  whatsapp(message, event.currentTarget.querySelector(".form-status"));
+  const form=event.currentTarget, data=new FormData(form), status=form.querySelector('.form-status'), button=form.querySelector('button[type="submit"]');
+  const client=getSamaraPublicSupabase();
+  if(!client){ status.className='form-status error'; status.textContent='Secure connection is unavailable. Please try again shortly.'; return; }
+  button.disabled=true; button.textContent='Sending…'; status.className='form-status'; status.textContent='Sending your admission enquiry securely to Samara…';
+  try{
+    const ageRaw=clean(data.get('age'));
+    const {data:result,error}=await client.rpc('public_submit_admission_enquiry',{
+      p_resident_name:clean(data.get('resident')), p_age:ageRaw?Number(ageRaw):null,
+      p_contact_person:clean(data.get('contact')), p_mobile:clean(data.get('mobile')),
+      p_care_type:clean(data.get('care')), p_preferred_room:clean(data.get('room')), p_condition:clean(data.get('condition'))
+    });
+    if(error) throw error;
+    form.reset(); status.className='form-status success';
+    status.textContent='Admission enquiry sent successfully. It is now available to Samara Admin / Manager in ERP → Enquiries.';
+  }catch(error){ console.error('Admission enquiry failed',error); status.className='form-status error'; status.textContent=error.message||'Unable to send admission enquiry. Please try again.'; }
+  finally{ button.disabled=false; button.textContent='Send Admission Enquiry'; }
 });
 
 const MAX_CAREER_FILE_SIZE = 10 * 1024 * 1024;
