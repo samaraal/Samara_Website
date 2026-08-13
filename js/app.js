@@ -330,49 +330,34 @@ function whatsapp(message, statusNode) {
   window.open(`https://wa.me/${SAMARA_WHATSAPP}?text=${encodeURIComponent(brandWhatsAppMessage(message))}`, "_blank", "noopener,noreferrer");
 }
 
-function getSamaraPublicSupabase(){
-  const cfg=window.SAMARA_PUBLIC_CONFIG||{};
-  return window.supabase&&cfg.supabaseUrl&&cfg.supabasePublishableKey
-    ? window.supabase.createClient(cfg.supabaseUrl,cfg.supabasePublishableKey)
-    : null;
-}
-
-document.querySelector("#visit-form")?.addEventListener("submit", async event => {
+document.querySelector("#visit-form")?.addEventListener("submit", event => {
   event.preventDefault();
-  const form=event.currentTarget, data=new FormData(form), status=form.querySelector(".form-status"), button=form.querySelector('button[type="submit"]');
-  const client=getSamaraPublicSupabase();
-  if(!client){ status.className='form-status error'; status.textContent='Secure connection is unavailable. Please try again shortly.'; return; }
-  button.disabled=true; button.textContent='Sending…'; status.className='form-status'; status.textContent='Sending your visit request securely to Samara…';
-  try{
-    const {data:result,error}=await client.rpc('public_submit_visit_request',{
-      p_visitor_name:clean(data.get('name')), p_visitor_mobile:clean(data.get('mobile')),
-      p_visit_date:clean(data.get('date')), p_visit_time:clean(data.get('time')), p_message:clean(data.get('message'))
-    });
-    if(error) throw error;
-    form.reset(); status.className='form-status success';
-    status.textContent='Visit request sent successfully. Samara Admin / Manager will review and confirm it.';
-  }catch(error){ console.error('Visit request failed',error); status.className='form-status error'; status.textContent=error.message||'Unable to send visit request. Please try again.'; }
-  finally{ button.disabled=false; button.textContent='Send Visit Request'; }
+  const data = new FormData(event.currentTarget);
+  const message = [
+    "*Samara – Visit Request*",
+    `Visitor: ${clean(data.get("name"))}`,
+    `Mobile: ${clean(data.get("mobile"))}`,
+    `Preferred Date: ${clean(data.get("date"))}`,
+    `Preferred Time: ${clean(data.get("time"))}`,
+    `Purpose: ${clean(data.get("message")) || "Not specified"}`
+  ].join("\n");
+  whatsapp(message, event.currentTarget.querySelector(".form-status"));
 });
 
-document.querySelector("#enquiry-form")?.addEventListener("submit", async event => {
+document.querySelector("#enquiry-form")?.addEventListener("submit", event => {
   event.preventDefault();
-  const form=event.currentTarget, data=new FormData(form), status=form.querySelector('.form-status'), button=form.querySelector('button[type="submit"]');
-  const client=getSamaraPublicSupabase();
-  if(!client){ status.className='form-status error'; status.textContent='Secure connection is unavailable. Please try again shortly.'; return; }
-  button.disabled=true; button.textContent='Sending…'; status.className='form-status'; status.textContent='Sending your admission enquiry securely to Samara…';
-  try{
-    const ageRaw=clean(data.get('age'));
-    const {data:result,error}=await client.rpc('public_submit_admission_enquiry',{
-      p_resident_name:clean(data.get('resident')), p_age:ageRaw?Number(ageRaw):null,
-      p_contact_person:clean(data.get('contact')), p_mobile:clean(data.get('mobile')),
-      p_care_type:clean(data.get('care')), p_preferred_room:clean(data.get('room')), p_condition:clean(data.get('condition'))
-    });
-    if(error) throw error;
-    form.reset(); status.className='form-status success';
-    status.textContent='Admission enquiry sent successfully. It is now available to Samara Admin / Manager in ERP → Enquiries.';
-  }catch(error){ console.error('Admission enquiry failed',error); status.className='form-status error'; status.textContent=error.message||'Unable to send admission enquiry. Please try again.'; }
-  finally{ button.disabled=false; button.textContent='Send Admission Enquiry'; }
+  const data = new FormData(event.currentTarget);
+  const message = [
+    "*Samara – Admission Enquiry*",
+    `Resident: ${clean(data.get("resident"))}`,
+    `Age: ${clean(data.get("age")) || "Not specified"}`,
+    `Contact Person: ${clean(data.get("contact"))}`,
+    `Mobile: ${clean(data.get("mobile"))}`,
+    `Care Type: ${clean(data.get("care"))}`,
+    `Preferred Room: ${clean(data.get("room"))}`,
+    `Condition / Requirements: ${clean(data.get("condition")) || "Not specified"}`
+  ].join("\n");
+  whatsapp(message, event.currentTarget.querySelector(".form-status"));
 });
 
 const MAX_CAREER_FILE_SIZE = 10 * 1024 * 1024;
@@ -1056,29 +1041,33 @@ function samaraClassifyFeedbackNature({rating,category,subject,message}){
   });
 })();
 
-/* Samara Find Us + Location QR — restored on every public page */
+/* Samara Find Us + directly visible location QR — beside WhatsApp on every page */
 (function(){
   function addLocationQr(){
-    if(document.querySelector('.location-findus-float')) return;
+    if(document.querySelector('.location-qr-float')) return;
     const whatsapp=document.querySelector('.whatsapp-float');
     if(!whatsapp) return;
-    const button=document.createElement('button');
-    button.type='button'; button.className='location-findus-float'; button.innerHTML='<span aria-hidden="true">⌖</span><b>Find Us</b>';
-    button.setAttribute('aria-label','Show Samara location QR code');
-    const modal=document.createElement('div'); modal.className='location-qr-modal'; modal.hidden=true;
-    modal.innerHTML=`<div class="location-qr-card" role="dialog" aria-modal="true" aria-label="Samara Assisted Living location">
-      <button type="button" class="location-qr-close" aria-label="Close">×</button>
-      <h3>Find Samara Assisted Living</h3>
-      <img src="./assets/location-qr.jpeg?v=20260813" alt="QR code for Samara Assisted Living location">
-      <p>Scan the QR code or open Google Maps for directions.</p>
-      <a class="btn btn-primary" href="https://maps.app.goo.gl/NwdW9T6WFnosJg8V7?g_st=iw" target="_blank" rel="noopener">Get Directions</a>
-    </div>`;
-    document.body.appendChild(modal); whatsapp.insertAdjacentElement('beforebegin',button);
-    const close=()=>{modal.hidden=true;document.body.classList.remove('location-modal-open')};
-    button.addEventListener('click',()=>{modal.hidden=false;document.body.classList.add('location-modal-open')});
-    modal.querySelector('.location-qr-close').addEventListener('click',close);
-    modal.addEventListener('click',e=>{if(e.target===modal)close()});
-    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)close()});
+
+    const link=document.createElement('a');
+    link.className='floating location-qr-float';
+    link.href='https://maps.app.goo.gl/NwdW9T6WFnosJg8V7?g_st=iw';
+    link.target='_blank';
+    link.rel='noopener';
+    link.title='Samara Assisted Living – Find Us';
+    link.setAttribute('aria-label','Find Us – scan the visible QR code or open Samara Assisted Living in Google Maps');
+
+    const label=document.createElement('span');
+    label.className='location-qr-label';
+    label.textContent='Find Us';
+
+    const img=document.createElement('img');
+    img.src='./assets/location-qr.jpeg';
+    img.alt='Samara Assisted Living location QR code';
+
+    link.appendChild(label);
+    link.appendChild(img);
+    whatsapp.insertAdjacentElement('beforebegin',link);
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addLocationQr); else addLocationQr();
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addLocationQr);
+  else addLocationQr();
 })();
