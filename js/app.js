@@ -260,32 +260,14 @@ document.querySelectorAll('a[href*="family.samaraassistedliving.com"]').forEach(
   headerInner.insertBefore(staff, menuButton);
 })();
 
-const menu = document.querySelector(".menu-button");
-const nav = document.querySelector(".nav");
-
-function closeMobileMenu(){
-  nav?.classList.remove("open");
-  menu?.setAttribute("aria-expanded", "false");
-  menu?.setAttribute("aria-label", "Open menu");
-}
-
-function toggleMobileMenu(event){
-  event?.preventDefault();
-  event?.stopPropagation();
-  if(!menu || !nav)return;
-  const open = !nav.classList.contains("open");
-  nav.classList.toggle("open", open);
-  menu.setAttribute("aria-expanded", String(open));
-  menu.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-}
-
-menu?.addEventListener("click", toggleMobileMenu);
-
 // Close the mobile menu after tapping outside it.
 document.addEventListener("click", event => {
   if (!nav?.classList.contains("open")) return;
   const header = document.querySelector(".header");
-  if (header && !header.contains(event.target)) closeMobileMenu();
+  if (header && !header.contains(event.target)) {
+    nav.classList.remove("open");
+    menu?.setAttribute("aria-expanded", "false");
+  }
 });
 
 
@@ -300,8 +282,33 @@ if (contactNavLink && !document.querySelector('.nav a[href="./careers.html"]')) 
   contactNavLink.insertAdjacentElement("afterend", careersLink);
 }
 
+const menu = document.querySelector(".menu-button");
+const nav = document.querySelector(".nav");
+
+function setMobileMenu(open){
+  if (!menu || !nav) return;
+  nav.classList.toggle("open", Boolean(open));
+  menu.setAttribute("aria-expanded", String(Boolean(open)));
+  menu.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  menu.textContent = open ? "×" : "☰";
+}
+
+if (menu && nav) {
+  const toggleMobileMenu = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setMobileMenu(!nav.classList.contains("open"));
+  };
+  menu.addEventListener("click", toggleMobileMenu, {passive:false});
+  menu.addEventListener("touchend", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setMobileMenu(!nav.classList.contains("open"));
+  }, {passive:false});
+}
+
 document.querySelectorAll(".nav a").forEach(link => {
-  link.addEventListener("click", closeMobileMenu);
+  link.addEventListener("click", () => setMobileMenu(false));
 });
 
 document.querySelectorAll("[data-year]").forEach(node => {
