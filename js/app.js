@@ -299,12 +299,11 @@ if (menu && nav) {
     event.stopPropagation();
     setMobileMenu(!nav.classList.contains("open"));
   };
+  // A single click handler is intentional. On touch screens a normal tap
+  // produces a click; registering both touchend and click toggled the menu
+  // twice (open, then immediately closed), which made a long-press appear
+  // necessary.
   menu.addEventListener("click", toggleMobileMenu, {passive:false});
-  menu.addEventListener("touchend", (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    setMobileMenu(!nav.classList.contains("open"));
-  }, {passive:false});
 }
 
 document.querySelectorAll(".nav a").forEach(link => {
