@@ -979,7 +979,8 @@ document.querySelector("#career-form")?.addEventListener("submit", async event =
   }
 });
 
-initSamaraInaugurationInvitation();
+// Inauguration opening presentation disabled after launch.
+// initSamaraInaugurationInvitation();
 console.info(`Samara Website ${WEBSITE_VERSION}`);
 
 
