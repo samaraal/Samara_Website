@@ -1166,3 +1166,35 @@ function samaraClassifyFeedbackNature({rating,category,subject,message}){
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',applyWhatsAppLogo);
   else applyWhatsAppLogo();
 })();
+
+/* Samara developer credit — cross-browser fallback injection */
+(function(){
+  function ensureDeveloperCredit(){
+    var footer=document.querySelector('footer');
+    if(!footer) return;
+    var existing=footer.querySelector('.developer-credit');
+    if(existing){
+      existing.style.display='block';
+      existing.style.textAlign='center';
+      existing.style.padding='10px 16px 16px';
+      existing.style.fontSize='14px';
+      existing.style.lineHeight='1.5';
+      existing.style.color='rgba(255,255,255,.96)';
+      return;
+    }
+    var credit=document.createElement('div');
+    credit.className='container developer-credit';
+    credit.style.display='block';
+    credit.style.textAlign='center';
+    credit.style.padding='10px 16px 16px';
+    credit.style.fontSize='14px';
+    credit.style.lineHeight='1.5';
+    credit.style.color='rgba(255,255,255,.96)';
+    credit.innerHTML='Developed and Maintained by: <a href="https://appgeo.in" target="_blank" rel="noopener" style="color:inherit;font-weight:700;text-decoration:none">AppGeo Private Limited (appgeo.in)</a>. Mobile: <a href="tel:+919176735577" style="color:inherit;font-weight:700;text-decoration:none">9176735577</a>';
+    footer.appendChild(credit);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',ensureDeveloperCredit);
+  else ensureDeveloperCredit();
+  window.addEventListener('load',ensureDeveloperCredit);
+  setTimeout(ensureDeveloperCredit,800);
+})();
