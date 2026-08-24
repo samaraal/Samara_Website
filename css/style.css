@@ -1207,8 +1207,17 @@ h1,h2,h3,.section-title{ text-transform:capitalize; }
   .transparency-note{font-size:.69rem;gap:6px}
 }
 
-/* Assisted Living introduction above homepage hero */
-.assisted-living-intro{max-width:680px;margin:0 0 24px;padding:0 0 20px;border-bottom:1px solid rgba(176,18,100,.16)}
-.assisted-living-kicker{display:block;margin-bottom:8px;color:#b01264;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-.assisted-living-intro p{margin:0;color:#5f4b56;font-size:1rem;line-height:1.7}
-@media(max-width:760px){.assisted-living-intro{margin-bottom:20px;padding-bottom:16px}.assisted-living-kicker{font-size:.7rem;letter-spacing:.09em}.assisted-living-intro p{font-size:.94rem;line-height:1.6}}
+
+/* Assisted Living hero introduction */
+.assisted-living-intro{max-width:650px;margin:0 0 24px;padding:0 0 20px;border-bottom:1px solid rgba(176,18,100,.14)}
+.assisted-living-kicker{display:block;margin-bottom:8px;color:#a90e5e;font-size:.78rem;font-weight:850;letter-spacing:.10em;text-transform:uppercase}
+.assisted-living-intro p{margin:0;color:#5e4d57;font-size:1rem;line-height:1.65}
+@media(max-width:560px){.assisted-living-intro{margin-bottom:20px;padding-bottom:17px}.assisted-living-intro p{font-size:.94rem;line-height:1.58}}
+
+/* Hard isolation for Digital Advantage SVG icons */
+.digital-signature-band .digital-signature-icon{box-sizing:border-box;overflow:hidden;flex:0 0 112px}
+.digital-signature-band .digital-signature-icon > svg{display:block !important;width:80px !important;height:80px !important;max-width:80px !important;max-height:80px !important;min-width:0 !important;min-height:0 !important;position:static !important;transform:none !important;overflow:visible;fill:none !important;stroke:#a60e5c !important}
+.digital-signature-band .digital-signature-icon > svg path,.digital-signature-band .digital-signature-icon > svg rect,.digital-signature-band .digital-signature-icon > svg circle{vector-effect:non-scaling-stroke}
+.digital-signature-band .digital-signature-icon > svg .feather-accent{fill:#bd1768 !important;stroke:none !important}
+.digital-signature-band .digital-signature-icon > svg .heart-fill{fill:#bd1768 !important;stroke:#bd1768 !important}
+@media(max-width:560px){.digital-signature-band .digital-signature-icon{flex-basis:76px}.digital-signature-band .digital-signature-icon > svg{width:56px !important;height:56px !important;max-width:56px !important;max-height:56px !important}}
