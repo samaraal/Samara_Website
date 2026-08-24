@@ -1148,3 +1148,21 @@ function samaraClassifyFeedbackNature({rating,category,subject,message}){
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addLocationQr);
   else addLocationQr();
 })();
+
+/* Samara WhatsApp floating button — official WhatsApp logo only */
+(function(){
+  function applyWhatsAppLogo(){
+    const links=document.querySelectorAll('a.floating[href*="wa.me"], a[href*="wa.me"].floating, .whatsapp-float[href*="wa.me"]');
+    links.forEach((link)=>{
+      link.classList.add('whatsapp-float');
+      link.setAttribute('aria-label','WhatsApp Samara');
+      link.setAttribute('title','WhatsApp Samara');
+      link.innerHTML=`
+        <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#fff" d="M16.03 3.2c-6.94 0-12.58 5.54-12.58 12.37 0 2.18.58 4.31 1.68 6.18L3.35 28.3l6.79-1.74a12.72 12.72 0 0 0 5.88 1.44h.01c6.94 0 12.58-5.54 12.58-12.37S22.97 3.2 16.03 3.2Zm0 22.72h-.01a10.6 10.6 0 0 1-5.39-1.46l-.39-.23-4.03 1.03 1.08-3.86-.25-.4a10.14 10.14 0 0 1-1.63-5.53c0-5.61 4.76-10.18 10.62-10.18 5.85 0 10.61 4.57 10.61 10.18 0 5.61-4.76 10.18-10.61 10.18Zm5.82-7.61c-.32-.15-1.88-.9-2.17-1-.29-.1-.5-.15-.71.15-.21.3-.82 1-.99 1.2-.18.2-.36.22-.67.07-.32-.15-1.34-.48-2.55-1.52-.94-.81-1.58-1.82-1.76-2.12-.18-.3-.02-.46.13-.61.14-.14.32-.36.48-.54.16-.18.21-.3.32-.51.11-.2.05-.38-.03-.54-.08-.15-.71-1.66-.97-2.27-.26-.61-.52-.52-.71-.53h-.61c-.21 0-.55.08-.84.38-.29.3-1.1 1.04-1.1 2.53 0 1.49 1.13 2.93 1.29 3.13.16.2 2.22 3.27 5.38 4.59.75.31 1.34.49 1.8.63.76.23 1.45.2 1.99.12.61-.09 1.88-.74 2.14-1.46.26-.72.26-1.33.18-1.46-.08-.13-.29-.2-.61-.36Z"/>
+        </svg>`;
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',applyWhatsAppLogo);
+  else applyWhatsAppLogo();
+})();
