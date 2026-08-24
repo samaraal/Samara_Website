@@ -1082,3 +1082,13 @@ h1,h2,h3,.section-title{ text-transform:capitalize; }
 .flex-care-card h3{margin:0 0 8px}.flex-care-card p{margin:0;color:#665d63;line-height:1.6}.package-duration-heading{text-align:center;margin-top:10px}.package-duration-heading h2{margin-bottom:7px}.package-duration-heading p{margin:0;color:#6c6269}
 @media(max-width:1050px){.care-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.services-full-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.digital-advantage-grid,.flex-care-grid,.care-service-grid,.services-full-grid{grid-template-columns:1fr}.digital-advantage-card{padding:22px;gap:15px}.digital-advantage-icon{width:56px;height:56px;min-width:56px;border-radius:17px;font-size:24px}.care-service-card{padding:21px}.digital-advantage-section,.care-services-preview{padding-top:46px;padding-bottom:46px}}
+
+/* Refined home hero — Samara brand message */
+.hero h1{font-size:clamp(2.7rem,4.7vw,4.65rem);max-width:760px;margin-bottom:16px}
+.hero .hero-lead{font-size:clamp(1.12rem,1.6vw,1.34rem);color:var(--wine);max-width:680px;margin:0 0 8px}
+.hero .hero-digital{font-size:1.02rem;color:var(--muted);max-width:700px;margin:0}
+@media (max-width:720px){
+  .hero h1{font-size:clamp(2.15rem,10vw,2.8rem);line-height:1.05;margin-bottom:14px}
+  .hero .hero-lead{font-size:1.08rem;line-height:1.5}
+  .hero .hero-digital{font-size:.96rem;line-height:1.55}
+}
