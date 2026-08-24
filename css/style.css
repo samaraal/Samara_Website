@@ -1221,3 +1221,59 @@ h1,h2,h3,.section-title{ text-transform:capitalize; }
 .digital-signature-band .digital-signature-icon > svg .feather-accent{fill:#bd1768 !important;stroke:none !important}
 .digital-signature-band .digital-signature-icon > svg .heart-fill{fill:#bd1768 !important;stroke:#bd1768 !important}
 @media(max-width:560px){.digital-signature-band .digital-signature-icon{flex-basis:76px}.digital-signature-band .digital-signature-icon > svg{width:56px !important;height:56px !important;max-width:56px !important;max-height:56px !important}}
+
+/* === Samara light blush theme refinement === */
+body{
+  background:linear-gradient(180deg,#fff8fb 0%,#fff3f7 48%,#fff9f5 100%);
+}
+.section{
+  background:linear-gradient(145deg,#fff9fb 0%,#fff3f7 55%,#fff8f3 100%);
+}
+.section-tint{
+  background:linear-gradient(145deg,#fff1f6 0%,#fde8f1 52%,#fff4ee 100%);
+}
+.card,.stat,.care-service-card,.digital-advantage-card,.flex-care-card{
+  background:linear-gradient(145deg,#fffdfd 0%,#fff6f9 100%);
+  border-color:rgba(176,18,100,.18);
+  box-shadow:0 14px 34px rgba(104,18,61,.07);
+}
+.digital-advantage-section{
+  background:linear-gradient(145deg,#fff6fa 0%,#fdebf3 55%,#fff6f0 100%);
+}
+.care-services-preview{
+  background:linear-gradient(145deg,#fff2f7 0%,#fde8f1 55%,#fff5ef 100%);
+}
+.why-refer-section{
+  background:linear-gradient(145deg,#fff8fa 0%,#fff0f5 100%);
+}
+.family-feature-section{
+  background:linear-gradient(145deg,#fff3f7 0%,#fde7f0 52%,#fff3ec 100%);
+}
+.family-feature-card{
+  background:linear-gradient(145deg,#fffafc 0%,#fff2f6 100%);
+  border-color:rgba(176,18,100,.20);
+  box-shadow:0 22px 58px rgba(104,18,61,.10);
+}
+.family-feature-visual{
+  color:#fff;
+  background:
+    radial-gradient(circle at 86% 10%,rgba(255,255,255,.16),transparent 25%),
+    linear-gradient(145deg,#7a1247 0%,#a81660 48%,#d54a8a 100%);
+}
+.family-feature-visual p{color:#fff0f6}
+.family-feature-list div{
+  background:linear-gradient(145deg,#fff6f9,#fde9f1);
+  border:1px solid rgba(176,18,100,.12);
+  color:var(--plum);
+}
+.family-feature-list span{color:var(--magenta)}
+.family-support-card{
+  background:linear-gradient(145deg,#fff4f8,#fffaf8);
+  border-color:rgba(176,18,100,.16);
+}
+.family-support-card h3{color:var(--wine)}
+.hero .family-portal-button,
+.nav .family-portal-link{
+  background:linear-gradient(100deg,var(--wine),var(--magenta),var(--rose));
+  box-shadow:0 12px 28px rgba(176,18,100,.20);
+}
