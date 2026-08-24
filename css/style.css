@@ -1206,3 +1206,9 @@ h1,h2,h3,.section-title{ text-transform:capitalize; }
   .digital-signature-copy p{font-size:.92rem;line-height:1.55}
   .transparency-note{font-size:.69rem;gap:6px}
 }
+
+/* Assisted Living introduction above homepage hero */
+.assisted-living-intro{max-width:680px;margin:0 0 24px;padding:0 0 20px;border-bottom:1px solid rgba(176,18,100,.16)}
+.assisted-living-kicker{display:block;margin-bottom:8px;color:#b01264;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.assisted-living-intro p{margin:0;color:#5f4b56;font-size:1rem;line-height:1.7}
+@media(max-width:760px){.assisted-living-intro{margin-bottom:20px;padding-bottom:16px}.assisted-living-kicker{font-size:.7rem;letter-spacing:.09em}.assisted-living-intro p{font-size:.94rem;line-height:1.6}}
