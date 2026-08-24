@@ -1058,3 +1058,27 @@ a[href*="wa.me"].floating:hover{
 
 /* Consistent title-style capitalization for visible headings */
 h1,h2,h3,.section-title{ text-transform:capitalize; }
+
+
+/* === Flyer content integration: Digital advantage, expanded care services and flexible care === */
+.digital-advantage-section{padding-top:54px;padding-bottom:54px;background:linear-gradient(180deg,#fff 0%,#fff8fb 100%)}
+.digital-advantage-heading{max-width:760px;margin-bottom:28px}
+.digital-advantage-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.digital-advantage-card{display:flex;gap:20px;align-items:flex-start;padding:28px;border:1px solid rgba(176,18,100,.18);border-radius:24px;background:#fff;box-shadow:0 14px 38px rgba(91,20,60,.08)}
+.digital-advantage-icon{width:66px;height:66px;min-width:66px;border-radius:20px;display:flex;align-items:center;justify-content:center;background:rgba(176,18,100,.08);color:#b01264;font-size:30px;font-weight:800}
+.digital-kicker{display:inline-block;color:#b01264;font-size:.82rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.digital-advantage-card h3{margin:0 0 8px;font-size:1.35rem}.digital-advantage-card p{margin:0;color:#5f5660;line-height:1.65}
+.care-services-preview{padding-top:64px;padding-bottom:64px}
+.care-service-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}
+.care-service-card{padding:24px 20px;border-radius:22px;background:#fff;border:1px solid rgba(176,18,100,.14);box-shadow:0 12px 30px rgba(82,21,55,.06);height:100%}
+.care-service-icon{width:54px;height:54px;border-radius:17px;background:rgba(176,18,100,.09);color:#b01264;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:21px;margin-bottom:16px}
+.care-service-card h3{font-size:1.08rem;line-height:1.3;margin:0 0 9px;color:#321c29}.care-service-card p{margin:0;color:#665d63;line-height:1.6;font-size:.94rem}
+.section-actions{text-align:center;margin-top:28px}
+.why-refer-section{background:#fff}.why-refer-box{border-color:rgba(176,18,100,.18)}.why-refer-box li::marker{color:#b01264}
+.services-full-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:26px}.services-full-grid .care-service-card:nth-child(4),.services-full-grid .care-service-card:nth-child(5){grid-column:span 1}
+.flexible-care-intro{margin-bottom:38px}.flex-care-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:25px 0 40px}
+.flex-care-card{padding:25px;border-radius:22px;background:#fff;border:1px solid rgba(176,18,100,.15);box-shadow:0 12px 30px rgba(82,21,55,.06)}
+.flex-care-icon{width:52px;height:52px;border-radius:16px;background:rgba(176,18,100,.09);color:#b01264;display:flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:15px}
+.flex-care-card h3{margin:0 0 8px}.flex-care-card p{margin:0;color:#665d63;line-height:1.6}.package-duration-heading{text-align:center;margin-top:10px}.package-duration-heading h2{margin-bottom:7px}.package-duration-heading p{margin:0;color:#6c6269}
+@media(max-width:1050px){.care-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.services-full-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.digital-advantage-grid,.flex-care-grid,.care-service-grid,.services-full-grid{grid-template-columns:1fr}.digital-advantage-card{padding:22px;gap:15px}.digital-advantage-icon{width:56px;height:56px;min-width:56px;border-radius:17px;font-size:24px}.care-service-card{padding:21px}.digital-advantage-section,.care-services-preview{padding-top:46px;padding-bottom:46px}}
