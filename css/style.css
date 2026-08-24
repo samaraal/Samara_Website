@@ -1092,3 +1092,117 @@ h1,h2,h3,.section-title{ text-transform:capitalize; }
   .hero .hero-lead{font-size:1.08rem;line-height:1.5}
   .hero .hero-digital{font-size:.96rem;line-height:1.55}
 }
+
+/* Samara signature digital-care band */
+.digital-signature-band{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr);
+  gap:0;
+  overflow:hidden;
+  border:1px solid rgba(176,18,100,.28);
+  border-radius:28px;
+  background:linear-gradient(120deg,#fff 0%,#fff8fb 48%,#fff 100%);
+  box-shadow:0 18px 46px rgba(104,10,57,.11);
+}
+.digital-signature-band::before{
+  content:"";
+  position:absolute;
+  left:-22px;
+  bottom:-34px;
+  width:220px;
+  height:72px;
+  border-radius:50%;
+  background:linear-gradient(90deg,rgba(176,18,100,.95),rgba(213,47,126,.52),rgba(176,18,100,0));
+  transform:rotate(-8deg);
+  opacity:.72;
+  pointer-events:none;
+}
+.digital-signature-band::after{
+  content:"";
+  position:absolute;
+  right:-70px;
+  top:-78px;
+  width:210px;
+  height:210px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(229,78,144,.12),rgba(176,18,100,0) 70%);
+  pointer-events:none;
+}
+.digital-signature-item{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  gap:24px;
+  min-height:230px;
+  padding:34px 36px;
+}
+.digital-signature-divider{
+  width:1px;
+  align-self:stretch;
+  margin:28px 0;
+  background:linear-gradient(180deg,transparent,rgba(176,18,100,.55),transparent);
+}
+.digital-signature-icon{
+  width:112px;
+  height:112px;
+  min-width:112px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:28px;
+  background:linear-gradient(145deg,#fff,#fdeaf3);
+  border:1px solid rgba(176,18,100,.16);
+  box-shadow:0 12px 28px rgba(176,18,100,.10);
+}
+.digital-signature-icon svg{width:80px;height:80px;fill:none;stroke:#a60e5c;stroke-width:3.1;stroke-linecap:round;stroke-linejoin:round}
+.digital-signature-icon svg .feather-accent{fill:#bd1768;stroke:none}
+.digital-signature-icon svg .heart-fill{fill:#bd1768;stroke:#bd1768}
+.digital-signature-copy{position:relative;z-index:2;min-width:0}
+.digital-signature-copy .digital-kicker{
+  margin-bottom:7px;
+  color:#c20e68;
+  font-size:.78rem;
+  font-weight:850;
+  letter-spacing:.14em;
+}
+.digital-signature-copy h3{
+  margin:0 0 10px;
+  color:#650b3c;
+  font-family:inherit;
+  font-size:clamp(1.5rem,2.25vw,2.15rem);
+  line-height:1.05;
+  letter-spacing:-.035em;
+}
+.digital-signature-copy h3 strong{display:block;color:#a90e5e;font-weight:850}
+.digital-signature-copy p{margin:0;color:#5e4d57;line-height:1.65;font-size:.98rem;max-width:470px}
+.transparency-note{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+  color:#9f0d59;
+  font-size:.76rem;
+  font-weight:800;
+  letter-spacing:.045em;
+  text-transform:uppercase;
+}
+.transparency-note i{display:block;width:5px;height:5px;border-radius:50%;background:#d54a8a}
+
+@media(max-width:900px){
+  .digital-signature-band{grid-template-columns:1fr}
+  .digital-signature-divider{height:1px;width:auto;margin:0 28px;background:linear-gradient(90deg,transparent,rgba(176,18,100,.45),transparent)}
+  .digital-signature-item{min-height:0;padding:28px 30px}
+  .digital-signature-band::before{width:180px;height:60px;bottom:-38px}
+}
+@media(max-width:560px){
+  .digital-signature-band{border-radius:22px}
+  .digital-signature-item{align-items:flex-start;gap:17px;padding:24px 20px}
+  .digital-signature-icon{width:76px;height:76px;min-width:76px;border-radius:20px}
+  .digital-signature-icon svg{width:56px;height:56px}
+  .digital-signature-copy h3{font-size:1.45rem}
+  .digital-signature-copy p{font-size:.92rem;line-height:1.55}
+  .transparency-note{font-size:.69rem;gap:6px}
+}
