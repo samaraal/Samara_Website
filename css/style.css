@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap");
+
 
 :root{
   --plum:#5d1039;
@@ -1293,4 +1295,11 @@ body{
 }
 @media(max-width:480px){
   .hero .hero-care-line span{margin:0 .12em}
+}
+
+/* Samara Home Hero Heading – softer modern font only */
+.hero h1 {
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
 }
