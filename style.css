@@ -1206,3 +1206,20 @@ h1,h2,h3,.section-title{ text-transform:capitalize; }
   .digital-signature-copy p{font-size:.92rem;line-height:1.55}
   .transparency-note{font-size:.69rem;gap:6px}
 }
+
+
+/* Homepage hero — post-hospital & step-down positioning (2026-08-31) */
+.hero .hero-brand{margin-bottom:2px}
+.hero .hero-care-line{font-size:clamp(1rem,1.45vw,1.18rem);line-height:1.65;color:var(--wine);max-width:780px;margin:0 0 9px}
+.hero .hero-care-line span{display:inline-block;margin:0 .28em;color:rgba(176,18,100,.42);font-weight:500}
+.hero .hero-transition{font-size:clamp(1.18rem,1.75vw,1.42rem);line-height:1.45;color:var(--plum);max-width:700px;margin:0 0 8px;font-weight:850}
+.hero .hero-emotional{font-size:.92rem;line-height:1.4;color:var(--magenta);font-weight:850;letter-spacing:.035em;margin:0 0 10px}
+.hero .hero-digital{margin-top:0}
+@media(max-width:720px){
+  .hero .hero-care-line{font-size:.98rem;line-height:1.7}
+  .hero .hero-transition{font-size:1.16rem;line-height:1.42}
+  .hero .hero-emotional{font-size:.88rem}
+}
+@media(max-width:480px){
+  .hero .hero-care-line span{margin:0 .12em}
+}
