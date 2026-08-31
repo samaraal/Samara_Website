@@ -1306,46 +1306,31 @@ body{
 
 /* Samara inauguration section — 27.08.2026 */
 .inauguration-section{
-  position:relative;
-  overflow:hidden;
+  position:relative;overflow:hidden;
   background:linear-gradient(145deg,#fffafc 0%,#fff3f8 55%,#fff9f4 100%);
-  border-top:1px solid rgba(176,18,100,.08);
-  border-bottom:1px solid rgba(176,18,100,.08);
+  border-top:1px solid rgba(176,18,100,.08);border-bottom:1px solid rgba(176,18,100,.08)
 }
-.inauguration-section::before{
-  content:"";position:absolute;width:360px;height:360px;border-radius:50%;
-  right:-160px;top:-180px;background:radial-gradient(circle,rgba(224,58,124,.11),transparent 68%);pointer-events:none
-}
-.inauguration-intro{display:grid;grid-template-columns:1.06fr .94fr;gap:48px;align-items:center;margin-bottom:34px}
+.inauguration-section::before{content:"";position:absolute;width:390px;height:390px;border-radius:50%;right:-165px;top:-195px;background:radial-gradient(circle,rgba(224,58,124,.11),transparent 68%);pointer-events:none}
+.inauguration-intro{display:grid;grid-template-columns:1.06fr .94fr;gap:48px;align-items:center;margin-bottom:42px}
 .inauguration-copy h2{margin:10px 0 16px;color:var(--plum);font-size:clamp(2rem,3.5vw,3.25rem);line-height:1.1;letter-spacing:-.035em}
 .inauguration-copy p{margin:0 0 13px;color:var(--muted);font-size:1.04rem;line-height:1.75}
-.inauguration-copy .inauguration-lead{color:#5e4d57}
-.inauguration-copy .inauguration-lead strong{color:var(--wine);font-weight:850}
+.inauguration-copy .inauguration-lead{color:#5e4d57}.inauguration-copy .inauguration-lead strong{color:var(--wine);font-weight:850}
 .inauguration-status{display:inline-flex;align-items:center;gap:10px;margin-top:8px;padding:10px 16px;border-radius:999px;background:#fff;border:1px solid rgba(176,18,100,.18);color:var(--wine);box-shadow:0 8px 22px rgba(104,18,61,.07)}
 .inauguration-status span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;color:#fff;background:linear-gradient(100deg,var(--wine),var(--magenta),var(--rose));font-size:.8rem}
 .inauguration-feature-photo{margin:0;border-radius:24px;overflow:hidden;background:#fff;border:1px solid rgba(176,18,100,.12);box-shadow:0 20px 48px rgba(104,18,61,.12)}
-.inauguration-feature-photo img{width:100%;height:330px;object-fit:cover}
-.inauguration-feature-photo figcaption,.inauguration-photo figcaption{padding:10px 13px;background:rgba(255,255,255,.96);color:var(--wine);font-size:.82rem;font-weight:750}
-.inauguration-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.inauguration-photo{margin:0;overflow:hidden;border-radius:18px;background:#fff;border:1px solid rgba(176,18,100,.10);box-shadow:0 10px 28px rgba(104,18,61,.08)}
-.inauguration-photo-wide{grid-column:span 2}
-.inauguration-photo img{width:100%;height:220px;object-fit:cover;transition:transform .35s ease}
-.inauguration-photo:hover img{transform:scale(1.025)}
-.inauguration-gallery-link{display:flex;width:max-content;align-items:center;gap:9px;margin:24px auto 0;color:var(--magenta);font-weight:850}
-.inauguration-gallery-link span{font-size:1.2em;transition:transform .2s ease}
-.inauguration-gallery-link:hover span{transform:translateX(4px)}
-@media(max-width:900px){
-  .inauguration-intro{grid-template-columns:1fr;gap:26px}
-  .inauguration-feature-photo img{height:360px}
-  .inauguration-gallery{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:560px){
-  .inauguration-copy h2{font-size:2rem}
-  .inauguration-copy p{font-size:.96rem;line-height:1.65}
-  .inauguration-feature-photo{border-radius:18px}
-  .inauguration-feature-photo img{height:230px}
-  .inauguration-gallery{grid-template-columns:1fr;gap:12px}
-  .inauguration-photo-wide{grid-column:span 1}
-  .inauguration-photo img{height:230px}
-  .inauguration-status{font-size:.88rem}
-}
+.inauguration-feature-photo img{width:100%;height:330px;object-fit:cover}.inauguration-feature-photo figcaption,.event-photo figcaption{padding:10px 13px;background:rgba(255,255,255,.97);color:var(--wine);font-size:.82rem;font-weight:750}
+.inauguration-story{background:rgba(255,255,255,.7);border:1px solid rgba(176,18,100,.10);border-radius:28px;padding:30px;box-shadow:0 18px 48px rgba(104,18,61,.07);backdrop-filter:blur(5px)}
+.inauguration-story-heading{text-align:center;max-width:760px;margin:0 auto 34px}.inauguration-story-heading span{display:inline-block;color:var(--magenta);font-weight:850;letter-spacing:.12em;text-transform:uppercase;font-size:.76rem;margin-bottom:8px}.inauguration-story-heading h3{margin:0;color:var(--plum);font-size:clamp(1.65rem,2.6vw,2.35rem)}.inauguration-story-heading p{margin:8px 0 0;color:var(--muted)}
+.event-block{margin-top:36px}.event-block:first-of-type{margin-top:0}.event-block-title{display:flex;align-items:center;gap:14px;margin-bottom:16px}.event-number{flex:0 0 auto;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--wine),var(--magenta));color:#fff;font-size:.76rem;font-weight:900;letter-spacing:.06em;box-shadow:0 7px 18px rgba(176,18,100,.18)}.event-block-title h4{margin:0;color:var(--plum);font-size:1.12rem}.event-block-title p{margin:3px 0 0;color:var(--muted);font-size:.9rem}
+.event-grid{display:grid;gap:14px}.event-grid-feature{grid-template-columns:1.35fr 1fr 1fr}.event-grid-three{grid-template-columns:1.3fr 1fr 1fr}.event-grid-two{grid-template-columns:repeat(2,1fr)}
+.event-photo{margin:0;overflow:hidden;border-radius:18px;background:#fff;border:1px solid rgba(176,18,100,.10);box-shadow:0 10px 28px rgba(104,18,61,.08)}.event-photo img{display:block;width:100%;height:250px;object-fit:cover;transition:transform .35s ease}.event-photo:hover img{transform:scale(1.02)}.event-photo-hero img{height:330px}.event-grid-feature .event-photo:not(.event-photo-hero) img{height:330px}.event-grid-three .event-photo img{height:255px}.event-grid-two .event-photo img{height:340px}
+.event-mosaic{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:14px}.event-mosaic .event-photo{position:relative}.event-mosaic .event-photo img{height:calc(100% - 38px)}.event-mosaic .mosaic-wide{grid-column:span 2}.event-mosaic .mosaic-tall{grid-row:span 2}.event-mosaic .mosaic-tall img{height:calc(100% - 38px)}
+.inauguration-gallery-link{display:flex;width:max-content;align-items:center;gap:9px;margin:26px auto 0;padding:10px 18px;border-radius:999px;border:1px solid rgba(176,18,100,.2);background:#fff;color:var(--magenta);font-weight:850;box-shadow:0 7px 18px rgba(104,18,61,.06)}.inauguration-gallery-link span{font-size:1.2em;transition:transform .2s ease}.inauguration-gallery-link:hover span{transform:translateX(4px)}
+
+/* Full inauguration gallery page */
+.inauguration-page-intro{max-width:850px;margin-bottom:28px}.inauguration-page-intro p{color:var(--muted);line-height:1.75}.inauguration-page-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.inauguration-page-grid .event-photo img{height:260px}.inauguration-page-grid .gallery-span-2{grid-column:span 2}.inauguration-page-grid .gallery-span-2 img{height:320px}
+
+@media(max-width:1000px){.event-grid-feature,.event-grid-three{grid-template-columns:repeat(2,1fr)}.event-photo-hero{grid-column:span 2}.event-mosaic{grid-template-columns:repeat(3,1fr)}.inauguration-page-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.inauguration-intro{grid-template-columns:1fr;gap:26px}.inauguration-feature-photo img{height:360px}.event-grid-two{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){.inauguration-story{padding:20px 14px;border-radius:20px}.event-grid-feature,.event-grid-three,.event-grid-two{grid-template-columns:1fr}.event-photo-hero{grid-column:span 1}.event-photo img,.event-photo-hero img,.event-grid-feature .event-photo:not(.event-photo-hero) img,.event-grid-three .event-photo img,.event-grid-two .event-photo img{height:250px}.event-mosaic{grid-template-columns:repeat(2,1fr);grid-auto-rows:210px}.event-mosaic .mosaic-tall{grid-row:span 1}.event-mosaic .mosaic-wide{grid-column:span 2}.inauguration-page-grid{grid-template-columns:1fr}.inauguration-page-grid .gallery-span-2{grid-column:span 1}.inauguration-page-grid .event-photo img,.inauguration-page-grid .gallery-span-2 img{height:250px}}
+@media(max-width:560px){.inauguration-copy h2{font-size:2rem}.inauguration-copy p{font-size:.96rem;line-height:1.65}.inauguration-feature-photo{border-radius:18px}.inauguration-feature-photo img{height:230px}.inauguration-status{font-size:.88rem}.event-block-title{align-items:flex-start}.event-mosaic{grid-template-columns:1fr;grid-auto-rows:auto}.event-mosaic .mosaic-wide{grid-column:span 1}.event-mosaic .event-photo img,.event-mosaic .mosaic-tall img{height:235px}}
