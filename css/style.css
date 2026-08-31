@@ -1354,3 +1354,6 @@ body{
   object-fit: cover;
   object-position: center 45%;
 }
+
+/* 2026-09-01: slideshow refinement */
+.inauguration-slide:nth-of-type(2) img{object-fit:cover;object-position:center center}
