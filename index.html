@@ -195,6 +195,7 @@
 </footer>
 <a aria-label="WhatsApp Samara" class="floating" href="https://wa.me/917395961616">✆</a>
 <script src="./js/app.js?v=20260825-v239"></script>
+<script src="./js/inauguration-extra-slides.js?v=20260913-v1"></script>
 <script>
 (()=>{const slider=document.querySelector('[data-inauguration-slider]');if(!slider)return;const slides=[...slider.querySelectorAll('.inauguration-slide')],dots=[...document.querySelectorAll('.inauguration-slider-dots button')];let i=0,t;const show=n=>{i=(n+slides.length)%slides.length;slides.forEach((el,j)=>el.classList.toggle('is-active',j===i));dots.forEach((el,j)=>el.classList.toggle('is-active',j===i));};const auto=()=>{clearInterval(t);t=setInterval(()=>show(i+1),5000)};slider.querySelector('.prev').onclick=()=>{show(i-1);auto()};slider.querySelector('.next').onclick=()=>{show(i+1);auto()};dots.forEach((d,j)=>d.onclick=()=>{show(j);auto()});slider.addEventListener('mouseenter',()=>clearInterval(t));slider.addEventListener('mouseleave',auto);auto();})();
 </script></body>
