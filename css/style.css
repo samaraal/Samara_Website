@@ -1686,3 +1686,47 @@ html[lang="ta"] .tamil-wisdom-card p strong{color:var(--wine);font-weight:750}
   html[lang="ta"] .tamil-wisdom-card h2{font-size:1.3rem;line-height:1.52}
   html[lang="ta"] .tamil-wisdom-card p{font-size:.94rem;line-height:1.82}
 }
+
+/* Tamil brand spelling/layout refinement and selective justified reading */
+html[lang="ta"] .tamil-heading-brand{
+  display:inline-block;
+  margin-top:5px;
+  white-space:nowrap;
+}
+html[lang="ta"] .inauguration-copy .inauguration-tamil-closing{
+  position:relative;
+  max-width:100%;
+  margin:26px 0 0;
+  padding:21px 190px 21px 24px;
+  overflow:hidden;
+  border:1px solid rgba(176,18,100,.15);
+  border-left:5px solid var(--magenta);
+  border-radius:17px;
+  background:
+    linear-gradient(100deg,rgba(255,255,255,.98) 0%,rgba(255,250,252,.96) 72%,rgba(255,239,247,.86) 100%),
+    url("../assets/samara-logo.png") right 22px center/145px auto no-repeat;
+  color:var(--plum);
+  font-size:.98rem;
+  font-weight:650;
+  line-height:1.75;
+  box-shadow:0 13px 34px rgba(104,18,61,.08);
+}
+html[lang="ta"] .inauguration-copy-tamil>p:not(.inauguration-tamil-promise),
+html[lang="ta"] .tamil-wisdom-card p,
+html[lang="ta"] .hero-tamil-message,
+html[lang="ta"] .split-copy>p,
+html[lang="ta"] .contact-copy>p,
+html[lang="ta"] .family-feature-content>p{
+  text-align:justify;
+  text-justify:inter-word;
+}
+@media(max-width:760px){
+  html[lang="ta"] .tamil-heading-brand{white-space:normal}
+  html[lang="ta"] .inauguration-copy .inauguration-tamil-closing{
+    padding:19px 18px;
+    border-radius:14px;
+    background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(255,239,247,.9));
+    font-size:.94rem;
+    line-height:1.72;
+  }
+}
