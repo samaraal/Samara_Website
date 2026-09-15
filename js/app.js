@@ -28,13 +28,14 @@ const SAMARA_PHONE = "073959 61616";
   }
 
   function translateHomePage(language){
-    if(!isHomePage())return;
+    const homePage=isHomePage();
     const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
     const nodes=[];let node;
     while((node=walker.nextNode()))nodes.push(node);
     nodes.forEach(function(textNode){
       const parent=textNode.parentElement;
       if(!parent||parent.closest('script,style,[data-samara-language],#samara-tamil-preview-notice'))return;
+      if(!homePage&&!parent.closest('header.header,footer.footer'))return;
       if(!originalText.has(textNode))originalText.set(textNode,textNode.nodeValue);
       const english=originalText.get(textNode);
       if(language!=='ta'){textNode.nodeValue=english;return;}
@@ -45,7 +46,7 @@ const SAMARA_PHONE = "073959 61616";
       const trailing=(english.match(/\s*$/)||[''])[0];
       textNode.nodeValue=leading+translated+trailing;
     });
-    document.title=language==='ta'?'சமரா அசிஸ்டெட் லிவிங் | முதியோர் மற்றும் குணமடைதல் பராமரிப்பு':'Samara Assisted Living | Elder Care & Recovery Support';
+    if(homePage)document.title=language==='ta'?'சமரா அசிஸ்டெட் லிவிங் | முதியோர் மற்றும் குணமடைதல் பராமரிப்பு':'Samara Assisted Living | Elder Care & Recovery Support';
   }
 
   function preferredLanguage(){
