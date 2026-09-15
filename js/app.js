@@ -111,7 +111,23 @@ const SAMARA_PHONE = "073959 61616";
     try{localStorage.setItem(STORAGE_KEY,selected);}catch(_error){}
   }
 
+  function completeFooterLinks(){
+    const groups=document.querySelectorAll('footer .footer-grid > div');
+    const additions={Explore:[['Home','./index.html'],['Gallery','./gallery.html'],['FAQ','./faq.html']],Connect:[['Contact','./contact.html']]};
+    groups.forEach(function(group){
+      const heading=group.querySelector('b');
+      const items=heading&&additions[heading.textContent.trim()];
+      if(!items)return;
+      items.forEach(function(item){
+        const exists=Array.from(group.querySelectorAll('a')).some(function(link){return link.textContent.trim()===item[0];});
+        if(exists)return;
+        const link=document.createElement('a');
+        link.href=item[1];link.textContent=item[0];group.appendChild(link);
+      });
+    });
+  }
   function createLanguageControls(){
+    completeFooterLinks();
     if(!document.body||document.getElementById('samara-language-bar'))return;
     const bar=document.createElement('div');
     bar.id='samara-language-bar';
@@ -1323,7 +1339,7 @@ function samaraClassifyFeedbackNature({rating,category,subject,message}){
       existing.style.padding='10px 16px 16px';
       existing.style.fontSize='14px';
       existing.style.lineHeight='1.5';
-      existing.style.color='rgba(255,255,255,.96)';
+      existing.style.color='#4d1733';
       return;
     }
     var credit=document.createElement('div');
@@ -1333,7 +1349,7 @@ function samaraClassifyFeedbackNature({rating,category,subject,message}){
     credit.style.padding='10px 16px 16px';
     credit.style.fontSize='14px';
     credit.style.lineHeight='1.5';
-    credit.style.color='rgba(255,255,255,.96)';
+    credit.style.color='#4d1733';
     credit.innerHTML='Developed and Maintained by: <a href="https://appgeo.in" target="_blank" rel="noopener" style="color:inherit;font-weight:700;text-decoration:none">AppGeo Private Limited (appgeo.in)</a>. Mobile: <a href="tel:+919176735577" style="color:inherit;font-weight:700;text-decoration:none">9176735577</a>';
     footer.appendChild(credit);
   }

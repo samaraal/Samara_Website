@@ -1764,3 +1764,11 @@ html[lang=ta] .inauguration-story-heading .tamil-date-larger{font-size:1.14rem}
 
 html[lang=ta] .eyebrow.who-benefits-label{font-size:1.5rem}
 html[lang=ta] .split-copy h2.who-benefits-heading{white-space:pre-line}
+
+/* Readable footer information with clearance for floating contact controls. */
+footer.footer{padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))!important}
+footer .footer-bottom,footer .developer-credit{box-sizing:border-box;background:#fff5fa;color:#4d1733!important;line-height:1.8;overflow-wrap:anywhere}
+footer .footer-bottom{padding:18px 22px!important;border-top:1px solid #ebc2d5!important;border-radius:16px 16px 0 0;gap:14px}
+footer .developer-credit{padding:14px 22px 20px!important;border-radius:0 0 16px 16px;font-size:14px!important}
+footer .developer-credit a{color:#790b43!important;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:600px){footer .footer-bottom{display:flex;flex-direction:column;align-items:flex-start}footer .developer-credit{text-align:left!important}footer.footer{padding-bottom:calc(140px + env(safe-area-inset-bottom,0px))!important}}
