@@ -65,6 +65,7 @@ const SAMARA_PHONE = "073959 61616";
     if(notice)notice.hidden=selected!=='ta';
     document.querySelectorAll('.inauguration-copy-english').forEach(function(section){section.hidden=selected==='ta';});
     document.querySelectorAll('.inauguration-copy-tamil').forEach(function(section){section.hidden=selected!=='ta';});
+    document.querySelectorAll('[data-samara-tamil-only]').forEach(function(element){element.hidden=selected!=='ta';});
     translateHomePage(selected);
     try{localStorage.setItem(STORAGE_KEY,selected);}catch(_error){}
   }
