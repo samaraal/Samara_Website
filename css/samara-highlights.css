@@ -1,0 +1,72 @@
+/* Compact Tamil editorial highlights. Scoped to the six requested passages. */
+.samara-highlight-section.tamil-wisdom-section{
+  padding:12px 0 44px;background:transparent;border:0;overflow:visible;
+}
+.samara-highlight-section::after{display:none}
+.samara-highlight-section[hidden]{display:none!important}
+.samara-highlight-section .samara-highlight{
+  display:grid;grid-template-columns:142px minmax(0,1fr);width:100%;max-width:940px;
+  margin:0 auto;padding:0;overflow:hidden;isolation:isolate;
+  border:1px solid #ecdce3;border-radius:22px;background:#fffdfa;
+  box-shadow:0 16px 40px -20px rgba(87,18,53,.3),0 3px 8px rgba(87,18,53,.03);
+}
+.samara-highlight-art{
+  position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:24px;min-width:0;overflow:hidden;background:linear-gradient(155deg,#83134b,#4b1937);
+  color:#f4d8b7;padding:28px 12px;
+}
+.samara-highlight-art::after{content:"";position:absolute;inset:10px;border:1px solid #ffffff1c;border-radius:14px;pointer-events:none}
+.samara-highlight-art svg{position:relative;width:78px;height:78px;z-index:1}
+.samara-highlight-orbit{position:absolute;width:220px;height:220px;border:1px solid #f4d8b72e;border-radius:50%;top:-105px;left:-75px}
+.samara-highlight-orbit::after{content:"";position:absolute;inset:17px;border:1px solid #f4d8b719;border-radius:50%}
+.samara-highlight-signature{position:relative;text-align:center;font:600 12px/1.5 Arial,sans-serif;letter-spacing:3px}
+.samara-highlight-signature span{display:block;font-size:7px;letter-spacing:1.5px;margin-top:5px;color:#e9c8d5}
+.samara-highlight-copy{padding:28px 34px 30px;min-width:0}
+.samara-highlight-kicker{display:flex;align-items:center;gap:9px;color:#8d5366;font-size:11px;font-weight:600;line-height:1.8;margin-bottom:12px}
+.samara-highlight-kicker::before{content:"";flex:0 0 22px;height:2px;background:#c59363}
+html[lang="ta"] .samara-highlight h2{
+  color:#70143f;font-size:clamp(1.12rem,1.8vw,1.5rem);font-weight:700;line-height:1.65;
+  margin:0 0 14px;text-align:left;letter-spacing:normal;word-spacing:normal;text-wrap:pretty;
+}
+html[lang="ta"] .samara-highlight p{
+  margin:0;color:#61545b;font-size:.94rem;line-height:1.95;font-weight:400;
+  text-align:left!important;text-justify:auto;letter-spacing:normal;word-spacing:normal;overflow-wrap:break-word;
+}
+html[lang="ta"] .samara-highlight p strong{color:#771644;font-weight:650}
+/* Home hero: keep its existing placement, with a distinct brand-colour inset. */
+html[lang="ta"] .hero-tamil-message{
+  position:relative;isolation:isolate;max-width:620px;margin:24px 0 0;padding:25px 26px 25px 32px;
+  border:0;border-left:3px solid #d4ad7d;border-radius:0 18px 18px 0;
+  background:linear-gradient(125deg,#771341,#4b1937);color:#fff6fa;
+  box-shadow:0 12px 30px -15px #57153577;font-size:1rem;font-weight:500;line-height:1.95;
+  text-align:left!important;text-justify:auto;letter-spacing:normal;word-spacing:normal;
+}
+/* Home inauguration: an inset statement, not an edge-to-edge banner. */
+html[lang="ta"] .inauguration-copy .inauguration-tamil-closing{
+  position:relative;max-width:850px;margin:30px auto 4px;padding:32px 34px 30px 42px;
+  border:1px solid #ead8df;border-left:4px solid #b38457;border-radius:0 20px 20px 0;
+  background:linear-gradient(115deg,#fffdf8,#fff6fa);color:#70143f;
+  font-size:.98rem;font-weight:550;line-height:1.95;text-align:left!important;
+  text-justify:auto;letter-spacing:normal;word-spacing:normal;
+  box-shadow:0 16px 32px -22px #68123d55;
+}
+html[lang="ta"] .inauguration-copy .inauguration-tamil-closing::before{content:"“";position:absolute;top:0;left:12px;color:#d9ae7e;font:54px/1 Georgia,serif;opacity:.7}
+@media(max-width:640px){
+  .samara-highlight-section.tamil-wisdom-section{padding:8px 0 28px}
+  .samara-highlight-section .samara-highlight{grid-template-columns:1fr;max-width:460px;border-radius:18px}
+  .samara-highlight-art{flex-direction:row;justify-content:space-between;gap:16px;padding:14px 22px;min-height:80px}
+  .samara-highlight-art svg{width:50px;height:50px}
+  .samara-highlight-art::after{inset:6px;border-radius:12px}
+  .samara-highlight-signature{text-align:right;font-size:11px}
+  .samara-highlight-signature span{font-size:7px}
+  .samara-highlight-copy{padding:21px 22px 25px}
+  html[lang="ta"] .samara-highlight h2{font-size:1.12rem;line-height:1.7;margin-bottom:12px}
+  html[lang="ta"] .samara-highlight p{font-size:.9rem;line-height:1.95}
+  .samara-highlight-kicker{font-size:10px;margin-bottom:10px}
+  html[lang="ta"] .hero-tamil-message{padding:20px 20px 20px 23px;font-size:.94rem;line-height:1.9}
+  html[lang="ta"] .inauguration-copy .inauguration-tamil-closing{padding:27px 22px 24px 28px;font-size:.92rem;line-height:1.95}
+}
+@media print{
+  .samara-highlight-section .samara-highlight{box-shadow:none;break-inside:avoid}
+  .samara-highlight-art{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+}
