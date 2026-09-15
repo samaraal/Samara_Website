@@ -1730,3 +1730,7 @@ html[lang="ta"] .family-feature-content>p{
     line-height:1.72;
   }
 }
+
+/* Stage labels for the Tamil care overview. */
+.stat .stat-stage-tamil{display:none}
+html[lang=ta] .stat .stat-stage-tamil{display:block;margin-bottom:12px;font-weight:700;color:var(--magenta)}
