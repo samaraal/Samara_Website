@@ -1407,6 +1407,52 @@ html[lang="ta"] h3{overflow-wrap:anywhere;word-break:normal;text-transform:none}
   html[lang="ta"] .hero-panel h2{font-size:1.3rem}
 }
 
+/* Tamil desktop header refinement — complete words in a balanced two-row menu */
+@media(min-width:981px){
+  html[lang="ta"] .header-inner{
+    display:grid;
+    grid-template-columns:225px minmax(0,1fr);
+    align-items:center;
+    gap:22px;
+    min-height:132px;
+    padding:14px 0;
+  }
+  html[lang="ta"] .brand{width:225px;min-width:0;flex:none}
+  html[lang="ta"] .brand img{width:225px;max-width:100%}
+  html[lang="ta"] .nav{
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(7,minmax(0,1fr));
+    align-items:stretch;
+    gap:8px 7px;
+    font-size:.78rem;
+    line-height:1.35;
+  }
+  html[lang="ta"] .nav a{
+    min-width:0;
+    min-height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:7px 6px;
+    text-align:center;
+    white-space:normal;
+    overflow-wrap:normal;
+    word-break:keep-all;
+    hyphens:none;
+    border-radius:11px;
+  }
+  html[lang="ta"] .nav .family-portal-link,
+  html[lang="ta"] .nav .staff{margin:0;padding:7px 8px}
+  html[lang="ta"] .hero h1{font-size:clamp(2.5rem,3.35vw,3.45rem);line-height:1.2;letter-spacing:-.018em}
+}
+@media(max-width:1180px) and (min-width:981px){
+  html[lang="ta"] .header-inner{grid-template-columns:195px minmax(0,1fr);gap:15px;min-height:128px!important}
+  html[lang="ta"] .brand{width:195px;flex-basis:auto!important}
+  html[lang="ta"] .brand img{width:195px!important;max-width:195px!important}
+  html[lang="ta"] .nav{grid-template-columns:repeat(6,minmax(0,1fr));gap:7px 5px;font-size:.73rem}
+}
+
 
 /* Inauguration slideshow: make the main ribbon-cutting photograph the visual highlight */
 .inauguration-slide:first-of-type img {
