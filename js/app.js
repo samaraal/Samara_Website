@@ -3,6 +3,62 @@ const WEBSITE_VERSION = "2.1.1";
 const SAMARA_WHATSAPP = "917395961616";
 const SAMARA_PHONE = "073959 61616";
 
+/* Samara bilingual foundation — English / Tamil preview */
+(function(){
+  const STORAGE_KEY='samara_website_language';
+
+  function preferredLanguage(){
+    try{return localStorage.getItem(STORAGE_KEY)==='ta'?'ta':'en';}
+    catch(_error){return 'en';}
+  }
+
+  function setLanguage(language){
+    const selected=language==='ta'?'ta':'en';
+    document.documentElement.lang=selected==='ta'?'ta':'en-IN';
+    document.querySelectorAll('[data-samara-language]').forEach(function(button){
+      const active=button.getAttribute('data-samara-language')===selected;
+      button.classList.toggle('active',active);
+      button.setAttribute('aria-pressed',active?'true':'false');
+    });
+    const notice=document.getElementById('samara-tamil-preview-notice');
+    if(notice)notice.hidden=selected!=='ta';
+    try{localStorage.setItem(STORAGE_KEY,selected);}catch(_error){}
+  }
+
+  function createLanguageControls(){
+    if(!document.body||document.getElementById('samara-language-bar'))return;
+    const bar=document.createElement('div');
+    bar.id='samara-language-bar';
+    bar.className='samara-language-bar';
+    bar.setAttribute('aria-label','Website language');
+    bar.innerHTML='<div class="container samara-language-inner"><span class="samara-language-label">Language</span><div class="samara-language-switch" role="group" aria-label="Choose website language"><button type="button" data-samara-language="en">English</button><button type="button" data-samara-language="ta">தமிழ் <small>Preview</small></button></div></div>';
+
+    const notice=document.createElement('div');
+    notice.id='samara-tamil-preview-notice';
+    notice.className='samara-tamil-preview-notice';
+    notice.hidden=true;
+    notice.setAttribute('role','status');
+    notice.innerHTML='<div class="container"><strong>தமிழ் பதிப்பு உருவாக்கத்தில் உள்ளது.</strong><span> மொழிபெயர்ப்பு சரிபார்ப்பு நடைபெற்று வருகிறது. தற்போது சில உள்ளடக்கங்கள் ஆங்கிலத்தில் காணப்படலாம்.</span><small>Tamil version is under construction. Translation review is in progress.</small></div>';
+
+    const header=document.querySelector('header.header');
+    if(header){
+      header.insertAdjacentElement('beforebegin',bar);
+      header.insertAdjacentElement('afterend',notice);
+    }else{
+      document.body.insertAdjacentElement('afterbegin',bar);
+      bar.insertAdjacentElement('afterend',notice);
+    }
+
+    bar.querySelectorAll('[data-samara-language]').forEach(function(button){
+      button.addEventListener('click',function(){setLanguage(button.getAttribute('data-samara-language'));});
+    });
+    setLanguage(preferredLanguage());
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',createLanguageControls);
+  else createLanguageControls();
+})();
+
 
 const SAMARA_INVITATION_END = new Date(2026, 8, 1, 0, 0, 0); // Visible through 31-Aug-2026; stops from 01-Sep-2026.
 const SAMARA_INVITATION_SESSION_KEY = 'samara_grand_opening_invitation_aug2026_v10';
