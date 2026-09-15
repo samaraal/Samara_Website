@@ -1750,3 +1750,6 @@ html[lang="ta"] .family-feature-content>p{
 @media(hover:hover){.family-feature-content .portal-access-button:hover{color:#fff;transform:translateY(-2px);box-shadow:0 12px 25px rgba(132,13,72,.3)}}
 @media(max-width:480px){.family-feature-content .portal-access-button{width:100%;padding:14px 16px;gap:10px}}
 @media(prefers-reduced-motion:reduce){.family-feature-content .portal-access-button{transition:none}.family-feature-content .portal-access-button:hover{transform:none}}
+/* Half-size Tamil heading in Who May Benefit. */
+html[lang="ta"] .split-copy h2.who-benefits-heading{font-size:clamp(.875rem,1.35vw,1.275rem);line-height:1.65}
+@media(max-width:760px){html[lang="ta"] .split-copy h2.who-benefits-heading{font-size:clamp(.775rem,3.3vw,1rem)}}
