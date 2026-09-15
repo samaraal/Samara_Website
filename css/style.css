@@ -1620,3 +1620,69 @@ html[lang="ta"] .section{padding-top:76px;padding-bottom:76px}
   html[lang="ta"] .family-feature-content h2{font-size:clamp(1.55rem,6.6vw,2rem);line-height:1.42}
   html[lang="ta"] .section{padding-top:56px;padding-bottom:56px}
 }
+
+/* Tamil thought panels — complete passages distributed across relevant pages */
+.tamil-wisdom-section{
+  position:relative;
+  overflow:hidden;
+  padding:50px 0;
+  background:linear-gradient(145deg,#fffafc 0%,#fff4f8 56%,#fffaf5 100%);
+  border-top:1px solid rgba(176,18,100,.07);
+  border-bottom:1px solid rgba(176,18,100,.07);
+}
+.tamil-wisdom-section::after{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  right:-100px;
+  bottom:-150px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(224,58,124,.10),transparent 68%);
+  pointer-events:none;
+}
+.tamil-wisdom-card{
+  position:relative;
+  z-index:1;
+  width:min(100%,930px);
+  padding:34px 42px 34px 58px;
+  border:1px solid rgba(176,18,100,.13);
+  border-radius:24px;
+  background:rgba(255,255,255,.88);
+  box-shadow:0 18px 48px rgba(104,18,61,.08);
+}
+.tamil-wisdom-left .tamil-wisdom-card{margin-right:auto}
+.tamil-wisdom-right .tamil-wisdom-card{margin-left:auto}
+.tamil-wisdom-centre .tamil-wisdom-card{margin-left:auto;margin-right:auto}
+.tamil-wisdom-mark{
+  position:absolute;
+  left:20px;
+  top:14px;
+  color:rgba(210,34,116,.28);
+  font-family:Georgia,serif;
+  font-size:4.4rem;
+  font-weight:800;
+  line-height:1;
+}
+html[lang="ta"] .tamil-wisdom-card h2{
+  margin:0 0 14px;
+  color:var(--wine);
+  font-size:clamp(1.4rem,2.1vw,1.9rem);
+  font-weight:750;
+  line-height:1.5;
+}
+html[lang="ta"] .tamil-wisdom-card p{
+  margin:0;
+  color:#5f5059;
+  font-size:1rem;
+  font-weight:400;
+  line-height:1.9;
+}
+html[lang="ta"] .tamil-wisdom-card p strong{color:var(--wine);font-weight:750}
+@media(max-width:760px){
+  .tamil-wisdom-section{padding:34px 0}
+  .tamil-wisdom-card{padding:28px 21px 25px 39px;border-radius:18px}
+  .tamil-wisdom-mark{left:12px;top:10px;font-size:3.4rem}
+  html[lang="ta"] .tamil-wisdom-card h2{font-size:1.3rem;line-height:1.52}
+  html[lang="ta"] .tamil-wisdom-card p{font-size:.94rem;line-height:1.82}
+}
