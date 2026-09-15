@@ -1741,3 +1741,12 @@ html[lang="ta"] .family-feature-content>p{
 .care-overview-stats .stat>span{display:block;color:var(--plum);font-weight:600;font-size:.95rem;line-height:1.8}
 @media(hover:hover){.care-overview-stats .stat:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(106,16,62,.12)}}
 @media(prefers-reduced-motion:reduce){.care-overview-stats .stat{transition:none}.care-overview-stats .stat:hover{transform:none}}
+/* Prominent family portal access action. */
+.family-feature-content .portal-access-button{display:inline-flex;align-items:center;justify-content:center;gap:13px;max-width:100%;min-height:56px;margin-top:24px;padding:16px 24px;border:1px solid #b62b73;border-radius:16px;background:linear-gradient(120deg,#840d48,#bd2879);color:#fff;font-weight:700;line-height:1.6;text-decoration:none;box-shadow:0 8px 20px rgba(132,13,72,.22),inset 0 1px 0 rgba(255,255,255,.2);transition:transform .2s ease,box-shadow .2s ease}
+.portal-access-button svg{width:23px;height:23px;flex-shrink:0}
+.portal-access-button span{color:inherit}
+.portal-access-button .portal-access-arrow{margin-left:5px}
+.family-feature-content .portal-access-button:focus-visible{outline:3px solid #840d48;outline-offset:5px}
+@media(hover:hover){.family-feature-content .portal-access-button:hover{color:#fff;transform:translateY(-2px);box-shadow:0 12px 25px rgba(132,13,72,.3)}}
+@media(max-width:480px){.family-feature-content .portal-access-button{width:100%;padding:14px 16px;gap:10px}}
+@media(prefers-reduced-motion:reduce){.family-feature-content .portal-access-button{transition:none}.family-feature-content .portal-access-button:hover{transform:none}}
