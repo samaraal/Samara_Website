@@ -70,3 +70,25 @@ html[lang="ta"] .inauguration-copy .inauguration-tamil-closing::before{content:"
   .samara-highlight-section .samara-highlight{box-shadow:none;break-inside:avoid}
   .samara-highlight-art{print-color-adjust:exact;-webkit-print-color-adjust:exact}
 }
+
+/* Whole-card Samara pink treatment with the official existing logo. */
+.samara-highlight-section .samara-highlight{
+  grid-template-columns:180px minmax(0,1fr);
+  background:linear-gradient(120deg,#fce5f0 0%,#f7c6df 48%,#ee9ec5 100%);
+  border-color:#eca7cb;
+}
+.samara-highlight-art{background:transparent;padding:26px 16px;border-right:1px solid #b0126420}
+.samara-highlight-art::after{display:none}
+.samara-highlight-art .samara-highlight-logo{display:block;width:148px;max-width:100%;height:auto;object-fit:contain;mix-blend-mode:multiply}
+.samara-highlight-copy{background:transparent}
+html[lang="ta"] .samara-highlight p{color:#53213d}
+html[lang="ta"] .hero-tamil-message,
+html[lang="ta"] .inauguration-copy .inauguration-tamil-closing{
+  background:linear-gradient(120deg,#fce5f0 0%,#f7c6df 48%,#ee9ec5 100%);
+  color:#75033c;
+}
+@media(max-width:640px){
+  .samara-highlight-section .samara-highlight{grid-template-columns:1fr}
+  .samara-highlight-art{justify-content:flex-start;min-height:0;padding:20px 22px 0;border:0}
+  .samara-highlight-art .samara-highlight-logo{width:135px}
+}
