@@ -92,3 +92,16 @@ html[lang="ta"] .inauguration-copy .inauguration-tamil-closing{
   .samara-highlight-art{justify-content:flex-start;min-height:0;padding:20px 22px 0;border:0}
   .samara-highlight-art .samara-highlight-logo{width:135px}
 }
+
+/* Why Samara: richer logo-pink cards inspired by the ERP welcome panel. */
+.card-grid .samara-care-card{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:linear-gradient(150deg,#fce1ee 0%,#f7bcd8 48%,#e67bad 100%);
+  border:1px solid #e9a1c4;box-shadow:0 14px 32px -20px #a3075466;
+  padding-bottom:42px;
+}
+.samara-care-card::before{content:"";position:absolute;z-index:-1;right:-70px;bottom:-115px;width:250px;height:250px;border:28px solid #b012640c;border-radius:50%;pointer-events:none}
+.samara-care-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:7px;background:linear-gradient(90deg,#e04491,#b01264,#8c114c);pointer-events:none}
+.samara-care-card .card-icon{background:#b01264;color:#fff;border:1px solid #b01264;box-shadow:0 5px 14px #b0126426}
+.card-grid .samara-care-card h3{color:#80063e;line-height:1.65}
+.card-grid .samara-care-card p{color:#502039;line-height:1.9;text-align:left;word-spacing:normal}
