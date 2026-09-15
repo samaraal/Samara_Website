@@ -1777,3 +1777,7 @@ html:not([lang="ta"]) :is(h1,h2,h3,h4,h5,h6){font-family:"Quicksand","Trebuchet 
 html:not([lang="ta"]) .hero h1,html:not([lang="ta"]) .page-hero h1{font-family:"Quicksand","Trebuchet MS",sans-serif;font-weight:600;font-size:clamp(2.1rem,4.1vw,3.75rem);letter-spacing:-.025em;line-height:1.2}
 html:not([lang="ta"]) .eyebrow.hero-brand{font-family:"Quicksand","Trebuchet MS",sans-serif;font-weight:700;text-transform:none;letter-spacing:.015em}
 html:not([lang="ta"]) .faq-question{font-family:"Quicksand","Trebuchet MS",sans-serif;font-weight:600;letter-spacing:0;line-height:1.5}
+/* Blend footer credits into the existing pink background. */
+footer .footer-bottom,footer .developer-credit{background:transparent!important;border-radius:0!important;color:#360d25!important}
+footer .footer-bottom{border-top:1px solid rgba(77,23,51,.22)!important}
+footer .developer-credit a{color:#360d25!important}
