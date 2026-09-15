@@ -1334,12 +1334,23 @@ body{
 .inauguration-status span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;color:#fff;background:linear-gradient(100deg,var(--wine),var(--magenta),var(--rose));font-size:.8rem}
 .inauguration-copy-tamil h2{font-size:clamp(1.75rem,2.5vw,2.55rem);line-height:1.32;letter-spacing:0}
 .inauguration-copy-tamil h3{margin:24px 0 14px;color:var(--wine);font-size:1.4rem;line-height:1.35}
-.inauguration-services-tamil{display:grid;gap:14px;margin:0;padding:0;list-style:none}
-.inauguration-services-tamil li{position:relative;padding-left:22px;color:var(--muted);font-size:.98rem;line-height:1.68}
-.inauguration-services-tamil li::before{content:'•';position:absolute;left:3px;top:0;color:var(--magenta);font-weight:900}
-.inauguration-services-tamil strong,.inauguration-services-tamil span{display:block}
-.inauguration-services-tamil strong{margin-bottom:3px;color:var(--plum);font-weight:800}
+.inauguration-services-tamil{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:18px 0 0;padding:0;list-style:none}
+.inauguration-services-tamil li{position:relative;padding:22px 22px 22px 42px;border:1px solid rgba(176,18,100,.11);border-radius:18px;background:rgba(255,255,255,.78);color:var(--muted);font-size:.98rem;line-height:1.75;box-shadow:0 10px 28px rgba(104,18,61,.055)}
+.inauguration-services-tamil li::before{content:'•';position:absolute;left:21px;top:20px;color:var(--magenta);font-size:1.25rem;font-weight:900}
+.inauguration-services-tamil li>strong,.inauguration-services-tamil li>span{display:block}
+.inauguration-services-tamil li>strong{margin-bottom:8px;color:var(--plum);font-weight:800;line-height:1.55}
+.inauguration-services-tamil li>span strong{display:inline;color:var(--wine);font-weight:800}
+.inauguration-copy .inauguration-tamil-closing{margin:24px 0 0;color:#5e4d57;font-weight:600}
 .inauguration-copy .inauguration-tamil-promise{margin-top:22px;padding:13px 16px;border-left:4px solid var(--magenta);border-radius:0 12px 12px 0;background:rgba(210,34,116,.07);color:var(--wine);font-weight:800;line-height:1.55}
+html[lang="ta"] .inauguration-intro{grid-template-columns:1fr;gap:30px;max-width:1120px;margin-left:auto;margin-right:auto}
+html[lang="ta"] .inauguration-copy-tamil{max-width:1080px;margin:0 auto}
+html[lang="ta"] .inauguration-copy-tamil h2{max-width:980px}
+html[lang="ta"] .inauguration-feature-photo{width:min(100%,820px);margin:0 auto}
+@media(max-width:760px){
+  .inauguration-services-tamil{grid-template-columns:1fr;gap:13px}
+  .inauguration-services-tamil li{padding:18px 17px 18px 36px;font-size:.94rem;line-height:1.68}
+  .inauguration-services-tamil li::before{left:17px;top:16px}
+}
 .inauguration-feature-photo{margin:0;border-radius:24px;overflow:hidden;background:#fff;border:1px solid rgba(176,18,100,.12);box-shadow:0 20px 48px rgba(104,18,61,.12)}
 .inauguration-feature-photo img{width:100%;height:330px;object-fit:cover}.inauguration-feature-photo figcaption,.event-photo figcaption{padding:10px 13px;background:rgba(255,255,255,.97);color:var(--wine);font-size:.82rem;font-weight:750}
 .inauguration-story{background:rgba(255,255,255,.7);border:1px solid rgba(176,18,100,.10);border-radius:28px;padding:30px;box-shadow:0 18px 48px rgba(104,18,61,.07);backdrop-filter:blur(5px)}
