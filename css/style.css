@@ -1761,3 +1761,6 @@ html[lang=ta] .inauguration-story-heading .tamil-date-larger{font-size:1.14rem}
 :root{--samara-logo-color:#a0004d}
 .samara-brand-text-wrapper{display:contents!important;font:inherit!important;color:inherit!important;letter-spacing:inherit!important}
 .samara-brand-text-wrapper .samara-brand-name{display:inline!important;color:var(--samara-logo-color)!important;font:inherit!important;letter-spacing:inherit!important;text-transform:inherit!important}
+
+html[lang=ta] .eyebrow.who-benefits-label{font-size:1.5rem}
+html[lang=ta] .split-copy h2.who-benefits-heading{white-space:pre-line}
