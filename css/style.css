@@ -1224,58 +1224,6 @@ h1,h2,h3,.section-title{ text-transform:capitalize; }
   .transparency-note{font-size:.69rem;gap:6px}
 }
 
-/* v12 — compact, high-visibility Tamil thought panels */
-html[lang="ta"] .inauguration-copy .inauguration-tamil-closing,
-html[lang="ta"] .tamil-wisdom-card{
-  isolation:isolate;
-  overflow:hidden;
-  width:min(100%,820px);
-  border:1px solid rgba(176,18,100,.24);
-  border-left:6px solid var(--magenta);
-  background:linear-gradient(120deg,#fff 0%,#fff7fb 62%,#fdebf4 100%);
-  box-shadow:0 18px 42px rgba(104,18,61,.13),0 3px 10px rgba(176,18,100,.07);
-}
-html[lang="ta"] .inauguration-copy .inauguration-tamil-closing{
-  margin:28px auto 0;
-  padding:24px 190px 24px 26px;
-  border-radius:18px;
-  color:#6c0b3e;
-  font-size:1.02rem;
-  font-weight:700;
-  line-height:1.8;
-}
-html[lang="ta"] .inauguration-copy .inauguration-tamil-closing::before,
-html[lang="ta"] .tamil-wisdom-card::before{
-  content:"";
-  position:absolute;
-  z-index:0;
-  right:24px;
-  top:50%;
-  width:145px;
-  height:72px;
-  transform:translateY(-50%);
-  background:url("../assets/samara-logo.png") center/contain no-repeat;
-  opacity:.1;
-  pointer-events:none;
-}
-html[lang="ta"] .tamil-wisdom-section{padding:42px 0}
-html[lang="ta"] .tamil-wisdom-card{padding:30px 190px 30px 55px;border-radius:21px}
-html[lang="ta"] .tamil-wisdom-card h2,
-html[lang="ta"] .tamil-wisdom-card p,
-html[lang="ta"] .tamil-wisdom-card .tamil-wisdom-mark{position:relative;z-index:1}
-html[lang="ta"] .tamil-wisdom-card h2{color:#790b45;font-weight:800;margin-bottom:11px}
-html[lang="ta"] .tamil-wisdom-card p{color:#4f3544;font-weight:500;line-height:1.85}
-html[lang="ta"] .tamil-wisdom-mark{color:rgba(190,20,101,.42)}
-@media(max-width:760px){
-  html[lang="ta"] .inauguration-copy .inauguration-tamil-closing,
-  html[lang="ta"] .tamil-wisdom-card{width:100%;border-left-width:5px;box-shadow:0 12px 28px rgba(104,18,61,.12)}
-  html[lang="ta"] .inauguration-copy .inauguration-tamil-closing{padding:20px 18px;margin-top:22px;font-size:.95rem;line-height:1.72}
-  html[lang="ta"] .tamil-wisdom-section{padding:30px 0}
-  html[lang="ta"] .tamil-wisdom-card{padding:25px 20px 23px 39px;border-radius:17px}
-  html[lang="ta"] .inauguration-copy .inauguration-tamil-closing::before,
-  html[lang="ta"] .tamil-wisdom-card::before{right:12px;top:auto;bottom:8px;width:105px;height:52px;transform:none;opacity:.055}
-}
-
 
 /* Assisted Living hero introduction */
 .assisted-living-intro{max-width:650px;margin:0 0 24px;padding:0 0 20px;border-bottom:1px solid rgba(176,18,100,.14)}
@@ -1290,21 +1238,6 @@ html[lang="ta"] .tamil-wisdom-mark{color:rgba(190,20,101,.42)}
 .digital-signature-band .digital-signature-icon > svg .feather-accent{fill:#bd1768 !important;stroke:none !important}
 .digital-signature-band .digital-signature-icon > svg .heart-fill{fill:#bd1768 !important;stroke:#bd1768 !important}
 @media(max-width:560px){.digital-signature-band .digital-signature-icon{flex-basis:76px}.digital-signature-band .digital-signature-icon > svg{width:56px !important;height:56px !important;max-width:56px !important;max-height:56px !important}}
-
-/* Tamil Digital Care: balanced long-form copy on desktop and mobile */
-html[lang="ta"] .digital-advantage-heading{max-width:900px}
-html[lang="ta"] .digital-advantage-heading h2{font-size:clamp(2rem,3.25vw,3.25rem);line-height:1.24}
-html[lang="ta"] .digital-advantage-heading p{max-width:850px;margin-inline:auto;line-height:1.8}
-html[lang="ta"] .digital-signature-copy h3{font-size:clamp(1.55rem,2.1vw,2.15rem);line-height:1.2}
-html[lang="ta"] .digital-signature-copy p{text-align:justify;text-justify:inter-word;line-height:1.8}
-html[lang="ta"] .digital-kicker{line-height:1.45;letter-spacing:.11em}
-@media(max-width:560px){
-  html[lang="ta"] .digital-advantage-heading h2{font-size:1.72rem;line-height:1.3}
-  html[lang="ta"] .digital-advantage-heading p{text-align:left;line-height:1.7}
-  html[lang="ta"] .digital-signature-copy h3{font-size:1.35rem}
-  html[lang="ta"] .digital-signature-copy p{text-align:left;line-height:1.65}
-  html[lang="ta"] .transparency-note{flex-wrap:wrap;justify-content:flex-start;line-height:1.45}
-}
 
 /* === Samara light blush theme refinement === */
 body{
