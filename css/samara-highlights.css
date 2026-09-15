@@ -7,50 +7,50 @@
 .samara-highlight-section .samara-highlight{
   display:grid;grid-template-columns:142px minmax(0,1fr);width:100%;max-width:940px;
   margin:0 auto;padding:0;overflow:hidden;isolation:isolate;
-  border:1px solid #ecdce3;border-radius:22px;background:#fffdfa;
-  box-shadow:0 16px 40px -20px rgba(87,18,53,.3),0 3px 8px rgba(87,18,53,.03);
+  border:1px solid #f3ccdf;border-radius:22px;background:#ffffff;
+  box-shadow:0 16px 40px -20px rgba(176,18,100,.14),0 3px 8px rgba(176,18,100,.025);
 }
 .samara-highlight-art{
   position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:24px;min-width:0;overflow:hidden;background:linear-gradient(155deg,#83134b,#4b1937);
-  color:#f4d8b7;padding:28px 12px;
+  gap:24px;min-width:0;overflow:hidden;background:linear-gradient(155deg,#fffafd 0%,#fce5ef 48%,#f3a2c8 100%);
+  color:#a30754;padding:28px 12px;
 }
-.samara-highlight-art::after{content:"";position:absolute;inset:10px;border:1px solid #ffffff1c;border-radius:14px;pointer-events:none}
+.samara-highlight-art::after{content:"";position:absolute;inset:10px;border:1px solid #b012641c;border-radius:14px;pointer-events:none}
 .samara-highlight-art svg{position:relative;width:78px;height:78px;z-index:1}
-.samara-highlight-orbit{position:absolute;width:220px;height:220px;border:1px solid #f4d8b72e;border-radius:50%;top:-105px;left:-75px}
-.samara-highlight-orbit::after{content:"";position:absolute;inset:17px;border:1px solid #f4d8b719;border-radius:50%}
+.samara-highlight-orbit{position:absolute;width:220px;height:220px;border:1px solid #b0126420;border-radius:50%;top:-105px;left:-75px}
+.samara-highlight-orbit::after{content:"";position:absolute;inset:17px;border:1px solid #b0126410;border-radius:50%}
 .samara-highlight-signature{position:relative;text-align:center;font:600 12px/1.5 Arial,sans-serif;letter-spacing:3px}
-.samara-highlight-signature span{display:block;font-size:7px;letter-spacing:1.5px;margin-top:5px;color:#e9c8d5}
+.samara-highlight-signature span{display:block;font-size:7px;letter-spacing:1.5px;margin-top:5px;color:#8b315b}
 .samara-highlight-copy{padding:28px 34px 30px;min-width:0}
-.samara-highlight-kicker{display:flex;align-items:center;gap:9px;color:#8d5366;font-size:11px;font-weight:600;line-height:1.8;margin-bottom:12px}
-.samara-highlight-kicker::before{content:"";flex:0 0 22px;height:2px;background:#c59363}
+.samara-highlight-kicker{display:flex;align-items:center;gap:9px;color:#9d275f;font-size:11px;font-weight:600;line-height:1.8;margin-bottom:12px}
+.samara-highlight-kicker::before{content:"";flex:0 0 22px;height:2px;background:#d62b80}
 html[lang="ta"] .samara-highlight h2{
-  color:#70143f;font-size:clamp(1.12rem,1.8vw,1.5rem);font-weight:700;line-height:1.65;
+  color:#850746;font-size:clamp(1.12rem,1.8vw,1.5rem);font-weight:700;line-height:1.65;
   margin:0 0 14px;text-align:left;letter-spacing:normal;word-spacing:normal;text-wrap:pretty;
 }
 html[lang="ta"] .samara-highlight p{
   margin:0;color:#61545b;font-size:.94rem;line-height:1.95;font-weight:400;
   text-align:left!important;text-justify:auto;letter-spacing:normal;word-spacing:normal;overflow-wrap:break-word;
 }
-html[lang="ta"] .samara-highlight p strong{color:#771644;font-weight:650}
+html[lang="ta"] .samara-highlight p strong{color:#a30754;font-weight:650}
 /* Home hero: keep its existing placement, with a distinct brand-colour inset. */
 html[lang="ta"] .hero-tamil-message{
   position:relative;isolation:isolate;max-width:620px;margin:24px 0 0;padding:25px 26px 25px 32px;
-  border:0;border-left:3px solid #d4ad7d;border-radius:0 18px 18px 0;
-  background:linear-gradient(125deg,#771341,#4b1937);color:#fff6fa;
-  box-shadow:0 12px 30px -15px #57153577;font-size:1rem;font-weight:500;line-height:1.95;
+  border:1px solid #f0c5d9;border-left:3px solid #c4156c;border-radius:0 18px 18px 0;
+  background:linear-gradient(125deg,#ffffff 0%,#fff0f7 55%,#f8c5de 100%);color:#850746;
+  box-shadow:0 12px 30px -15px #b0126426;font-size:1rem;font-weight:500;line-height:1.95;
   text-align:left!important;text-justify:auto;letter-spacing:normal;word-spacing:normal;
 }
 /* Home inauguration: an inset statement, not an edge-to-edge banner. */
 html[lang="ta"] .inauguration-copy .inauguration-tamil-closing{
   position:relative;max-width:850px;margin:30px auto 4px;padding:32px 34px 30px 42px;
-  border:1px solid #ead8df;border-left:4px solid #b38457;border-radius:0 20px 20px 0;
-  background:linear-gradient(115deg,#fffdf8,#fff6fa);color:#70143f;
+  border:1px solid #f0c5d9;border-left:4px solid #c4156c;border-radius:0 20px 20px 0;
+  background:linear-gradient(115deg,#ffffff,#fde5f0);color:#850746;
   font-size:.98rem;font-weight:550;line-height:1.95;text-align:left!important;
   text-justify:auto;letter-spacing:normal;word-spacing:normal;
-  box-shadow:0 16px 32px -22px #68123d55;
+  box-shadow:0 16px 32px -22px #b0126426;
 }
-html[lang="ta"] .inauguration-copy .inauguration-tamil-closing::before{content:"“";position:absolute;top:0;left:12px;color:#d9ae7e;font:54px/1 Georgia,serif;opacity:.7}
+html[lang="ta"] .inauguration-copy .inauguration-tamil-closing::before{content:"“";position:absolute;top:0;left:12px;color:#d62b80;font:54px/1 Georgia,serif;opacity:.7}
 @media(max-width:640px){
   .samara-highlight-section.tamil-wisdom-section{padding:8px 0 28px}
   .samara-highlight-section .samara-highlight{grid-template-columns:1fr;max-width:460px;border-radius:18px}
