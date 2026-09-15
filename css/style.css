@@ -1753,3 +1753,6 @@ html[lang="ta"] .family-feature-content>p{
 /* Half-size Tamil heading in Who May Benefit. */
 html[lang="ta"] .split-copy h2.who-benefits-heading{font-size:clamp(.875rem,1.35vw,1.275rem);line-height:1.65}
 @media(max-width:760px){html[lang="ta"] .split-copy h2.who-benefits-heading{font-size:clamp(.775rem,3.3vw,1rem)}}
+/* Six requested Tamil labels enlarged by 50%. */
+html[lang=ta] .eyebrow.tamil-label-larger{font-size:1.125rem}
+html[lang=ta] .inauguration-story-heading .tamil-date-larger{font-size:1.14rem}
