@@ -53,7 +53,41 @@ const SAMARA_PHONE = "073959 61616";
     catch(_error){return 'en';}
   }
 
+  // Keep original text nodes intact so repeated language changes remain reversible.
+  const brandTextNodes=new Map();
+  function restoreBrandText(){
+    brandTextNodes.forEach(function(node,wrapper){wrapper.replaceWith(node);});
+    brandTextNodes.clear();
+  }
+  function colorBrandNames(){
+    const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+    const nodes=[];let node;
+    while((node=walker.nextNode()))nodes.push(node);
+    nodes.forEach(function(textNode){
+      const parent=textNode.parentElement;
+      if(!parent||parent.closest('script,style,textarea,input,select,svg,[contenteditable]'))return;
+      const text=textNode.nodeValue;
+      const pattern=/Samara\s+Assisted\s+Living|சமரா\s+அசிஸ்டெட்\s+லிவிங்/gi;
+      const matches=Array.from(text.matchAll(pattern));
+      if(!matches.length)return;
+      const wrapper=document.createElement('span');
+      wrapper.className='samara-brand-text-wrapper';
+      let offset=0;
+      matches.forEach(function(match){
+        wrapper.appendChild(document.createTextNode(text.slice(offset,match.index)));
+        const brand=document.createElement('span');
+        brand.className='samara-brand-name';
+        brand.textContent=match[0];
+        wrapper.appendChild(brand);
+        offset=match.index+match[0].length;
+      });
+      wrapper.appendChild(document.createTextNode(text.slice(offset)));
+      textNode.replaceWith(wrapper);
+      brandTextNodes.set(wrapper,textNode);
+    });
+  }
   function setLanguage(language){
+    restoreBrandText();
     const selected=language==='ta'?'ta':'en';
     document.documentElement.lang=selected==='ta'?'ta':'en-IN';
     document.querySelectorAll('[data-samara-language]').forEach(function(button){
@@ -72,6 +106,7 @@ const SAMARA_PHONE = "073959 61616";
     }
     document.querySelectorAll('[data-samara-tamil-only]').forEach(function(element){element.hidden=selected!=='ta';});
     translateHomePage(selected);
+    colorBrandNames();
     try{localStorage.setItem(STORAGE_KEY,selected);}catch(_error){}
   }
 
