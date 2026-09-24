@@ -30,6 +30,61 @@
       src: './assets/inauguration/24-malan-lamp-lighting.jpg',
       alt: 'Malan lighting the traditional lamp at Samara Assisted Living',
       caption: 'Traditional lamp lighting – Malan'
+    },
+    {
+      src: './assets/inauguration/25-samara-inauguration-moment-02801.jpg',
+      alt: 'Samara Assisted Living inauguration ceremony moment',
+      caption: 'Inauguration ceremony moments'
+    },
+    {
+      src: './assets/inauguration/26-samara-inauguration-moment-03187.jpg',
+      alt: 'Samara Assisted Living inauguration ceremony moment',
+      caption: 'Inauguration ceremony moments'
+    },
+    {
+      src: './assets/inauguration/27-samara-inauguration-moment-03186.jpg',
+      alt: 'Samara Assisted Living inauguration ceremony moment',
+      caption: 'Inauguration ceremony moments'
+    },
+    {
+      src: './assets/inauguration/28-samara-inauguration-moment-03287.jpg',
+      alt: 'Samara Assisted Living inauguration ceremony moment',
+      caption: 'Inauguration ceremony moments'
+    },
+    {
+      src: './assets/inauguration/29-samara-inauguration-moment-03173.jpg',
+      alt: 'Samara Assisted Living inauguration ceremony moment',
+      caption: 'Inauguration ceremony moments'
+    },
+    {
+      src: './assets/inauguration/30-samara-inauguration-moment-03204.jpg',
+      alt: 'Samara Assisted Living inauguration ceremony moment',
+      caption: 'Inauguration ceremony moments'
+    },
+    {
+      src: './assets/inauguration/31-samara-inauguration-moment-03197.jpg',
+      alt: 'Samara Assisted Living inauguration ceremony moment',
+      caption: 'Inauguration ceremony moments'
+    },
+    {
+      src: './assets/inauguration/32-samara-inauguration-moment-03190.jpg',
+      alt: 'Samara Assisted Living inauguration ceremony moment',
+      caption: 'Inauguration ceremony moments'
+    },
+    {
+      src: './assets/inauguration/33-samara-inauguration-moment-03191.jpg',
+      alt: 'Samara Assisted Living inauguration ceremony moment',
+      caption: 'Inauguration ceremony moments'
+    },
+    {
+      src: './assets/inauguration/34-samara-inauguration-moment-03237.jpg',
+      alt: 'Samara Assisted Living inauguration ceremony moment',
+      caption: 'Inauguration ceremony moments'
+    },
+    {
+      src: './assets/inauguration/35-samara-inauguration-moment-03182.jpg',
+      alt: 'Samara Assisted Living inauguration ceremony moment',
+      caption: 'Inauguration ceremony moments'
     }
   ];
 
@@ -42,7 +97,7 @@
 
     const dot = document.createElement('button');
     dot.type = 'button';
-    dot.setAttribute('aria-label', `Show photograph ${20 + index}`);
+    dot.setAttribute('aria-label', `Show photograph ${dots.children.length + 1}`);
     dots.appendChild(dot);
   });
 })();
