@@ -1,0 +1,17 @@
+/* Gallery page — "Our Centre" photos. Samara Public Website v2.5.2 */
+.centre-gallery-section{padding-bottom:28px}
+.centre-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.centre-gallery .centre-gallery-item{position:relative;margin:0;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 10px 26px rgba(65,18,42,.10)}
+.centre-gallery .centre-gallery-item.is-wide{grid-column:span 2;grid-row:span 2}
+.centre-gallery .centre-gallery-item img{width:100%;height:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 45%}
+.centre-gallery .centre-gallery-item.is-wide img{aspect-ratio:auto}
+.centre-gallery-caption{position:absolute;left:10px;right:10px;bottom:10px;padding:8px 12px;border-radius:12px;background:rgba(255,255,255,.92);color:var(--plum,#5d1039);font-weight:700;font-size:.9rem;line-height:1.35;box-shadow:0 4px 12px rgba(65,18,42,.12)}
+html[lang="ta"] .centre-gallery-caption{font-size:.84rem}
+@media (max-width:860px){
+  .centre-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .centre-gallery .centre-gallery-item.is-wide{grid-column:1/-1;grid-row:auto}
+}
+@media (max-width:520px){
+  .centre-gallery{grid-template-columns:1fr}
+  .centre-gallery-caption{font-size:.84rem}
+}
