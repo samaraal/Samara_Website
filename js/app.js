@@ -35,7 +35,7 @@ const SAMARA_PHONE = "073959 61616";
     nodes.forEach(function(textNode){
       const parent=textNode.parentElement;
       if(!parent||parent.closest('script,style,[data-samara-language],#samara-tamil-preview-notice'))return;
-      if(!homePage&&!parent.closest('header.header,footer.footer'))return;
+      if(!homePage&&!parent.closest('header.header,footer.footer,[data-samara-translate]'))return;
       if(!originalText.has(textNode))originalText.set(textNode,textNode.nodeValue);
       const english=originalText.get(textNode);
       if(language!=='ta'){textNode.nodeValue=english;return;}
