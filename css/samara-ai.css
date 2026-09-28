@@ -93,3 +93,36 @@
 .sai-mini span{position:absolute;right:-4px;bottom:-4px;background:#f9a800;color:#4a1030;border:2px solid #fff;border-radius:999px;font:900 .7rem/1 "Nunito Sans",system-ui,sans-serif;padding:4px 6px}
 .sai-mini:focus-visible{outline:3px solid #f9a800;outline-offset:3px}
 @media(max-width:600px){.sai-mini{right:14px;bottom:146px;width:58px;height:58px}.sai-mini img{width:40px;height:40px}}
+/* 28-09-2026: topic cards in the side window (directors, location, admission, charges, services, family portal) */
+.sai-viewer.sai-card-view{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:0;grid-template-columns:none;height:auto;max-height:min(650px,calc(100dvh - 32px))}
+.sai-card-view::before{content:none}
+.sai-card-title{flex:0 0 auto;display:flex;align-items:center;min-height:52px;padding:0 60px 0 20px;background:linear-gradient(120deg,#9c0040,#c3025a);color:#fff;font:800 1.08rem/1.25 "Nunito Sans",system-ui,sans-serif}
+.sai-card-view .sai-v-close{top:9px}
+.sai-card-body{flex:1 1 auto;overflow:auto;padding:16px 22px 18px;color:#3c2731;font:500 .95rem/1.55 "Nunito Sans",system-ui,sans-serif}
+.sai-card-body h4{margin:16px 0 6px;color:#9c0040;font-size:.98rem}
+.sai-card-body h4:first-child{margin-top:0}
+.sai-card-body ul,.sai-card-body ol{margin:0 0 6px;padding-left:22px}
+.sai-card-body li{margin:3px 0}
+.sai-card-body ul li::marker{color:#c3025a}
+.sai-card-lead{font-weight:700;color:#5a1238}
+.sai-card-note{margin-top:12px;padding:10px 12px;border-radius:12px;background:#fff4e2;color:#6b4200;font-weight:600}
+.sai-card-hl{padding:12px 14px;border-radius:14px;background:#fbe7f1;border:1px solid #f0c6dc;margin-bottom:6px}
+.sai-card-hl li{font-weight:800;color:#7d143f}
+.sai-person{display:grid;grid-template-columns:150px minmax(0,1fr);gap:4px 18px;padding:16px 0;border-top:1px solid #f0d5e3}
+.sai-person:first-of-type{border-top:0;padding-top:4px}
+.sai-person img{grid-row:1 / span 20;width:150px;height:190px;object-fit:cover;object-position:top;border-radius:14px;border:3px solid #fbe7f1}
+.sai-person-head{display:grid;gap:1px;margin-bottom:4px}
+.sai-person-head strong{color:#9c0040;font-size:1.08rem}
+.sai-person-head span{font-weight:700;font-size:.86rem;color:#5a1238}
+.sai-person-head em{font-size:.84rem;color:#8b5a73}
+.sai-person p{margin:0 0 8px}
+.sai-card-qr{margin:14px 0 0;display:flex;gap:12px;align-items:center}
+.sai-card-qr img{width:120px;height:120px;border-radius:10px;border:1px solid #eed0df;background:#fff;object-fit:contain}
+.sai-card-qr figcaption{font-weight:700;color:#7d143f}
+.sai-card-actions{flex:0 0 auto;display:flex;flex-wrap:wrap;gap:8px;padding:12px 18px;border-top:1px solid #f0d5e3;background:#fff8fc}
+.sai-card-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:9px 16px;border-radius:999px;border:1px solid #e4a3c4;background:#fff;color:#9c0040;font:800 .9rem/1.2 "Nunito Sans",system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.sai-card-btn.primary{background:linear-gradient(135deg,#9c0040,#c3025a);border-color:#9c0040;color:#fff}
+.sai-card-btn:focus-visible{outline:3px solid #f9a800;outline-offset:2px}
+.sai-chip{display:block;max-width:92%;margin:0 0 12px;padding:9px 14px;border-radius:12px;border:1px dashed #d98ab2;background:#fff;color:#9c0040;font:800 .84rem/1.3 "Nunito Sans",system-ui,sans-serif;text-align:left;cursor:pointer}
+.sai-chip:hover{background:#fff0f8}
+@media(max-width:899px){.sai-viewer.sai-card-view{height:auto;max-height:min(60dvh,520px);padding:0}.sai-person{grid-template-columns:96px minmax(0,1fr);gap:2px 12px}.sai-person img{width:96px;height:124px}.sai-card-body{padding:14px 16px;font-size:.9rem}}

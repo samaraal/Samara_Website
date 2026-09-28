@@ -28,5 +28,8 @@ window.SAMARA_AI_SITE = {
   enquiryUrl: './enquiry.html',
   phone: '919976735577',
   whatsapp: '917395961616',
-  source: 'samaraassistedliving.com'
+  source: 'samaraassistedliving.com',
+  directors: ['./assets/about/dr-krishnan-chellammal-profile.jpg', './assets/about/dr-maneesha-boominathan.jpg'],
+  pages: { about: './about.html', services: './services.html', admission: './enquiry.html', pricing: './packages.html', faq: './faq.html' },
+  qr: './assets/location-qr.jpeg'
 };
