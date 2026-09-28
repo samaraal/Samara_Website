@@ -1,0 +1,18 @@
+Samara Website v2.6.0 — Samara AI assistant — upload ONLY to GitHub repo: Samara_Website (samaraassistedliving.com)
+
+1. Upload these files to repo Samara_Website keeping the same folders:
+   all 17 .html pages (404, about, careers, contact, disclaimer, enquiry, faq, feedback, gallery, index,
+   packages, privacy-policy, privacy, refund-cancellation, rooms, services, terms),
+   js/samara-ai.js, js/samara-speech.js, js/samara-ai-config.js, css/samara-ai.css, assets/samara-mark.png
+   (Do NOT upload the supabase/ folder to GitHub — it is only for step 2.)
+
+2. AI SERVER (do this ONCE only — it is shared by BOTH websites; skip it if you already did it from the other package):
+   Supabase > Edge Functions > samara-public-ai > Code: replace ALL the code with
+   supabase/functions/samara-public-ai/index.ts and press Deploy. Do not change its settings or secrets.
+   This adds: the correct phone +91 99767 35577 and WhatsApp +91 73959 61616, Call/WhatsApp buttons,
+   visiting hours 10 AM - 5 PM, the new pricing wording (basic package = room rent, nursing care, food),
+   "Book a visit" from chat, and Malayalam replies.
+
+3. Open https://samaraassistedliving.com and tap "Ask Samara AI" (bottom right, above WhatsApp).
+   Try: "What is your phone number?" and the "Book a visit" button.
+   Visit requests appear in the ERP > Enquiries page.
