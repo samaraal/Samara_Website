@@ -11,6 +11,7 @@ Samara Website v2.6.0 — Samara AI assistant — upload ONLY to GitHub repo: Sa
    supabase/functions/samara-public-ai/index.ts and press Deploy. Do not change its settings or secrets.
    This adds: the correct phone +91 99767 35577 and WhatsApp +91 73959 61616, Call/WhatsApp buttons,
    visiting hours 10 AM - 5 PM, the new pricing wording (basic package = room rent, nursing care, food),
+   and faster replies (Gemini "thinking" switched off for these short answers),
    "Book a visit" from chat, and Malayalam replies.
 
 3. Open https://samaraassistedliving.com and tap "Ask Samara AI" (bottom right, above WhatsApp).

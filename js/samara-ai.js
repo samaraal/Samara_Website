@@ -150,12 +150,20 @@ var CARD={
 function ct(){return /^ta/.test(activeLang())||(lang==='auto'&&/^ta/i.test(document.documentElement.lang||''))?CARD.ta:CARD.en}
 function bl(o){return (/^ta/.test(activeLang())?o.ta:o.en)||o.en}
 function topicOf(t){t=String(t||'').toLowerCase();
- if(/director|founder|who runs|who owns|owner|leadership|management team|chellammal|maneesha|chella boomi|இயக்குந|நிறுவனர்|யார் நடத்த|செல்லம்மாள்|மணீஷா|డైరెక్టర్|निदेशक|डायरेक्टर|ನಿರ್ದೇಶಕ|ഡയറക്ടർ/.test(t))return'directors';
- if(/family portal|portal|daily update|updates for family|குடும்ப இணைய|போர்ட்டல்|పోర్టల్|पोर्टल|ಪೋರ್ಟಲ್|പോർട്ടൽ/.test(t))return'portal';
- if(/admission|admit|document|join samara|how to (start|join|apply)|சேர்க்கை|அட்மிஷன்|ஆவண|అడ్మిషన్|दाखिल|दस्तावेज|ಪ್ರವೇಶ|ದಾಖಲೆ|പ്രവേശന|രേഖ/.test(t))return'admission';
- if(/how much|price|cost|charge|package|fee|rate|tariff|visiting (hour|time)|visit(ing)? timing|எவ்வளவு|கட்டணம்|விலை|பேக்கேஜ்|பார்வை நேரம்|ధర|ఛార్జ|कितना|कीमत|शुल्क|पैकेज|ಎಷ್ಟು|ಬೆಲೆ|ಶುಲ್ಕ|നിരക്ക്|എത്ര|ഫീസ്/.test(t))return'pricing';
- if(navigationQuestion(t)||/address|landmark|decathlon|where is samara|where are you|எங்கே|எங்கு|అడ్రస్|कहाँ|ಎಲ್ಲಿ|എവിടെ/.test(t))return'location';
- if(/services|what care|care do you|facilit|physio|nursing care|what do you (offer|provide)|சேவை|என்ன பராமரிப்பு|సేవ|सेवा|ಸೇವೆ|സേവന/.test(t))return'services';
+ if(/in ?charge|head of (samara|the (centre|center))|director|founder|found(ed|er)|start(ed)? (samara|this|the (centre|center))|who (is |are )?(running|runs|run|owns|owned|manages|managing|behind|started|heads?)|\bowner|management|managed by|leadership|leader|chairman|\bceo\b|\bmd\b|chellammal|maneesha|chella boomi|இயக்குந|நிறுவன|நிர்வாக|உரிமையாளர்|யார் நடத்த|நடத்துபவர்|தொடங்கிய|செல்லம்மாள்|மணீஷா|డైరెక్టర్|యజమాని|निदेशक|डायरेक्टर|मालिक|संस्थापक|ನಿರ್ದೇಶಕ|ಮಾಲೀಕ|ഡയറക്ടർ|ഉടമ/.test(t))return'directors';
+ if(/family portal|portal|\bapp\b|online (update|report)|daily update|updates? (of|on|about) my|see (my|the) (mother|father|parent|amma|appa)|track (my|the)|குடும்ப இணைய|போர்ட்டல்|ஆப்|அப்டேட்|పోర్టల్|पोर्टल|ऐप|ಪೋರ್ಟಲ್|പോർട്ടൽ/.test(t))return'portal';
+ if(/admission|admit|document|join samara|how (do|can) (i|we) (join|admit|start|apply|enrol)|procedure|joining|new resident|சேர்க்கை|சேர்ப்ப|சேர்க்க|அட்மிஷன்|ஆவண|அனுமதி|అడ్మిషన్|చేర్చ|दाखिल|भर्ती|दस्तावेज|ಪ್ರವೇಶ|ದಾಖಲೆ|ಸೇರಿಸ|പ്രവേശന|രേഖ|ചേർക്ക/.test(t))return'admission';
+ if(/how much|price|pric|cost|charge|package|fee|rate|tariff|rent|monthly|per month|budget|afford|visiting (hour|time)|visit(ing)? timing|visitors? (allowed|time)|எவ்வளவு|கட்டணம்|விலை|பணம்|செலவு|வாடகை|பேக்கேஜ்|பார்வை நேரம்|பார்க்க வர|ధర|ఛార్జ|ఖర్చు|कितना|कीमत|शुल्क|खर्च|पैकेज|ಎಷ್ಟು|ಬೆಲೆ|ಶುಲ್ಕ|ಖರ್ಚು|നിരക്ക്|എത്ര|ഫീസ്|ചെലവ്/.test(t))return'pricing';
+ if(navigationQuestion(t)||/address|landmark|decathlon|where (is|are) (it|you|samara|the (centre|center|place))|where is it|how (to|do i|can i) (come|reach|get there|find)|located|location|எங்கே|எங்கு|எப்படி வருவது|అడ్రస్|ఎక్కడ|कहाँ|कहां|ಎಲ್ಲಿ|എവിടെ/.test(t))return'location';
+ if(/services|facilit|nursing|physio|what (care|services)|care (do|you)|what do you (do|offer|provide)|doctor|medical support|wound|diet|daily care|bathing|feeding|சேவை|வசதி|என்ன பராமரிப்பு|நர்சிங்|சிகிச்சை|సేవ|సౌకర్య|सेवा|सुविधा|ಸೇವೆ|ಸೌಲಭ್ಯ|സേവന|സൗകര്യ/.test(t))return'services';
+ return null}
+// Strong signals in the assistant's own reply, used when the question itself did not name a topic.
+function topicOfReply(r){r=String(r||'');
+ if(/chellammal|செல்லம்மாள்/i.test(r)&&/maneesha|மணீஷா/i.test(r))return'directors';
+ if(/RBK VILLA|Reddipalayam|ரெட்டிபாளையம்|Decathlon/i.test(r))return'location';
+ if(/family\.samaraassistedliving\.com|Family Portal/i.test(r))return'portal';
+ if(/room rent|அறை வாடகை/i.test(r)&&/food|உணவு/i.test(r))return'pricing';
+ if(/discharge summary|டிஸ்சார்ஜ் சுருக்கம்/i.test(r))return'admission';
  return null}
 function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
 function list(items,ordered){var l=el(ordered?'ol':'ul');items.forEach(function(x){l.appendChild(el('li',null,x))});return l}
@@ -203,8 +211,8 @@ function topicChip(topic){
  var T=ct(),b=el('button','sai-chip','📄 '+T[topic].t+' — '+T.view);b.type='button';b.onclick=function(){sideCard(topic)};
  document.getElementById('sai-msgs').appendChild(b);scroll();
 }
-function maybeTopic(text){
- var t=topicOf(text);if(!t)return;
+function maybeTopic(text,reply){
+ var t=topicOf(text)||topicOfReply(reply);if(!t)return;
  topicChip(t);
  if(t!==lastTopic&&window.innerWidth>=900)sideCard(t);
  lastTopic=t;
@@ -277,7 +285,7 @@ function localReply(q){var s=String(q||'').toLowerCase();
  return null}
 function endpoint(){return CFG.aiEndpoint||((CFG.supabaseUrl||'').replace(/\/$/,'')+'/functions/v1/samara-public-ai')}
 function aiHeaders(json){var h={};if(CFG.supabaseKey){h.apikey=CFG.supabaseKey;if(!CFG.supabaseKey.startsWith('sb_publishable_'))h.Authorization='Bearer '+CFG.supabaseKey}if(json)h['Content-Type']='application/json';return h}
-function handleAI(x,q){if(!awakeVisible())return;progress('');if(x&&x.reply){history.push({role:'user',content:String(x.transcript||q||'').slice(0,3000)},{role:'assistant',content:x.reply.slice(0,3000)});history=history.slice(-8);}if(x&&L[x.language])detectedLang=x.language;if(x&&x.transcript)add(x.transcript,'user');if(x&&x.reply){add(x.reply,'bot');if(window.SamaraSpeech)window.SamaraSpeech.reply(x.reply,x.language||activeLang())}else{var local=localReply(q||'');if(local)add(local,'bot')}if(!(x&&(x.action==='contact'||x.action==='book_visit'))&&contactQuestion(q||(x&&x.transcript)))contactButtons();maybeTopic((x&&x.transcript)||q);referenceLinks(x&&x.reply);awaitingAddress=!!(x&&x.awaiting_address);if((x&&x.show_map)||String(x&&x.reply).includes('maps.app.goo.gl/NwdW9T6WFnosJg8V7'))navigationLink();if(x&&x.action){if(x.action==='rooms')showRooms();else if(x.action==='gallery')showGallery();else if(x.action==='video')album([{src:SITE.video,cap:'Samara Assisted Living — opening video',video:true}]);else if(x.action==='contact')contactButtons();else if(x.action==='book_visit'){contactButtons();visitForm()}else if(x.action==='enquiry'){var a=document.createElement('a');a.href=SITE.enquiryUrl;a.textContent='Open enquiry form';a.className='sai-enquiry-link';document.getElementById('sai-msgs').appendChild(a);scroll()}}}
+function handleAI(x,q){if(!awakeVisible())return;progress('');if(x&&x.reply){history.push({role:'user',content:String(x.transcript||q||'').slice(0,3000)},{role:'assistant',content:x.reply.slice(0,3000)});history=history.slice(-8);}if(x&&L[x.language])detectedLang=x.language;if(x&&x.transcript)add(x.transcript,'user');if(x&&x.reply){add(x.reply,'bot');if(window.SamaraSpeech&&(x.transcript||conversation))window.SamaraSpeech.reply(x.reply,x.language||activeLang())}else{var local=localReply(q||'');if(local)add(local,'bot')}if(!(x&&(x.action==='contact'||x.action==='book_visit'))&&contactQuestion(q||(x&&x.transcript)))contactButtons();maybeTopic((x&&x.transcript)||q,x&&x.reply);referenceLinks(x&&x.reply);awaitingAddress=!!(x&&x.awaiting_address);if((x&&x.show_map)||String(x&&x.reply).includes('maps.app.goo.gl/NwdW9T6WFnosJg8V7'))navigationLink();if(x&&x.action){if(x.action==='rooms')showRooms();else if(x.action==='gallery')showGallery();else if(x.action==='video')album([{src:SITE.video,cap:'Samara Assisted Living — opening video',video:true}]);else if(x.action==='contact')contactButtons();else if(x.action==='book_visit'){contactButtons();visitForm()}else if(x.action==='enquiry'){var a=document.createElement('a');a.href=SITE.enquiryUrl;a.textContent='Open enquiry form';a.className='sai-enquiry-link';document.getElementById('sai-msgs').appendChild(a);scroll()}}}
 function readAIResponse(r){return r.json().catch(function(){return null}).then(function(x){
  if(!r.ok||!x||x.error){var e=new Error('AI request failed');e.status=r.status;e.code=x&&typeof x.code==='string'?x.code:'';throw e}
  if(typeof x.reply!=='string'||!x.reply.trim()){var e=new Error('Empty AI response');e.status=502;throw e}
