@@ -29,7 +29,7 @@ BOOKING A VISIT OR A CALL BACK
 Families are encouraged to visit the centre before admission, preferably by appointment. When a visitor wants to book/arrange/schedule a visit, see the centre, or asks the team to call them back, reply briefly (for example that the team will confirm the time) and set action="book_visit"; the website then shows a short form (name, mobile, preferred day) that goes straight to the Samara care team. Do not ask for their name or phone number inside the chat text, and do not confirm a specific date or time yourself - the team confirms it.
 
 FACILITIES AND ACTIONS
-When the visitor asks to see rooms, set action="rooms". When they ask for photographs/facilities/gallery, set action="gallery". When they ask for the Samara/opening video, set action="video". When they want to proceed with admission paperwork, set action="enquiry" when appropriate; for charges/packages/availability questions use action="book_visit" (call-back form) as described below. For phone/WhatsApp use action="contact"; for visits or call-backs use action="book_visit".
+When the visitor asks to see rooms, set action="rooms". When they ask for photographs/facilities/gallery, set action="gallery". When they ask for photos or details of the owners, founders, directors or management, do NOT use "gallery": set action=null and give a short answer naming both directors — the website automatically shows both directors' photographs and profiles. When they ask for the Samara/opening video, set action="video". When they want to proceed with admission paperwork, set action="enquiry" when appropriate; for charges/packages/availability questions use action="book_visit" (call-back form) as described below. For phone/WhatsApp use action="contact"; for visits or call-backs use action="book_visit".
 Do not merely describe a room/gallery/video if the visitor has asked to see it: use the corresponding action.
 You may proactively offer to show rooms or gallery when directly relevant, but do not repeatedly push an enquiry.
 
@@ -115,7 +115,7 @@ function logFailure(stage: string, error: unknown) {
 function out(body,status=200){return new Response(JSON.stringify(body),{status,headers:{...CORS,"Content-Type":"application/json"}})}
 function langCode(x){x=String(x||'').toLowerCase();if(x.startsWith('ta'))return'ta';if(x.startsWith('te'))return'te';if(x.startsWith('hi'))return'hi';if(x.startsWith('kn'))return'kn';if(x.startsWith('ml'))return'ml';return'en'}
 function parseJson(s){try{return JSON.parse(String(s).replace(/^```json\s*|```$/g,'').trim())}catch{return null}}
-async function gemini(parts){const key=Deno.env.get('GEMINI_API_KEY');if(!key)throw new Error('Gemini key missing');const model=Deno.env.get('GEMINI_MODEL')||'gemini-2.5-flash';const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(key)}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system_instruction:{parts:[{text:SYSTEM}]},contents:[{role:'user',parts}],generationConfig:{responseMimeType:'application/json',temperature:.25}})});if(!r.ok)await providerFailure(r,'Gemini',model);const j=await r.json();const t=j?.candidates?.[0]?.content?.parts?.map((p:any)=>p.text||'').join('')||'';const x=parseJson(t);if(!x||typeof x.reply!=='string'||!x.reply.trim())throw new Error('Gemini returned unreadable output');return x}
+async function gemini(parts){const key=Deno.env.get('GEMINI_API_KEY');if(!key)throw new Error('Gemini key missing');const model=Deno.env.get('GEMINI_MODEL')||'gemini-2.5-flash';const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(key)}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system_instruction:{parts:[{text:SYSTEM}]},contents:[{role:'user',parts}],generationConfig:{responseMimeType:'application/json',temperature:.25,maxOutputTokens:700,...(/flash/i.test(model)?{thinkingConfig:{thinkingBudget:0}}:{})}})});if(!r.ok)await providerFailure(r,'Gemini',model);const j=await r.json();const t=j?.candidates?.[0]?.content?.parts?.map((p:any)=>p.text||'').join('')||'';const x=parseJson(t);if(!x||typeof x.reply!=='string'||!x.reply.trim())throw new Error('Gemini returned unreadable output');return x}
 function cleanHistory(value: unknown): {role:'user'|'assistant',content:string}[] {
  if(typeof value==='string'){if(value.length>30000)return [];try{value=JSON.parse(value)}catch{return []}}
  if(!Array.isArray(value))return [];
@@ -200,7 +200,7 @@ function locationReply(message: string, requestedLanguage: string, awaiting: boo
  if(short)return {reply:brief[language],language,action:null,awaiting_address:true,show_map:false};
  return null;
 }
-// 28-09-2026: verified phone/WhatsApp, contact + book_visit actions, Malayalam.
+// 28-09-2026: verified phone/WhatsApp, contact + book_visit actions, Malayalam; Gemini thinking off for faster replies.
 // Public assistant: preserve working voice pipeline; conversational answers use Gemini primary -> OpenAI fallback.
 Deno.serve(async req=>{
  if(req.method==='OPTIONS')return new Response('ok',{headers:CORS});
