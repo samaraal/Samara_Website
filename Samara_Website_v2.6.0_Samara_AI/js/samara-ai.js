@@ -297,35 +297,41 @@ document.addEventListener('visibilitychange',function(){if(document.hidden)endCo
 window.addEventListener('pagehide',function(){endConversation()});
 function sendAudio(blob,type){if(busy)return;busy=true;holdWake('request');progress('Processing your voice and preparing your reply…');var fd=new FormData(),ext=type.includes('mp4')?'m4a':type.includes('ogg')?'ogg':'webm';fd.append('audio',blob,'samara-public-voice.'+ext);fd.append('language',lang==='auto'?(awaitingAddress?activeLang():'auto'):lang);fd.append('awaiting_address',String(awaitingAddress));fd.append('history',JSON.stringify(history));fd.append('page',location.pathname);requestAI({method:'POST',headers:aiHeaders(false),body:fd}).then(function(x){handleAI(x,'')}).catch(function(e){if(e.name==='AbortError')return;if(conversation)endConversation('Conversation paused. Please try again.');add(voiceError(e),'bot')}).finally(function(){busy=false;releaseWake('request');progress('');conversationUI();resumeConversation();document.querySelector('.sai-note').textContent=conversation?'Mic paused while Samara replies. It will listen again automatically.':'Tap Start conversation for hands-free replies, or use the mic for one question.'})}
 function bind(){var p=document.getElementById('sai-panel');document.getElementById('sai-launch').onclick=function(){p.classList.add('open');requestWake();if(!opened){opened=true;add(L[lang].hello,'bot')}setTimeout(function(){document.getElementById('sai-input').focus()},50)};document.getElementById('sai-conversation-toggle').onclick=startConversation;document.getElementById('sai-close').onclick=function(){closeViewer();endConversation();requestEpoch++;if(requestController)requestController.abort();if(window.SamaraSpeech)window.SamaraSpeech.stop();stopVoice(true);releaseWake();p.classList.remove('open')};document.getElementById('sai-mic').onclick=voice;document.getElementById('sai-form').onsubmit=function(e){e.preventDefault();if(busy||startingVoice||recorder)return;var i=document.getElementById('sai-input'),v=i.value.trim();if(v){i.value='';intent(v,false)}}}
-// 28-09-2026: a small, once-per-visit speech bubble introducing Samara AI.
+// 28-09-2026: the floating bubble is the entry point to Samara AI (the old "Ask Samara AI" pill is hidden).
+// × shrinks it to a small round Samara icon for the rest of the visit; it returns whenever the chat is closed.
 var TEASE={
- en:{hi:'👋 Hi! I\'m Samara AI.',body:'Ask me anything — rooms, care, charges or directions. Type or just speak, in English, தமிழ், తెలుగు, हिन्दी, ಕನ್ನಡ or മലയാളം.',go:'Ask now',close:'Close'},
- ta:{hi:'👋 வணக்கம்! நான் சமரா AI.',body:'அறைகள், பராமரிப்பு, கட்டணம், வழி — எதையும் கேளுங்கள். தமிழில் பேசலாம் அல்லது தட்டச்சு செய்யலாம்.',go:'இப்போது கேளுங்கள்',close:'மூடு'}
+ en:{hi:'👋 Hi! I\'m Samara AI.',body:'Ask me anything — rooms, care, charges or directions. Type or just speak, in English, தமிழ், తెలుగు, हिन्दी, ಕನ್ನಡ or മലയാളം.',go:'Ask now',close:'Minimise',mini:'Open Samara AI'},
+ ta:{hi:'👋 வணக்கம்! நான் சமரா AI.',body:'அறைகள், பராமரிப்பு, கட்டணம், வழி — எதையும் கேளுங்கள். தமிழில் பேசலாம் அல்லது தட்டச்சு செய்யலாம்.',go:'இப்போது கேளுங்கள்',close:'சிறிதாக்கு',mini:'சமரா AI-ஐத் திற'}
 };
-var teaserEl=null,teaserTimer=null;
-function teaserSeen(){try{return sessionStorage.getItem('samara-ai-teaser')==='1'}catch(e){return false}}
-function markTeaser(){try{sessionStorage.setItem('samara-ai-teaser','1')}catch(e){}}
-function hideTeaser(){clearTimeout(teaserTimer);if(!teaserEl)return;var t=teaserEl;teaserEl=null;t.classList.remove('show');var l=document.getElementById('sai-launch');if(l)l.classList.remove('sai-glow');setTimeout(function(){t.remove()},300)}
+var teaserEl=null;
+function teaserText(){return TEASE[/^ta/i.test(document.documentElement.lang||'')?'ta':'en']}
+function isMini(){try{return sessionStorage.getItem('samara-ai-teaser')==='min'}catch(e){return false}}
+function setMini(){try{sessionStorage.setItem('samara-ai-teaser','min')}catch(e){}}
+function panelOpen(){var p=document.getElementById('sai-panel');return !!(p&&p.classList.contains('open'))}
+function openChat(){var l=document.getElementById('sai-launch');removeTeaser();if(l)l.click()}
+function removeTeaser(){if(teaserEl){teaserEl.remove();teaserEl=null}}
 function showTeaser(){
- if(teaserSeen()||opened||teaserEl)return;
- var p=document.getElementById('sai-panel');if(p&&p.classList.contains('open'))return;
- var launch=document.getElementById('sai-launch');if(!launch||!launch.getClientRects().length||getComputedStyle(launch).visibility==='hidden')return;
- markTeaser();
- var t=TEASE[/^ta/i.test(document.documentElement.lang||'')?'ta':'en'];
- var b=document.createElement('div');b.className='sai-teaser';b.setAttribute('role','status');
- b.innerHTML='<button type="button" class="sai-teaser-x" aria-label="'+esc(t.close)+'">×</button><strong>'+esc(t.hi)+'</strong><p>'+esc(t.body)+'</p><button type="button" class="sai-teaser-go">'+esc(t.go)+' ➤</button>';
+ removeTeaser();if(panelOpen())return;
+ var t=teaserText(),b;
+ if(isMini()){
+  b=document.createElement('button');b.type='button';b.className='sai-mini';b.setAttribute('aria-label',t.mini);b.title=t.mini;
+  b.innerHTML='<img src="'+esc(SITE.mark)+'" alt=""><span aria-hidden="true">AI</span>';b.onclick=openChat;
+ }else{
+  b=document.createElement('div');b.className='sai-teaser';b.setAttribute('role','region');b.setAttribute('aria-label','Samara AI');
+  b.innerHTML='<button type="button" class="sai-teaser-x" aria-label="'+esc(t.close)+'" title="'+esc(t.close)+'">×</button><strong>'+esc(t.hi)+'</strong><p>'+esc(t.body)+'</p><button type="button" class="sai-teaser-go">'+esc(t.go)+' ➤</button>';
+  b.querySelector('.sai-teaser-x').onclick=function(e){e.stopPropagation();setMini();showTeaser()};
+  b.querySelector('.sai-teaser-go').onclick=function(e){e.stopPropagation();openChat()};
+  b.onclick=openChat;
+ }
  document.body.appendChild(b);teaserEl=b;
- b.querySelector('.sai-teaser-x').onclick=function(e){e.stopPropagation();hideTeaser()};
- function open(){hideTeaser();launch.click()}
- b.querySelector('.sai-teaser-go').onclick=function(e){e.stopPropagation();open()};
- b.onclick=open;
  requestAnimationFrame(function(){b.classList.add('show')});
- launch.classList.add('sai-glow');
- teaserTimer=setTimeout(hideTeaser,15000);
 }
 function startTeaser(){
- var l=document.getElementById('sai-launch');if(l)l.addEventListener('click',hideTeaser);
- if(!teaserSeen())setTimeout(showTeaser,5000);
+ document.documentElement.classList.add('sai-bubble-launcher');
+ var c=document.getElementById('sai-close');if(c)c.addEventListener('click',function(){setTimeout(showTeaser,250)});
+ // Follow the site's English / Tamil switch.
+ try{new MutationObserver(function(){if(teaserEl)showTeaser()}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']})}catch(e){}
+ setTimeout(showTeaser,isMini()?0:1200);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){ui();startTeaser()});else{ui();startTeaser()}
 })();

@@ -74,15 +74,22 @@
 @media(max-width:899px){.sai-viewer{height:auto;grid-template-columns:1fr;padding:50px 8px 12px}.sai-v-media img,.sai-v-media video{width:100%;max-height:48dvh}.sai-v-prev,.sai-v-next{position:absolute;top:calc(50px + 24dvh - 18px);z-index:1;background:rgba(255,255,255,.9);box-shadow:0 3px 10px rgba(0,0,0,.2)}.sai-v-prev{left:14px}.sai-v-next{right:14px}}
 @media(max-width:600px){.sai-viewer{left:8px;right:8px;width:auto;top:calc(8dvh + 74px)}}
 /* 28-09-2026: once-per-visit introduction bubble above the Ask Samara AI button */
-.sai-teaser{position:fixed;right:18px;bottom:210px;z-index:56;width:min(300px,calc(100vw - 36px));box-sizing:border-box;padding:14px 16px 14px;background:#fff;border:1px solid #f0c6dc;border-radius:18px 18px 6px 18px;box-shadow:0 16px 40px rgba(70,12,45,.22);color:#3c2731;font:500 .9rem/1.45 "Nunito Sans",system-ui,sans-serif;cursor:pointer;opacity:0;transform:translateY(12px) scale(.97);transform-origin:bottom right;transition:opacity .28s ease,transform .28s ease;pointer-events:none}
+.sai-teaser{position:fixed;right:18px;bottom:150px;z-index:56;width:min(370px,calc(100vw - 36px));box-sizing:border-box;padding:18px 20px 18px;background:#fff;border:2px solid #f0bcd6;border-radius:20px;box-shadow:0 18px 44px rgba(70,12,45,.26);color:#3c2731;font:500 1.02rem/1.5 "Nunito Sans",system-ui,sans-serif;cursor:pointer;opacity:0;transform:translateY(12px) scale(.97);transform-origin:bottom right;transition:opacity .28s ease,transform .28s ease;pointer-events:none}
 .sai-teaser.show{opacity:1;transform:none;pointer-events:auto}
-.sai-teaser::after{content:'';position:absolute;right:34px;bottom:-9px;width:16px;height:16px;background:#fff;border-right:1px solid #f0c6dc;border-bottom:1px solid #f0c6dc;transform:rotate(45deg)}
-.sai-teaser strong{display:block;color:#9c0040;font-size:1rem;margin:0 26px 4px 0}
-.sai-teaser p{margin:0 0 10px}
-.sai-teaser-go{border:0;border-radius:999px;background:linear-gradient(135deg,#9c0040,#c3025a);color:#fff;font:800 .86rem/1 "Nunito Sans",system-ui,sans-serif;padding:10px 16px;cursor:pointer}
-.sai-teaser-x{position:absolute;top:6px;right:8px;width:30px;height:30px;border:0;border-radius:50%;background:#fbe7f1;color:#9c0040;font-size:20px;line-height:1;cursor:pointer}
+.sai-teaser strong{display:block;color:#9c0040;font-size:1.2rem;margin:0 30px 6px 0}
+.sai-teaser p{margin:0 0 14px}
+.sai-teaser-go{border:0;border-radius:999px;background:linear-gradient(135deg,#9c0040,#c3025a);color:#fff;font:800 1rem/1 "Nunito Sans",system-ui,sans-serif;padding:13px 22px;cursor:pointer;box-shadow:0 6px 16px rgba(156,0,64,.25)}
+.sai-teaser-x{position:absolute;top:8px;right:10px;width:34px;height:34px;border:0;border-radius:50%;background:#fbe7f1;color:#9c0040;font-size:20px;line-height:1;cursor:pointer}
 .sai-teaser-go:focus-visible,.sai-teaser-x:focus-visible{outline:3px solid #f9a800;outline-offset:2px}
 @keyframes saiGlow{0%,100%{box-shadow:0 12px 30px rgba(70,12,45,.28),0 0 0 0 rgba(195,2,90,.5)}50%{box-shadow:0 12px 30px rgba(70,12,45,.28),0 0 0 12px rgba(195,2,90,0)}}
 .sai-launch.sai-glow{animation:saiGlow 1.4s ease-out 2}
-@media(max-width:600px){.sai-teaser{right:12px;bottom:204px;font-size:.86rem;padding:12px 14px}}
+@media(max-width:600px){.sai-teaser{right:12px;bottom:146px;width:min(320px,calc(100vw - 24px));font-size:.92rem;padding:14px 16px}.sai-teaser strong{font-size:1.05rem}.sai-teaser-go{font-size:.92rem;padding:11px 18px}}
 @media(prefers-reduced-motion:reduce){.sai-teaser{transition:none}.sai-launch.sai-glow{animation:none}}
+.sai-bubble-launcher .sai-launch{display:none!important}
+.sai-teaser{border-left:6px solid #c3025a}
+.sai-mini{position:fixed;right:18px;bottom:150px;z-index:56;width:64px;height:64px;border-radius:50%;border:3px solid #fff;background:linear-gradient(135deg,#9c0040,#c3025a);box-shadow:0 12px 30px rgba(70,12,45,.3);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;opacity:0;transform:scale(.8);transition:opacity .2s ease,transform .2s ease}
+.sai-mini.show{opacity:1;transform:none}
+.sai-mini img{width:44px;height:44px;border-radius:50%;background:#fff;object-fit:contain;padding:4px;box-sizing:border-box}
+.sai-mini span{position:absolute;right:-4px;bottom:-4px;background:#f9a800;color:#4a1030;border:2px solid #fff;border-radius:999px;font:900 .7rem/1 "Nunito Sans",system-ui,sans-serif;padding:4px 6px}
+.sai-mini:focus-visible{outline:3px solid #f9a800;outline-offset:3px}
+@media(max-width:600px){.sai-mini{right:14px;bottom:146px;width:58px;height:58px}.sai-mini img{width:40px;height:40px}}
