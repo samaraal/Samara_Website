@@ -24,7 +24,21 @@
     },
     "image": "https://samaraassistedliving.com/assets/samara-og.jpg",
     "description": "Samara Assisted Living provides compassionate elderly care, post-hospital recovery support, nursing assistance, medication management, physiotherapy and family updates.",
-    "slogan": "Compassion • Comfort • Dignity"
+    "slogan": "Compassion • Comfort • Dignity",
+    "telephone": "+91-9976735577",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "No: 23-A, RBK Villa, Reddypalayam Road, Jeswanth Nagar, Mogappair West",
+      "addressLocality": "Chennai",
+      "addressRegion": "Tamil Nadu",
+      "postalCode": "600037",
+      "addressCountry": "IN"
+    },
+    "sameAs": [
+      "https://www.instagram.com/samara_assistedliving",
+      "https://www.youtube.com/@SamaraAssistedLiving",
+      "https://www.facebook.com/p/Samara-Assisted-Living-61594933463447/"
+    ]
   },
   {
     "@context": "https://schema.org",
@@ -212,7 +226,7 @@
 <div class="container developer-credit">Developed and Maintained by: <a href="https://appgeo.in" rel="noopener" target="_blank">AppGeo Private Limited (appgeo.in)</a>. Mobile: <a href="tel:+919176735577">9176735577</a></div>
 </footer>
 <a aria-label="WhatsApp Samara" class="floating" href="https://wa.me/917395961616">✆</a>
-<script src="./js/app.js?v=20260916-who-benefits-v1"></script>
+<script src="./js/app.js?v=20261010-social-v263"></script>
 <script src="./js/inauguration-extra-slides.js?v=20260913-v1"></script>
 <script>
 (()=>{const slider=document.querySelector('[data-inauguration-slider]');if(!slider)return;const slides=[...slider.querySelectorAll('.inauguration-slide')],dots=[...document.querySelectorAll('.inauguration-slider-dots button')];let i=0,t;const show=n=>{i=(n+slides.length)%slides.length;slides.forEach((el,j)=>el.classList.toggle('is-active',j===i));dots.forEach((el,j)=>el.classList.toggle('is-active',j===i));};const auto=()=>{clearInterval(t);t=setInterval(()=>show(i+1),5000)};slider.querySelector('.prev').onclick=()=>{show(i-1);auto()};slider.querySelector('.next').onclick=()=>{show(i+1);auto()};dots.forEach((d,j)=>d.onclick=()=>{show(j);auto()});slider.addEventListener('mouseenter',()=>clearInterval(t));slider.addEventListener('mouseleave',auto);auto();})();
