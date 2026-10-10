@@ -347,11 +347,15 @@ document.querySelectorAll('a[href*="app.samaraassistedliving.com"]').forEach(lin
   link.href = SAMARA_ERP_URL;
   link.removeAttribute("target");
   link.setAttribute("aria-label", "Staff Login – Samara Care ERP");
+  link.setAttribute("rel", "nofollow"); // v2.6.4: private login, keep out of Google
 });
 
 // Keep every Family Portal link on the current custom domain.
 document.querySelectorAll('a[href*="family.samaraassistedliving.com"]').forEach(link => {
   link.href = SAMARA_FAMILY_URL;
+  const rel = new Set((link.getAttribute("rel") || "").split(/\s+/).filter(Boolean));
+  rel.add("nofollow"); // v2.6.4: private login, keep out of Google
+  link.setAttribute("rel", [...rel].join(" "));
 });
 
 // On phones, Staff Login remains visible even when the main navigation is collapsed.

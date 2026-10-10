@@ -1,15 +1,21 @@
-Samara Website v2.6.2 (samaraassistedliving.com) — TRIAL of the new 3D "Samara AI" icon — upload ONLY to GitHub repo: Samara_Website
+Samara Website v2.6.4 (samaraassistedliving.com) — Google search fix — upload ONLY to GitHub repo: Samara_Website
 
-What it does: when the Samara AI bubble is minimised, the icon shows the Samara logo word
-(original colours) and "AI" as 3D cut letters on a transparent background.
-The old round icon is NOT deleted:
-   - to see the old one on the live site, add ?ai-icon=round to the address
-     (e.g. https://samaraassistedliving.com/?ai-icon=round)
-   - to go back to it for everyone, re-upload the previous js/samara-ai.js and css/samara-ai.css.
+Why: Google was showing the Family Portal and the ERP login page for "samara assisted living"
+instead of this website. This update (together with the Family Portal and ERP updates) fixes that.
 
-Upload these 3 files, keeping the same folders:
-   js/samara-ai.js
-   css/samara-ai.css
-   assets/samara-ai-3d.png   (new file)
-Do NOT upload VERSION.txt, this note or the zip. No Supabase change needed.
-To see the icon: open the site, press × on the "Hi! I'm Samara AI" bubble. Press Ctrl+F5 if the old icon still shows.
+What changed:
+ - Home page title & description now say Chennai / Mogappair / 24x7 nursing (better for Google).
+ - "Family Portal" and "Staff Login" links are marked rel="nofollow" (private login pages).
+ - sitemap.xml: home page date updated to 2026-10-10.
+ - Contact page: phone 073959 61616 is now a tap-to-call link (before, the only call link on
+   the site was the AppGeo developer number).
+ - Home page business details for Google (schema): now LocalBusiness, phone +91-7395961616,
+   address spelled exactly as on the contact page / Google Business Profile, map link added.
+   This helps Google accept the website link on the Business Profile.
+ - Footer version on all pages: Public Website v2.6.4.
+
+Upload these files, keeping the same folders:
+   index.html, about.html, careers.html, contact.html, disclaimer.html, enquiry.html, faq.html,
+   feedback.html, gallery.html, packages.html, privacy.html, rooms.html, services.html,
+   sitemap.xml, js/app.js, app.js
+Do NOT upload this note or the zip. No Supabase change needed.
