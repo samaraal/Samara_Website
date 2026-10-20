@@ -1,20 +1,15 @@
-Samara Website v2.6.6 (samaraassistedliving.com) — Call / WhatsApp bar for phones — upload ONLY to GitHub repo: Samara_Website
-
-Why: Google Ads visitors (mostly on phones) land on the home page, which had no Samara call
-button (the only call link was the AppGeo developer number) and the Samara AI greeting covered
-the top of the page. In the first week of ads: 53 clicks, 0 calls / WhatsApp.
+Samara Website v2.6.7 (samaraassistedliving.com) — SEO update — upload ONLY to GitHub repo: Samara_Website
 
 What changed:
- - New: on phones, a bar fixed at the bottom of every page with two big buttons:
-   "Call Now" (99767 35577) and "WhatsApp" (73959 61616, with a ready-typed hello message).
-   Follows the English / Tamil switch. Taps are counted in Google Ads (v2.6.5 tracking).
- - On phones the round WhatsApp button is hidden (the bar replaces it); Find Us and Samara AI
-   buttons sit above the bar.
- - On phones the Samara AI greeting now appears after 20 seconds instead of at once. Desktop unchanged.
- - Footer version on all pages: Public Website v2.6.6.
+ - Home page: Google description shortened to fit search results (now ends "Call 99767 35577 to book a visit");
+   same text used for Facebook/WhatsApp/X share previews.
+ - Home page main heading now "Professional Post-Hospital & Step-Down Care in Chennai".
+ - Home page: second "Family Portal" heading renamed "Family Portal for Transparent Care" (no duplicate headings).
+ - Home page: two inauguration photos had identical descriptions; the second one is now distinct.
+ - Footer of every page: Samara's full address, call number (99767 35577) and WhatsApp (73959 61616),
+   above the copyright line. AppGeo developer credit unchanged.
+ - Footer version on all pages: Public Website v2.6.7.
 
-Upload these files, keeping the same folders:
-   js/samara-contact-bar.js (new), js/samara-ai.js, and all 17 .html pages
-   (404, about, careers, contact, disclaimer, enquiry, faq, feedback, gallery, index, packages,
-    privacy-policy, privacy, refund-cancellation, rooms, services, terms)
-No Supabase change needed.
+Upload these 13 files to the root of the repo (replace existing):
+   about, careers, contact, disclaimer, enquiry, faq, feedback, gallery, index, packages, privacy, rooms, services (.html)
+No CSS, JS or Supabase change.
